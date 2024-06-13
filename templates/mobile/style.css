@@ -1,0 +1,299 @@
+@charset('utf-8');
+/* 移动版模板 */
+/* 原作：未知 */
+/* 编写：开不了车 2023.5.21 */
+
+.card {
+	width: 732px;
+	height: 1028px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 神, god, 魏吴, wei-wu, 蜀吴, shu-wu;
+	--extra-segments: 稀有度, rarity;
+	--extra-segment-types: enum;
+	--extra-rarity-values: normal, boutique, epic;
+	--extra-rarity-names: 普通, 精品, 史诗;
+	--illustration-coordinates: 107, 33, 593, 961;
+}
+
+.card .illustration, .card .illustration img {
+	z-index: -1;
+}
+
+.card .nickname, .card .custom-kingdom {
+	visibility: hidden;
+}
+
+.card .frame::before {
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url('images/wei.png');
+	z-index: auto;
+}
+
+.card .hitpoints {
+    left: 40px;
+    bottom: 94px;
+    transform: scale(1, -1);
+}
+
+.card .hitpoints li {
+	width: 64px;
+	height: 64px;
+    margin-top: 6px;
+	background: url('images/hp.png') no-repeat;
+	transform: scale(1, -1);
+}
+.card .hitpoints li.drained {
+	background-position-y: -64px;
+}
+
+.card .hitpoints[losthp] li, .card .hitpoints[overflow] li,
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']) li {
+    position: absolute;
+    bottom: -210px;
+	background-position-y: 0;
+}
+.card .hitpoints[losthp] li ~ li, .card .hitpoints[overflow] li ~ li,
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']) li ~ li {
+	display: none;
+}
+
+.card .hitpoints[losthp]::before, .card .hitpoints[overflow]::before,
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::before {
+	content: '';
+}
+
+.card .hitpoints::before {
+	position: absolute;
+	display: block;
+    width: 65px;
+    height: 200px;
+    background: /* @x9 */
+		url(images/debris.png) -480px 4px no-repeat,
+		url(images/numbers.png) var(--maxhp-x, 0) 80px no-repeat;
+	transform: scale(1, -1);
+    bottom: -150px;
+}
+.card .hitpoints[losthp]::before,
+.card .hitpoints[overflow]::before {
+    background: /* @6/9 */
+		url(images/debris.png) -550px 61px no-repeat,
+		url(images/numbers.png) var(--hp-x, 0) 10px no-repeat,
+		url(images/numbers.png) var(--maxhp-x, 0) 115px no-repeat;
+}
+
+.card .hitpoints[hp='1'] { --hp-x: -64px; }
+.card .hitpoints[hp='2'] { --hp-x: -128px; }
+.card .hitpoints[hp='3'] { --hp-x: -192px; }
+.card .hitpoints[hp='4'] { --hp-x: -256px; }
+.card .hitpoints[hp='5'] { --hp-x: -320px; }
+.card .hitpoints[hp='6'] { --hp-x: -384px; }
+.card .hitpoints[hp='7'] { --hp-x: -448px; }
+.card .hitpoints[hp='8'] { --hp-x: -512px; }
+.card .hitpoints[hp='9'] { --hp-x: -576px; }
+.card .hitpoints[hp='10'] { --hp-x: -640px; }
+.card .hitpoints[hp='11'] { --hp-x: -704px; }
+.card .hitpoints[hp='12'] { --hp-x: -768px; }
+.card .hitpoints[hp='13'] { --hp-x: -832px; }
+.card .hitpoints[hp='14'] { --hp-x: -896px; }
+.card .hitpoints[hp='15'] { --hp-x: -960px; }
+.card .hitpoints[hp='16'] { --hp-x: -1024px; }
+.card .hitpoints[hp='17'] { --hp-x: -1088px; }
+.card .hitpoints[hp='18'] { --hp-x: -1152px; }
+.card .hitpoints[hp='19'] { --hp-x: -1216px; }
+
+.card .hitpoints[maxhp='1'] { --maxhp-x: -64px; }
+.card .hitpoints[maxhp='2'] { --maxhp-x: -128px; }
+.card .hitpoints[maxhp='3'] { --maxhp-x: -192px; }
+.card .hitpoints[maxhp='4'] { --maxhp-x: -256px; }
+.card .hitpoints[maxhp='5'] { --maxhp-x: -320px; }
+.card .hitpoints[maxhp='6'] { --maxhp-x: -384px; }
+.card .hitpoints[maxhp='7'] { --maxhp-x: -448px; }
+.card .hitpoints[maxhp='8'] { --maxhp-x: -512px; }
+.card .hitpoints[maxhp='9'] { --maxhp-x: -576px; }
+.card .hitpoints[maxhp='10'] { --maxhp-x: -640px; }
+.card .hitpoints[maxhp='11'] { --maxhp-x: -704px; }
+.card .hitpoints[maxhp='12'] { --maxhp-x: -768px; }
+.card .hitpoints[maxhp='13'] { --maxhp-x: -832px; }
+.card .hitpoints[maxhp='14'] { --maxhp-x: -896px; }
+.card .hitpoints[maxhp='15'] { --maxhp-x: -960px; }
+.card .hitpoints[maxhp='16'] { --maxhp-x: -1024px; }
+.card .hitpoints[maxhp='17'] { --maxhp-x: -1088px; }
+.card .hitpoints[maxhp='18'] { --maxhp-x: -1152px; }
+.card .hitpoints[maxhp='19'] { --maxhp-x: -1216px; }
+
+
+.card .name {
+	left: 45px;
+	top: 192px;
+	width: 1em;
+	font-size: 62px;
+	font-family: 'LiBian';
+	writing-mode: vertical-rl;
+	color: #EEE;
+	letter-spacing: -0.06em;
+	text-shadow: 0 0 7px black, 0 0 7px black, 0 2px 10px black;
+}
+.card .name-small {
+	left: 48px;
+	width: 1em;
+	font-size: 56px;
+	letter-spacing: -0.08em;
+}
+
+
+.card .description {
+	left: 106px;
+	right: 30px;
+	bottom: 31px;
+	min-height: 274px;
+	padding-left: 17px;
+	padding-top: 6px;
+	padding-right: 15px;
+	background-color: #F2F4FFC0;
+	z-index: -1;
+}
+.card .description .pointer {
+	display: block;
+	position: relative;
+	width: 100px;
+	height: 60px;
+	margin-left: -4px;
+	background: url(images/debris.png) -370px -4px;
+	font-family: 'LiShu';
+	font-size: 24px;
+	text-align: center;
+	line-height: 56px;
+	color: #ECD374;
+	text-shadow: 2.00px 0.00px #2C313B,1.93px 0.52px #2C313B,
+		1.73px 1.00px #2C313B,1.41px 1.41px #2C313B,
+		1.00px 1.73px #2C313B,0.52px 1.93px #2C313B,
+		0.00px 2.00px #2C313B,-0.52px 1.93px #2C313B,
+		-1.00px 1.73px #2C313B,-1.41px 1.41px #2C313B,
+		-1.73px 1.00px #2C313B,-1.93px 0.52px #2C313B,
+		-2.00px 0.00px #2C313B,-1.93px -0.52px #2C313B,
+		-1.73px -1.00px #2C313B,-1.41px -1.41px #2C313B,
+		-1.00px -1.73px #2C313B,-0.52px -1.93px #2C313B,
+		-0.00px -2.00px #2C313B,0.52px -1.93px #2C313B,
+		1.00px -1.73px #2C313B,1.41px -1.41px #2C313B,
+		1.73px -1.00px #2C313B,1.93px -0.52px #2C313B;;
+}
+.card .description .pointer::after { /* Gradient Shadow */
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100px;
+	height: 60px;
+	left: 0;
+	top: 0;
+	background: url(images/debris.png) -370px -64px;
+}
+.card .description p {
+    font-family: ZhunYuan;
+    font-size: 20px;
+}
+.card .description-large p  {
+    font-size: 24px;
+}
+.card .description-small p  {
+    font-size: 17px;
+}
+.card .description-tiny p  {
+    font-size: 14px;
+}
+.card .description .quote {
+    font-family: KaiTi;
+    font-style: italic;
+	text-align: right;
+}
+
+.card .footer {
+	left: 50px;
+	bottom: 8px;
+	right: 50px;
+	height: 1em;
+	font-size: 17px;
+	font-family: Microsoft YaHei;
+	line-height: 1em;
+	color: gray;
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+
+.card .rarity {
+	right: 32px;
+	top: 25px;
+	width: 120px;
+	height: 120px;
+	font-size: 0;
+	background: url(images/debris.png) no-repeat;
+	display: none;
+}
+.card .rarity[value="boutique"] {
+	display: block;
+	background-position-x: -120px;
+}
+.card .rarity[value="epic"] {
+	display: block;
+	background-position-x: -240px;
+}
+
+
+/* Different Kingdoms */
+
+.card.shu .frame::before	 {
+	background: url('images/shu.png');	
+}
+.card.shu .hitpoints li {
+	background-position-x: -64px;	
+}
+
+.card.wu .frame::before {
+	background: url('images/wu.png');	
+}
+.card.wu .hitpoints li {
+	background-position-x: -128px;	
+}
+
+.card.qun .frame::before {
+	background: url('images/qun.png');	
+}
+.card.qun .hitpoints li {
+	background-position-x: -192px;	
+}
+
+.card.god .frame::before {
+	background: url('images/god.png');	
+}
+.card.god .hitpoints li {
+	background-position-x: -256px;	
+}
+
+.card.wei-wu .frame::before {
+	background: url('images/weiwu.png');
+}
+.card.wei-wu .hitpoints li {
+	background-position-x: -128px;	
+}
+
+.card.shu-wu .frame::before {
+	background: url('images/shuwu.png');
+}
+.card.shu-wu .hitpoints li {
+	background-position-x: -128px;	
+}

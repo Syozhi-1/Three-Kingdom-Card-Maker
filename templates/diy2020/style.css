@@ -1,0 +1,617 @@
+/* 三国杀DIY吧2020版模板 */
+/* 原作者：kaveil、低调de洛沫（经典版勾玉） */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 560px;
+	height: 806px;
+	border-radius: 20px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 晋, jin, 晋（青）, jina, 神, god,
+		魏主公, wei lord, 蜀主公, shu lord, 吴主公, wu lord, 群主公, qun lord, 晋主公, jin lord, 晋主公（青）, jina lord;
+		/*水墨魏, wei ink, 水墨蜀, shu ink, 水墨吴, wu ink,
+		水墨群, qun ink, 水墨晋, jin ink, 水墨晋（青）, jina ink, 水墨神, god ink,
+		水墨魏主公, wei lord ink, 水墨蜀主公, shu lord ink, 水墨吴主公, wu lord ink,
+		水墨群主公, qun lord ink, 水墨晋主公, jin lord ink, 水墨晋主公（青）, jina lord ink,
+		经典魏, wei old, 经典蜀, shu old, 经典吴, wu old,
+		经典群, qun old, 经典晋, jin old, 经典晋（青）, jina old, 经典神, god old,
+		经典魏主公, wei lord old, 经典蜀主公, shu lord old, 经典吴主公, wu lord old,
+		经典群主公, qun lord old, 经典晋主公, jin lord old, 经典晋主公（青）, jina lord old;*/
+	
+	--illustration-coordinates: 82 0 478 806;
+	--extra-segments: 体力样式, hp-style;
+	--extra-segment-types: enum;
+	--extra-hp-style-values: default, ink, old;
+	--extra-hp-style-names: 普通, 水墨, 经典;
+}
+
+.card .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 108px;
+	left: 0;
+	top: 0;
+	height: 806px;
+	background-repeat: no-repeat;
+	background-image: url('images/wei.png');
+    z-index: 5;
+}
+.card.lord .frame::before {
+	background-image: url('images/lord.png'), url('images/wei.png');
+}
+.card[kingdom=''] .frame::after {
+	content: '';
+	display: block;
+	position: absolute;
+	background-image:  url('images/kingdom.png');
+	left: 2px;
+	top: 15px;
+	width: 120px;
+	height: 120px;
+	z-index: 5;
+}
+
+.card .frame .hitpoints {
+	z-index: 5;
+	left: 111px;
+	top: 25px;
+	text-shadow: 1px 1px black, -1px -1px white, 0 0 5px black, 0 0 5px black;
+}
+.card .frame .hitpoints li {
+	display: inline-block;
+	width: 35px;
+	height: 50px;
+	background-image: url(images/hp.png);
+	margin-right: -2px;
+}
+.card .frame .hitpoints li.drained {
+	background-position-x: -252px;
+}
+.card .frame .hitpoints li.overflow{
+	background-position-y: -150px;
+}
+
+/* For high HPs */
+.card .hitpoints::after {
+	color: #78D9F4;
+	font-family: Arial;
+	font-weight: bold;
+	position: relative;
+	font-size: 36px;
+    top: -6px;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']):not([total='9']):not([total='10']):not([total='11']):not([total='12'])::after{
+	content: '×' attr(hp);
+}
+.card .hitpoints[losthp]:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']):not([total='9']):not([total='10']):not([total='11']):not([total='12'])::after,
+.card .hitpoints[overflow]:not([hp='0']):not([hp='1']):not([hp='2']):not([hp='3']):not([hp='4']):not([hp='5']):not([hp='6']):not([hp='7']):not([hp='8']):not([hp='9']):not([hp='10']):not([hp='11']):not([hp='12'])::after{
+	content: attr(hp) '/' attr(maxhp);
+}
+.card .hitpoints[losthp][overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']):not([total='9']):not([total='10']):not([total='11']):not([total='12'])::after{
+	content: attr(hp) '/' attr(maxhp) '+' attr(overflow);
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']):not([total='9']):not([total='10']):not([total='11']):not([total='12']) li:not(:first-child) {
+	display: none;
+}
+
+.card .frame .nickname {
+    left: 43px;
+    top: 152px;
+    width: 28px;
+	color: #FFF814;
+    text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black,
+		0 1.5px black, 0 -1.5px black, 1.5px 0 black, -1.5px 0 black,
+		-3px 4px 3px black;
+    font-family: 'DFPNewChuan-B5', 'ZhunYuan';
+    font-size: 36px;
+    writing-mode: tb-rl;
+	z-index: 5;
+}
+.card.on-rendering .frame .nickname {
+    text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black,
+		0 1.5px black, 0 -1.5px black, 1.5px 0 black, -1.5px 0 black,
+		3px 4px 3px black;
+}
+.card .frame .nickname-small {
+    font-size: 28px;
+	left: 40px;
+}
+.card .frame .nickname[length='1'] {
+	top: 188px;
+}
+.card .frame .nickname[length='2'] {
+	top: 176px;
+}
+.card .frame .nickname[length='3'] {
+	top: 164px;
+}
+.card.lord .frame .nickname {
+	color: #0098FF;
+}
+
+.card .frame .name {
+	left: 17px;
+	top: 341px;
+	height: 250px;
+	color: white;
+	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
+		2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000, 
+		2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000, 
+		2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000, 
+		-3px 3px 3px black, -3px 3px 3px black;
+	font-family: 'SymbolAnd', 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 60px;
+	writing-mode: tb-rl;
+	z-index: 5;
+}
+.card.on-rendering .frame .name {
+	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
+		2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000, 
+		2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000, 
+		2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000, 
+		3px 3px 3px black, 3px 3px 3px black;
+}
+.card .frame .name-small {
+	left: 26px;
+	top: 328px;
+	height: 256px;
+	font-size: 48px;
+	letter-spacing: -0.1em;
+}
+.card .frame .name[length='2'] {
+	letter-spacing: 0.25em;
+}
+.card .frame .name[length='3'] {
+	letter-spacing: 0.1em;
+}
+.card .nickname:empty  + .name {
+	top: 285px;
+	height: 320px;
+}
+
+.card .frame .custom-kingdom {
+	font-size: 80px;
+	line-height: 80px;
+	z-index: 5;
+	font-family: 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	width: 120px;
+	height: 100px;
+	text-align: center;
+	left: 2px;
+	top: 30px;
+	color: #74AACE;
+	white-space: pre;
+	text-shadow: -2px -2px white, 2px 2px black, -1px -1px white, 1px 1px black,
+		-1px 1px black, 1px -1px black,
+		-2px -2px black, 2px -2px black, -2px 2px black, 2px 2px black,
+		-3px 0 black, 3px 0 black, 0 -3px black, 0 3px black,
+		0 0 5px black, 0 0 5px black;
+}
+.card .frame .custom-kingdom[length='2'] {
+	font-size: 64px;
+	letter-spacing: -.5em;
+	margin-left: -.25em;
+	line-height: 80px;
+}
+
+.card .description {
+	left: 80px;
+	right: 0;
+	bottom: 0;
+	min-height: 130px;
+	background: #F2F4FFC0;
+	padding: 12px 20px 60px 36px;
+	font-size: 18px;
+}
+.card .description::after {
+	content: '';
+	position: absolute;
+	display: block;
+	background-image: url('images/hr.png');
+	background-repeat: no-repeat;
+	width: 401px;
+	height: 16px;
+	right: 38px;
+	bottom: 40px;
+}
+.card.lord .description {
+	background: #FFF9CCC0;
+}
+
+.card .description .pointer {
+	position: absolute;
+	display: block;
+	width: 73px;
+	height: 40px;
+	font-size: 30px;
+	font-family: LiShu;
+	background: url(images/pointer.png) no-repeat;
+	left: -59px;
+	margin-top: -4px;
+	padding-left: 6px;
+	padding-right: 19px;
+	text-align: center;
+	z-index: 5;
+	line-height: 30px;
+}
+.card .description .pointer[length='3'] {
+	font-size: 24px;
+	letter-spacing: -.1em;
+}
+.card .description .pointer[length='4'] {
+	font-size: 20px;
+	letter-spacing: -.1em;
+	line-height: 32px;
+}
+.card.lord .description .pointer {
+	background-position-x: -100px;
+}
+
+/* Waked */
+.card .frame .description .pointer.wake {
+	background-position: -200px -44px;
+	color: white;
+	text-shadow: 1px 0 black, -1px 0 black, 0 -1px black, 0 1px black,
+		.7px .7px black, -.7px .7px black, -.7px -.7px black, .7px -.7px black;
+}
+
+.card.on-rendering .description .pointer {
+	line-height: 28px;
+}
+
+.card .description-large {
+	font-size: 20px;
+}
+.card .description-small {
+	font-size: 16px;
+}
+.card .description-tiny {
+	font-size: 14px;
+}
+
+.card .description p {
+	font-family: ZhunYuan;
+	min-height: 34px;
+}
+.card .description p.quote {
+	font-size: 0.8em;
+	text-align: right;
+	font-family: KaiTi;
+}
+.card .description-tiny p.quote {
+	font-size: 12px;
+	text-align: right;
+	font-family: KaiTi;
+}
+
+
+.card .footer {
+	/* left: 126px; */	
+	/* right: 90px; */
+	/* font-size: 11px; */
+	left: -46px;
+	right: -82px;
+	bottom: 27px;
+	font-size: 22px;
+	font-family: HeiTi;
+	transform: scale(0.5) translate(0, 18px);
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+	float: left;
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator {
+	margin-left: 8px;
+}
+.card .footer .illustrator::before {
+	content: 'Illustrated by ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+.card .package {
+    right: 12px;
+    bottom: 26px;
+	font-size: 28px;
+}
+
+
+/* Ink Style */
+.card.ink .frame .hitpoints li, .card[extra-hp-style="ink"] .frame .hitpoints li {
+	background-position-y: -50px;
+}
+.card.old .frame .hitpoints li, .card[extra-hp-style="old"] .frame .hitpoints li {
+	background-position-y: -100px;
+	margin-right: -4px;
+}
+.card.ink .frame .hitpoints li.overflow, .card[extra-hp-style="ink"] .frame .hitpoints li.overflow {
+	background-position-y: -200px;
+}
+.card.old .frame .hitpoints li.overflow, .card[extra-hp-style="old"] .frame .hitpoints li.overflow {
+	background-position-y: -250px;
+}
+.hp-style {
+	display: none;
+}
+
+
+/* Different Kingdoms */
+
+.card.shu .frame::before {
+	background-image: url('images/shu.png');
+}
+.card.wu .frame::before {
+	background-image: url('images/wu.png');
+}
+.card.qun .frame::before {
+	background-image: url('images/qun.png');
+}
+.card.jin .frame::before {
+	background-image: url('images/jin.png');
+}
+.card.jina .frame::before {
+	background-image: url('images/jina.png');
+}
+
+.card.lord.shu .frame::before {
+	background-image: url('images/lord.png'), url('images/shu.png');
+}
+.card.lord.wu .frame::before {
+	background-image: url('images/lord.png'), url('images/wu.png');
+}
+.card.lord.qun .frame::before {
+	background-image: url('images/lord.png'), url('images/qun.png');
+}
+.card.lord.jin .frame::before {
+	background-image: url('images/lord.png'), url('images/jin.png');
+}
+.card.lord.jina .frame::before {
+	background-image: url('images/lord.png'), url('images/jina.png');
+}
+
+.card.shu .description .pointer {
+	background-position-y: -44px;
+}
+.card.wu .description .pointer {
+	background-position-y: -88px;
+}
+.card.qun .description .pointer {
+	background-position-y: -132px;
+}
+.card.jin .description .pointer {
+	background-position-y: -176px;
+}
+.card.jina .description .pointer {
+	background-position-y: -220px;
+}
+
+.card.lord.shu .frame .nickname {
+	color: #FF5027;
+}
+.card.lord.wu .frame .nickname {
+	color: #63B625;
+}
+.card.lord.qun .frame .nickname {
+	color: #909090;
+}
+.card.lord.jin .frame .nickname {
+	color: #B047FF;
+}
+.card.lord.jina .frame .nickname {
+	color: #00D1A7;
+}
+
+.card.shu .frame::after {
+	background-position-x: -120px;
+}
+.card.wu .frame::after {
+	background-position-x: -240px;
+}
+.card.qun .frame::after {
+	background-position-x: -360px;
+}
+.card.jin .frame::after, .card.jina.lord .frame::after {
+	background-position-x: -480px;
+}
+.card.jina .frame::after {
+	background-position-x: -600px;
+}
+.card.lord .frame::after {
+	background-position-y: -120px;
+}
+
+
+.card.shu .hitpoints li {
+	background-position-x: -36px;
+}
+.card.wu .hitpoints li {
+	background-position-x: -72px;
+}
+.card.qun .hitpoints li {
+	background-position-x: -108px;
+}
+.card.jin .hitpoints li {
+	background-position-x: -180px;
+}
+.card.jina .hitpoints li {
+	background-position-x: -144px;
+}
+.card.lord .hitpoints li, .card.god .hitpoints li {
+	background-position-x: -216px;
+}
+
+.card.shu .frame .custom-kingdom {
+	color: #FFB459;
+}
+.card.wu .frame .custom-kingdom {
+	color: #B5DA5B;
+}
+.card.qun .frame .custom-kingdom {
+	color: #BABABA;
+}
+.card.jin .frame .custom-kingdom {
+	color: #A46EFF;
+}
+.card.jina .frame .custom-kingdom {
+	color: #6ABAAA;
+}
+.card.lord .frame .custom-kingdom {
+	color: #FFEE1A;
+}
+
+.card.shu .hitpoints::after {
+	color: #FFB459;
+}
+.card.wu .hitpoints::after {
+	color: #ABE663;
+}
+.card.qun .hitpoints::after {
+	color: #D7DBE8;
+}
+.card.jin .hitpoints::after {
+	color: #C99DFF;
+}
+.card.jina .hitpoints::after {
+	color: #5CF8F8;
+}
+.card.lord .hitpoints::after, .card.god .hitpoints::after  {
+	color: #FFF890;
+}
+
+/* God! */
+.card.god {
+	--illustration-coordinates: 0 0 560 806;
+	border-radius: 0;
+}
+.card.god .frame::before {
+	height: 141px;
+	background: url('images/god.png') no-repeat 12px 0 / 102px auto;
+}
+
+.card.god .frame::after {
+	left: 4px;
+	top: 37px;
+	background-position: -600px -120px;
+}
+
+.card.god .frame .custom-kingdom {
+	color: #BBA;
+	top: 46px;
+	font-weight: bold;
+}
+
+.card.god .frame .nickname {
+	z-index: 6;
+	left: auto;
+	right: 48px;
+	top: 135px;
+}
+.card.god .frame .name {
+	z-index: 6;
+    left: auto;
+    right: 28px;
+    top: 310px;
+}
+
+.card.god .description {
+	left: 29px;
+	right: 35px;
+	bottom: 60px;
+	min-height: 80px;
+	padding: 16px 48px 20px 108px;
+	background: url('images/skill-god-top.png') no-repeat 0 0 / 100% auto;
+    border-radius: 0 0 20px;
+}
+.card.god .description::after {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 70px;
+	bottom: -11px;
+	background: url('images/skill-god-bottom.png') no-repeat 0 100% / 100% auto;
+}
+.card.god .description .pointer {
+	left: 6px;
+	background-position: -200px 0;
+	color: #F8F044;
+    text-shadow: 1px 0 black, -1px 0 black, 0 -1px black, 0 1px black,
+		.7px .7px black, -.7px .7px black, -.7px -.7px black, .7px -.7px black;
+}
+.card.god .description .pointer.wake {
+	background-position: -200px -44px;
+	color: white;
+}
+
+.card.god .frame .footer {
+	left: -120px;
+	right: -120px;
+	color: white;
+}
+
+.card.god .package {
+    right: 20px;
+    bottom: 32px;
+	font-size: 28px;
+}
+
+
+/* for gradient */
+.card .frame .custom-kingdom {
+    -webkit-background-clip: text;
+    background-image: -webkit-linear-gradient(-45deg, #E2EDF5 0%, #3382B7 100%);
+}
+.card.on-rendering .frame .custom-kingdom{
+	padding-right: 100px;
+	/* color: #444; */
+}
+
+.card.shu .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-45deg, #FFFCF8 0%, #F99112 100%);
+}
+.card.shu.on-rendering .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, #FFFCF8 0%, #F99112 80%);
+}
+.card.wu .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-45deg, #F1F8E1 0%, #9FCD2F 100%);
+}
+.card.wu.on-rendering .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, #F1F8E1 0%, #9FCD2F 80%);
+}
+.card.qun .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-45deg, #F1F1F1 0%, #696969 100%);
+}
+.card.qun.on-rendering .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, #F1F1F1 0%, #696969 80%);
+}
+.card.jin .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-45deg, #ECE2FF 0%, #671AE9 100%);
+}
+.card.jin.on-rendering .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, #ECE2FF 0%, #671AE9 80%);
+}
+.card.jina .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-45deg, #F3FAF8 0%, #119177 100%);
+}
+.card.jina.on-rendering .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, #F3FAF8 0%, #119177 80%);
+}
+.card.lord .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-45deg, #FFD805 0%, white 20%, #FFEE1A 40%, white 70%, #FFD805 100%);
+}
+.card.lord.on-rendering .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, #FFD805 0%, white 20%, #FFEE1A 40%, white 60%, #FFD805 80%);
+}
+.card.god .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}
+.card.on-rendering.god .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}

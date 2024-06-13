@@ -1,0 +1,252 @@
+/* 帝国3模板 */
+/* 原作者：开不了车 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 366px;
+	height: 514px;
+	--variants: 原版, default;
+}
+
+.card .frame{
+	background: url('images/frame.png');
+}
+.card .frame .custom-kingdom {
+	font-family: Microsoft YaHei;
+	font-size: 45px;
+	font-weight: bold;
+	left: 32px;
+	top: 26px;
+	color: gold;
+	text-shadow: -2px -2px black, 2px -2px black,
+		-2px 2px black, 2px 2px black, 3px 3px 5px black;
+}
+
+.card .hitpoints{
+	left: 93px;
+	top: 36px;
+	width: 200px;
+	height: 0px;
+}
+
+.card .hitpoints li{
+	display: inline-block;
+	background: url('images/hp.png');
+	width: 24px;
+	height: 25px;
+}
+.card .hitpoints li:not(:first-child) {
+	display: none;
+}
+.card .hitpoints::after {
+    content: attr(hp) '/' attr(maxhp);
+    font-family: Arial;
+	font-weight: bold;
+    color: gold;
+    vertical-align: top;
+    font-size: 20px;
+    line-height: 25px;
+}
+.card .hitpoints[total='1'] li, .card .hitpoints[total='2'] li, .card .hitpoints[total='3'] li,
+.card .hitpoints[total='4'] li, .card .hitpoints[total='5'] li, .card .hitpoints[total='6'] li {
+	display: inline-block;
+}
+.card .hitpoints[total='0']::after, .card .hitpoints[total='1']::after, .card .hitpoints[total='2']::after, .card .hitpoints[total='3']::after,
+.card .hitpoints[total='4']::after, .card .hitpoints[total='5']::after, .card .hitpoints[total='6']::after {
+	content: '' !important;
+}
+.card .hitpoints[losthp][overflow]::after {
+    content: attr(hp) '/' attr(maxhp) '+' attr(overflow);
+}
+
+.card .hitpoints .drained{
+	opacity: 50%;
+}
+
+.card .nickname, .card .nickname-small{
+	right: 24px;
+	top: 120px;
+	width: 30px;
+	height: 200px;
+	color: #FFD436;
+	margin: 0;
+	text-align: center;
+	line-height: 30px;
+	text-shadow: 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+	font-family: 'Microsoft Yahei'; /*'FZYaoTi';*/
+	font-weight: bold;
+	font-size: 20px;
+	writing-mode: tb-rl;
+	text-align: center;
+}
+.card .nickname-small{
+	font-size: 16px;
+}
+
+.card .name, .card .name-small{
+	left: 36px;
+	top: 120px;
+	width: 30px;
+	height: 200px;
+	color: white;
+	margin: 0;
+	text-align: center;
+	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
+			2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000,
+			2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000,
+			2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000;
+	font-family: 'Microsoft YaHei';
+	font-weight: bold;
+	font-size: 30px;
+	writing-mode: tb-rl;
+	margin: 0;
+}
+.card .name-small{
+	font-size: 24px;
+	letter-spacing: -2px;
+	line-height: 80%;
+}
+
+.card .description {
+	left: 60px;
+	width: 430px;
+	bottom: 68px;
+	padding: 34px 24px 34px 40px;
+	background: url('images/panel.png') repeat-y 0 34px / 494px auto;
+	transform-origin: 0 100%;
+	transform: scale(0.5);
+}
+
+.card .description::before {
+	content: '';
+	display: block;
+	position: absolute;
+	background: url('images/panel-top.png') no-repeat 0 0 / 494px auto;
+	width: 100%;
+	height: 32px;
+	top: 0;
+	margin-left: -40px;
+}
+
+.card .description::after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: url('images/panel-bottom.png') no-repeat 0 100% / 494px auto;
+	width: 100%;
+	height: 32px;
+	bottom: 0;
+	margin-left: -40px;
+}
+
+.card .description p{
+	min-height: 64px;
+}
+.card .description p.quote {
+	font-style: italic;
+	text-align: right;
+}
+
+.card .description {
+	font-size: 24px;
+	font-family: SimHei;
+	font-weight: bold;	
+}
+
+.card .description-tiny{
+	font-size: 16px;
+}
+.card .description-small{
+	font-size: 18px;
+}
+.card .description-large{
+	font-size: 28px;
+}
+
+.card .description .pointer{
+	display: block;
+	position: absolute;
+	color: white;
+	list-style: none;
+	background: url('images/pointer.png') no-repeat 0px 0px / 142px auto;
+	width: 142px;
+	height: 66px;
+	font-size: 36px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;	
+	left: -100px;
+	margin-top: -16px;
+	line-height: 62px;
+	text-align: center;
+}
+
+.card > .frame > .footer {
+	position: static;
+}
+
+.card .footer .illustrator {
+	left: 115px;
+	bottom: 32px;
+	font-size: 20px;
+	font-family: SimHei;
+	color: #C69C6D;
+	transform-origin: 0 100%;
+	transform: scale(0.5);
+}
+.card .footer .illustrator::before {
+	content: '插画作者：';
+}
+
+.card .footer .trademark {
+	left: 108px;
+	bottom: 48px;
+	font-size: 20px;
+	font-family: SimHei;
+	color: #C69C6D;
+	transform-origin: 0 100%;
+	transform: scale(0.5);
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+.card .footer .index {
+	right: 108px;
+	bottom: 48px;
+	font-size: 20px;
+	font-family: SimHei;
+	color: #C69C6D;
+	transform-origin: 100% 100%;
+	transform: scale(0.5);
+}
+
+
+
+/* For IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)  {
+	/*.card .hitpoints li{
+		padding-top: 11px;
+	}
+	
+	.card .nickname, .card .nickname-small{
+		left: 71px;
+		top: 79px;
+	}
+	.card .name, .card .name-small{
+		left: 83px;
+		top: 166px;
+	}
+	
+	.card .hitpoints{
+		top: 16px;
+	}
+	.card .hitpoints li{
+		width: 19px;
+		height: 26px;
+	}
+	.card .hitpoints .drained{
+		opacity: .5;
+	}
+	*/
+}

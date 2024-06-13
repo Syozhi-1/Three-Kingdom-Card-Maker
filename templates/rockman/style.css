@@ -1,0 +1,276 @@
+/* 洛吧杀模板 */
+/* 原作者：开不了车 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 549px;
+	height: 771px;
+	--variants: 原版, default, 原版（男）, default male, 原版（女）, default female,
+		主公, default lord, 主公（男）, default lord male, 主公（女）, default lord female;
+	--illustration-coordinates: 107 75 389 652;
+}
+
+.card .frame{
+	background: url('images/frame.png');
+}
+.card.lord .frame::after{
+	content: '';
+	position: absolute;
+	display: block;
+	width: 144px;
+	height: 144px;
+	left: 13px;
+	top: 13px;
+	background: url('images/lord.png');
+}
+
+.card .frame .custom-kingdom {
+	display: block;
+    width: 120px;
+    height: 96px;
+    text-align: center;
+	font-family: KaiTi; /*XingKai;*/
+	font-size: 96px;
+	line-height: 96px;
+	left: 25px;
+    top: 36px;
+	color: #79F;
+	text-shadow: 0 0 0.02em #358, -0.02em -0.02em #eff, 0.02em 0.02em #238, 0 0 .2em black, 0 0 .2em black;
+	z-index: 6;
+    background-image: -webkit-radial-gradient(#79F 0%, #358 100%);
+    -webkit-background-clip: text;
+}
+.card.on-rendering .frame .custom-kingdom{
+	background-image: radial-gradient(closest-side, #79F 0%, #358 100%);
+	color: #79F;
+}
+.card .frame .custom-kingdom[length='2'] {
+    font-size: 72px;
+    letter-spacing: -12px;
+    margin-left: -6px;
+    margin-top: 3px;
+}
+.card .frame .custom-kingdom[length='3'], .card .frame .custom-kingdom[length='4'] {
+	font-size: 64px;
+	line-height: 56px;
+	letter-spacing: -12px;
+	margin-left: -6px;
+	margin-top: 3px;
+}
+
+.card.male .frame::before, .card.female .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 72px;
+	height: 72px;
+	left: 148px;
+	top: 24px;
+	background: url('images/gender.png');
+}
+.card.female .frame::before {
+	background-position: -72px 0;
+}
+
+.card .hitpoints{
+	left: 225px;
+	top: 34px;
+	width: 280px;
+	height: 51px;
+}
+
+.card .hitpoints li{
+	display: inline-block;
+	background: url('images/hp.png');
+	width: 32px;
+	height: 51px;
+}
+.card .hitpoints li:last-child {
+	width: 36px;
+	background-position: -64px 0;
+}
+.card .hitpoints .drained{
+	background-position: -32px 0;
+}
+.card .hitpoints .drained:last-child {
+	background-position: -100px 0;
+}
+
+.card .nickname, .card .nickname-small{
+	left: 64px;
+	top: 168px;
+	width: 30px;
+	height: 160px;
+	color: #FFFF00;
+	margin: 0;
+	text-align: center;
+	line-height: 30px;
+	text-shadow: 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+	font-family: 'YouYuan';
+	font-size: 30px;
+	writing-mode: tb-rl;
+	text-align: center;
+}
+.card .nickname-small{
+	font-size: 24px;
+}
+
+.card .name, .card .name-small{
+	left: 60px;
+    top: 270px;
+    width: 50px;
+    height: 300px;
+	color: white;
+	margin: 0;
+	text-align: center;
+	text-shadow: -.1em .1em .1em black,
+			1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
+			2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000,
+			2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000,
+			2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000;
+	font-family: 'XingKai';
+	font-size: 60px;
+	writing-mode: tb-rl;
+	margin: 0;
+}
+.card .name-small{
+	left: 47px;
+	font-size: 48px;
+	letter-spacing: -3px;
+	line-height: 80%;
+}
+.card .nickname[length='4'] + .name {
+	margin-top: 28px;
+}
+.card .nickname[length='5'] + .name {
+	margin-top: 36px;
+}
+.card .nickname:empty  + .name {
+	top: 220px;
+}
+
+.card .description {
+	left: 122px;
+	/* right: 67px; */
+	bottom: 40px;
+	width: 632px;
+	margin-bottom: 17px;
+	padding: 20px 28px 20px 48px;
+	background: url('images/panel.png') 0 100% / 40px auto;
+	border: 6px white ridge;
+	border-radius: 6px;
+	color: white;
+	transform-origin: 0 100%;
+	transform: scale(.5);
+}
+
+.card .description p{
+	min-height: 72px;
+	font-size: 32px;
+	font-family: SimHei;
+}
+.card .description p.quote {
+	font-style: italic;
+	text-align: right;
+}
+
+.card .description-tiny p{
+	font-size: 22px;
+}
+.card .description-small p{
+	font-size: 28px;
+}
+.card .description-large p{
+	font-size: 36px;
+}
+
+.card .description .pointer{
+	display: block;
+	position: absolute;
+	list-style: none;
+	background: url('images/pointer.png') no-repeat 0px 0px / 228px auto;
+	width: 204px;
+	height: 82px;
+	padding-right: 24px;
+	font-size: 48px;
+	font-family: Microsoft YaHei;
+	font-weight: bold;
+	left: -182px;
+	margin-top: -16px;
+	line-height: 76px;
+	text-align: center;
+	color: black;
+}
+.card .description .pointer.lord {
+	background-image: url('images/pointer-lord.png');
+}
+.card .description .pointer[length='3']{
+	font-size: 40px;
+	line-height: 74px;
+}
+.card .description .pointer[length='4']{
+	font-size: 34px;
+	letter-spacing: -.1em;
+	line-height: 70px;
+}
+
+.card .footer {
+	left: 80px;
+	right: 72px;
+	height: 12px;
+	bottom: 29px;
+	font-size: 12px;
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+	float: left;
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+.card .footer .illustrator {
+	margin-left: 12px;
+}
+
+.card .suit-spade::before, .card .suit-club::before {
+	color: #36F;
+}
+
+
+/* For IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)  {
+	/*.card .hitpoints li{
+		padding-top: 11px;
+	}
+	
+	.card .nickname, .card .nickname-small{
+		left: 71px;
+		top: 79px;
+	}
+	.card .name, .card .name-small{
+		left: 83px;
+		top: 166px;
+	}
+	
+	.card .hitpoints{
+		top: 16px;
+	}
+	.card .hitpoints li{
+		width: 19px;
+		height: 26px;
+	}
+	.card .hitpoints .drained{
+		opacity: .5;
+	}
+	*/
+}

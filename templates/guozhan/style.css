@@ -1,0 +1,903 @@
+/* 官方国战模板 */
+/* 原作者：低调de洛沫 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 415px;
+	height: 580px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 晋, jin, 汉, han,
+		魏君, wei lord, 蜀君, shu lord, 吴君, wu lord, 群君, qun lord, 晋君, jin lord, 汉君, han lord, 野心家, yexin,
+		魏大旗, wei banner, 蜀大旗, shu banner, 吴大旗, wu banner, 群大旗, qun banner,
+		双势力-魏蜀, wei xshu, 双势力-魏吴, wei xwu, 双势力-魏群, wei xqun,
+		双势力-蜀吴, shu xwu, 双势力-蜀群, shu xqun, 双势力-吴群, wu xqun,
+		双势力-晋魏, jin xwei, 双势力-晋蜀, jin xshu, 双势力-晋吴, jin xwu, 双势力-晋群, jin xqun,
+		双势力-汉魏, han xwei, 双势力-汉蜀, han xshu, 双势力-汉吴, han xwu, 双势力-汉群, han xqun,
+		三势力-魏蜀吴, wei xshu xwu, 三势力-魏蜀群, wei xshu xqun,
+		三势力-魏吴群, wei xwu xqun, 三势力-蜀吴群, shu xwu xqun,
+		四势力-魏蜀吴群, qun xwei xshu xwu;
+	--extra-segments: 珠联璧合, partner;
+}
+
+.card .frame{
+	background: url('images/wei.png');
+}
+.card.lord .frame{
+	background-image: url('images/lord.png'), url('images/wei.png');
+}
+.card .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 88px;
+	height: 88px;
+	left: 0;
+	top: 0;
+	background: url('images/roles.png');
+}
+.card .frame::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 415px;
+	height: 100px;
+	left: 0;
+	bottom: 135px;
+	background: url('images/jade.png');
+	z-index: 10;
+}
+
+.card .frame .custom-kingdom {
+	font-family: 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 54px;
+	font-weight: bold;
+	left: 12px;
+	top: 12px;
+	color: #9DCBE8;
+	text-shadow: 0 0 7px black, 0 0 7px black;
+}
+.card .frame .custom-kingdom[length='2'] {
+	font-size: 40px;
+	letter-spacing: -.25em;
+	margin-left: -.125em;
+	line-height: 54px;
+	padding-right: 1em;
+}
+
+.card .hitpoints{
+	left: 77px;
+	top: 13px;
+	width: 200px;
+	height: 25px;
+}
+
+.card .hitpoints li{
+	display: inline-block;
+	width: 18px;
+	height: 25px;
+}
+
+.card .hitpoints li {
+	background: url('images/hp.png');
+}
+.card .hitpoints li:nth-child(odd) {
+	background-position: 0 0;
+}
+.card .hitpoints li:nth-child(even) {
+	background-position: -18px 0;
+	margin-left: -9px;
+	margin-right: 5px;
+}
+
+.card .hitpoints .drained{
+	opacity: 50%;
+}
+
+.card .nickname, .card .nickname-small{
+	left: 45px;
+	top: 83px;
+	width: 0px;
+	color: #FFD436;
+	text-shadow: 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000;
+	font-family: 'DFPNewChuan-B5';
+	font-size: 22px;
+	writing-mode: tb-rl;
+	text-align: center;
+}
+.card .nickname-small{
+	font-size: 20px;
+}
+
+.card .name, .card .name-small{
+	left: 62px;
+	top: 200px;
+	width: 0px;
+	color: white;
+	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000,
+			2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000,
+			2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000,
+			2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000;
+	font-family: 'SymbolAnd', 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 48px;
+	writing-mode: tb-rl;
+	z-index: 11;
+}
+.card .name-small {
+	left: 54px;
+	font-size: 36px;
+	letter-spacing: -2px;
+	line-height: 80%;
+}
+.card.on-rendering .name {
+}
+.card .nickname:empty  + .name {
+	top: 170px;
+}
+
+.card .description {
+	left: 71px;
+	bottom: 39px;
+	width: 608px;
+	height: 200px;
+	font-size: 28px;
+	font-family: ZhunYuan;
+	transform-origin: 0 100%;
+	transform: scale(0.5);
+}
+
+.card .description p{
+	min-height: 40px;
+	text-indent: 1em;
+}
+.card .description p.quote {
+	font-style: italic;
+	text-align: right;
+	font-family: SimSun;
+	font-size: 24px;
+}
+
+.card .description-tiny{
+	font-size: 22px;
+	padding-left: 16px;
+}
+.card .description-small{
+	font-size: 24px;
+}
+.card .description-large{
+	font-size: 30px;
+}
+
+.card .description .pointer{
+	display: block;
+	position: absolute;
+	width: 108px;
+	height: 48px;
+	background: url('images/pointer.png') no-repeat 0px -2px / 128px auto;
+	padding-left: 20px;
+	font-size: 36px;
+	font-family: LiShu;
+	left: -104px;
+	margin-top: -4px;
+}
+.card .frame .description .pointer.wake {
+	background-position-y: -242px;
+	color: white;
+}
+
+.card .footer {
+	left: 79px;
+	bottom: 10px;
+	width: 570px;
+	font-size: 20px;
+	font-family: SimSun;
+	transform-origin: 0 100%;
+	transform: scale(0.5);
+	color: white;
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+.card .partner {
+	line-height: 22px;
+	height: 22px;
+	min-width: 86px;
+	right: 36px;
+	bottom: 152px;
+	background: url('images/partner.png') 0 -1px;
+	font-family: LiShu;
+	text-align: center;
+	color: white;
+	font-size: 13px;
+}
+.card .partner:empty {
+	display: none;
+}
+
+
+/* Different Kingdoms */
+
+.card.shu .frame{
+	background-image: url('images/shu.png');
+}
+.card.shu.lord .frame{
+	background-image: url('images/lord.png'), url('images/shu.png');
+}
+.card.shu .frame::before {
+	background-position: -88px 0;
+}
+.card.shu .frame::after {
+	background-position: 0 -100px;
+}
+.card.shu .hitpoints li:nth-child(odd) {
+	background-position: -36px 0;
+}
+.card.shu .hitpoints li:nth-child(even) {
+	background-position: -54px 0;
+}
+.card.shu .description .pointer{
+	background-position-y: -50px;
+}
+.card.shu .partner {
+	background-position-y: -25px;
+}
+.card.shu .frame .custom-kingdom {
+	color: #f39e4b;
+}
+
+.card.wu .frame{
+	background-image: url('images/wu.png');
+}
+.card.wu.lord .frame{
+	background-image: url('images/lord.png'), url('images/wu.png');
+}
+.card.wu .frame::before {
+	background-position: -176px 0;
+}
+.card.wu .frame::after {
+	background-position: 0 -200px;
+}
+.card.wu .hitpoints li:nth-child(odd) {
+	background-position: -72px 0;
+}
+.card.wu .hitpoints li:nth-child(even) {
+	background-position: -90px 0;
+}
+.card.wu .description .pointer{
+	background-position-y: -98px;
+}
+.card.wu .partner {
+	background-position-y: -49px;
+}
+.card.wu .frame .custom-kingdom {
+	color: #B0CD6A;
+}
+
+.card.qun .frame{
+	background-image: url('images/qun.png');
+}
+.card.qun.lord .frame{
+	background-image: url('images/lord.png'), url('images/qun.png');
+}
+.card.qun .frame::before {
+	background-position: -264px 0;
+}
+.card.qun .frame::after {
+	background-position: 0 -300px;
+}
+.card.qun .hitpoints li:nth-child(odd) {
+	background-position: -108px 0;
+}
+.card.qun .hitpoints li:nth-child(even) {
+	background-position: -126px 0;
+}
+.card.qun .description .pointer{
+	background-position-y: -146px;
+}
+.card.qun .partner {
+	background-position-y: -73px;
+}
+.card.qun .frame .custom-kingdom {
+	color: #A2A0A0;
+}
+
+
+.card.han .frame {
+	background-image: url('images/han.png');
+}
+.card.han.lord .frame{
+	background-image: url('images/lord.png'), url('images/han.png');
+}
+.card.han .frame::before {
+	background-position: -264px -264px;
+}
+.card.han .frame::after {
+	background-position: 0 -500px;
+}
+.card.han .hitpoints li:nth-child(odd) {
+	background-position: -144px 0;
+}
+.card.han .hitpoints li:nth-child(even) {
+	background-position: -162px 0;
+}
+.card.han .description .pointer {
+	background-position-y: -146px;
+}
+.card.han .partner {
+	background-position-y: -73px;
+}
+.card.han .frame .custom-kingdom {
+	color: #DF9300;
+}
+
+.card.jin .frame, .card.yexin .frame{
+	background-image: url('images/jin.png');
+}
+.card.jin.lord .frame{
+	background-image: url('images/lord.png'), url('images/jin.png');
+}
+.card.jin .frame::before {
+	background-position: -88px -264px;
+}
+.card.jin .frame::after, .card.yexin .frame::after {
+	background-position: 0 -400px;
+}
+.card.jin .hitpoints li:nth-child(odd),
+.card.yexin .hitpoints li:nth-child(odd) {
+	background-position: -180px 0;
+}
+.card.jin .hitpoints li:nth-child(even),
+.card.yexin .hitpoints li:nth-child(even) {
+	background-position: -198px 0;
+}
+.card.jin .description .pointer,
+.card.yexin .description .pointer{
+	background-position-y: -194px;
+}
+.card.jin .partner, .card.yexin .partner {
+	background-position-y: -97px;
+}
+.card.jin .frame .custom-kingdom {
+	color: #B546B4;
+}
+
+.card.yexin .frame::before {
+	background-position: -176px -264px;
+}
+
+
+.card.lord .frame::before {
+	background-position: -352px 0;
+}
+.card.lord .hitpoints li:nth-child(odd) {
+	background-position: -144px 0;
+}
+.card.lord .hitpoints li:nth-child(even) {
+	background-position: -162px 0;
+}
+
+.card:not([kingdom='']) .frame::before {
+	content: none;
+}
+
+
+.card .package {
+	right: 6px;
+	bottom: 4px;
+	font-size: 28px;
+}
+
+
+/* Multi-kingdoms */
+
+.card.wei.xshu .frame {
+	background-image: url('images/shu-2.png'), url('images/wei.png');
+}
+.card.wei.xwu .frame {
+	background-image: url('images/wu-2.png'), url('images/wei.png');
+}
+.card.wei.xqun .frame {
+	background-image: url('images/qun-2.png'), url('images/wei.png');
+}
+.card.shu.xwu .frame {
+	background-image: url('images/wu-2.png'), url('images/shu.png');
+}
+.card.shu.xqun .frame {
+	background-image: url('images/qun-2.png'), url('images/shu.png');
+}
+.card.wu.xqun .frame {
+	background-image: url('images/qun-2.png'), url('images/wu.png');
+}
+
+.card.wei.xshu .frame::before {
+	background-position: 0 -88px;
+}
+.card.wei.xwu .frame::before {
+	background-position: -352px -88px;
+}
+.card.wei.xqun .frame::before {
+	background-position: -264px -88px;
+}
+.card.shu.xwu .frame::before {
+	background-position: -88px -88px;
+}
+.card.shu.xqun .frame::before {
+	background-position: -352px -176px;
+}
+.card.wu.xqun .frame::before {
+	background-position: -176px -88px;
+}
+
+.card.xwei .frame::after, .card.xshu .frame::after,
+.card.xwu .frame::after, .card.xqun .frame::after {
+	background-image: url('images/jade-2.png'), url('images/jade.png');
+}
+
+.card.wei.xshu .frame::after {
+	background-position-y: -100px, 0;
+}
+.card.wei.xwu .frame::after {
+	background-position-y: -200px, 0;
+}
+.card.wei.xqun .frame::after {
+	background-position-y: -300px, 0;
+}
+.card.shu.xwu .frame::after {
+	background-position-y: -200px, -100px;
+}
+.card.shu.xqun .frame::after {
+	background-position-y: -300px, -100px;
+}
+.card.wu.xqun .frame::after {
+	background-position-y: -300px, -200px;
+}
+
+
+.card.wei.xshu.xwu .frame {
+	background-image: url('images/wu-3.png'), url('images/shu-2.png'), url('images/wei.png');
+}
+.card.wei.xshu.xqun .frame {
+	background-image: url('images/qun-3.png'), url('images/shu-2.png'), url('images/wei.png');
+}
+.card.wei.xwu.xqun .frame {
+	background-image: url('images/qun-3.png'), url('images/wu-2.png'), url('images/wei.png');
+}
+.card.shu.xwu.xqun .frame {
+	background-image: url('images/qun-3.png'), url('images/wu-2.png'), url('images/shu.png');
+}
+
+.card.wei.xshu.xwu .frame::before {
+	background-position: 0 -176px;
+}
+.card.wei.xshu.xqun .frame::before {
+	background-position: -88px -176px;
+}
+.card.wei.xwu.xqun .frame::before {
+	background-position: -176px -176px;
+}
+.card.shu.xwu.xqun .frame::before {
+	background-position: -264px -176px;
+}
+
+.card.xwei.xshu .frame::after, .card.xwei.xwu .frame::after,
+.card.xwei.xqun .frame::after, .card.xshu.xwu .frame::after,
+.card.xshu.xqun .frame::after, .card.xwu.xqun .frame::after {
+	background-image: url('images/jade-3.png'), url('images/jade-2.png'), url('images/jade.png');
+}
+
+.card.wei.xshu.xwu .frame::after {
+	background-position-y: -200px, -100px, 0;
+}
+.card.wei.xshu.xqun .frame::after {
+	background-position-y: -300px, -100px, 0;
+}
+.card.wei.xwu.xqun .frame::after {
+	background-position-y: -300px, -200px, 0;
+}
+.card.shu.xwu.xqun .frame::after {
+	background-position-y: -300px, -200px, -100px;
+}
+
+
+.card.qun.xshu.xwu.xwei .frame {
+	background-image: url('images/weishuwuqun.png');
+}
+
+.card.qun.xshu.xwu.xwei .frame::before {
+	background-position: 0 -264px;
+}
+
+.card.xwei.xshu.xwu .frame::after, .card.xwei.xshu.xqun .frame::after,
+.card.xwei.xwu.xqun .frame::after, .card.xshu.xwu.xqun .frame::after {
+	background-image: url('images/jade-3.png'), url('images/jade.png');
+	background-position-y: -400px, -300px;
+}
+
+
+.card.xwei .hitpoints li:nth-child(even) {
+	background-position: -18px 0;
+}
+.card.xshu .hitpoints li:nth-child(even) {
+	background-position: -54px 0;
+}
+.card.xwu .hitpoints li:nth-child(even) {
+	background-position: -90px 0;
+}
+.card.xqun .hitpoints li:nth-child(even) {
+	background-position: -126px 0;
+}
+
+.card.xshu.xwei .hitpoints li:nth-child(4n+2),
+.card.xwu.xwei .hitpoints li:nth-child(4n+2),
+.card.xqun.xwei .hitpoints li:nth-child(4n+2) {
+	background-position: -18px 0;
+}
+.card.xshu.xshu .hitpoints li:nth-child(4n+2),
+.card.xqun.xshu .hitpoints li:nth-child(4n+2) {
+	background-position: -54px 0;
+}
+.card.xqun.xwu .hitpoints li:nth-child(4n+2) {
+	background-position: -90px 0;
+}
+
+.card.xwei.xshu.xwu .hitpoints li:nth-child(4n+2) {
+	background-position: -18px 0;
+}
+.card.xwei.xshu.xwu .hitpoints li:nth-child(4n+3) {
+	background-position: -36px 0;
+}
+.card.xwei.xshu.xwu .hitpoints li:nth-child(4n+4) {
+	background-position: -90px 0;
+}
+
+
+.card.xwei .description .pointer, .card.xshu .description .pointer,
+.card.xwu .description .pointer, .card.xqun .description .pointer{
+	background-position-y: -146px;
+}
+.card.xwei .partner, .card.xshu .partner,
+.card.xwu .partner, .card.xqun .partner {
+	background-position-y: -73px;
+}
+
+/* Each kingdom can only one character */
+.card.xwei .frame .custom-kingdom , .card.xshu .frame .custom-kingdom ,
+.card.xwu .frame .custom-kingdom , .card.xqun .frame .custom-kingdom  {
+	font-size: 48px;
+	width: 1em;
+	padding-left: .5em;
+	padding-right: .5em;
+	height: 2em;
+	line-height: 2em;
+	margin-left: -0.2em;
+	margin-top: -0.5em;
+	background-image: none !important;
+	overflow: hidden;
+	-webkit-background-clip: initial;
+	text-shadow: 0 0 4px black, 0 0 4px black, -.5em -1.5em var(--second-color),
+		-.5em -1.5em 4px black, -.5em -1.5em 4px black;
+}
+.card.xwei.xshu .frame .custom-kingdom , .card.xwei.xwu .frame .custom-kingdom ,
+.card.xwei.xqun .frame .custom-kingdom , .card.xshu.xwu .frame .custom-kingdom ,
+.card.xshu.xqun .frame .custom-kingdom , .card.xwu.xqun .frame .custom-kingdom  {
+    height: 2.25em;
+	font-size: 42px;
+	text-shadow: 0 0 4px black, 0 0 4px black,
+		-.5em -1.5em var(--second-color), -.5em -1.5em 4px black, -.5em -1.5em 4px black,
+		.25em -3.3em var(--third-color), .25em -3.3em 4px black, .25em -3.3em 4px black;
+}
+.card.xwei.xshu.xwu .frame .custom-kingdom {
+	font-size: 36px;
+	height: 3.5em;
+    line-height: 3em;
+    top: -10px;
+	color: #9DCBE8;
+	text-shadow: 0 0 4px black, 0 0 4px black,
+		-.5em -2.5em #f39e4b, -.5em -2.5em 4px black, -.5em -2.5em 4px black,
+		.5em -5.5em #B0CD6A, .5em -5.5em 4px black, .5em -5.5em 4px black,
+		0 -8em #A2A0A0, 0 -5em 4px black, 0 -5em 4px black;
+}
+.card.xwei .custom-kingdom {
+	--second-color: #9DCBE8;
+}
+.card.xshu .custom-kingdom {
+	--second-color: #f39e4b;
+}
+.card.xwu .custom-kingdom {
+	--second-color: #B0CD6A;
+}
+.card.xqun .custom-kingdom {
+	--second-color: #A2A0A0;
+}
+.card.xwei.xshu .custom-kingdom {
+	--second-color: #9DCBE8;
+	--third-color: #f39e4b;
+}
+.card.xwei.xwu .custom-kingdom {
+	--second-color: #9DCBE8;
+	--third-color: #B0CD6A;
+}
+.card.xwei.xqun .custom-kingdom {
+	--second-color: #9DCBE8;
+	--third-color: #A2A0A0;
+}
+.card.xshu.xwu .custom-kingdom {
+	--second-color: #f39e4b;
+	--third-color: #B0CD6A;
+}
+.card.xshu.xqun .custom-kingdom {
+	--second-color: #f39e4b;
+	--third-color: #A2A0A0;
+}
+.card.xwu.xqun .custom-kingdom {
+	--second-color: #B0CD6A;
+	--third-color: #A2A0A0;
+}
+
+/* Jin */
+.card.jin.xwei .frame {
+	background-image: url('images/wei-2.png'), url('images/jin.png');
+}
+.card.jin.xshu .frame {
+	background-image: url('images/shu-2.png'), url('images/jin.png');
+}
+.card.jin.xwu .frame {
+	background-image: url('images/wu-2.png'), url('images/jin.png');
+}
+.card.jin.xqun .frame {
+	background-image: url('images/qun-2.png'), url('images/jin.png');
+}
+.card.jin.xwei .frame::before, .card.jin.xshu .frame::before,
+.card.jin.xwu .frame::before, .card.jin.xqun .frame::before {
+	transform: scale(0.75);
+	left: -8px;
+	top: 7px;
+	z-index: 3;
+}
+.card.jin.xwei .hitpoints::after, .card.jin.xshu .hitpoints::after,
+.card.jin.xwu .hitpoints::after, .card.jin.xqun .hitpoints::after { /* 2nd Kingdom */
+	transform: scale(0.75);
+	content: '';
+	display: block;
+	position: absolute;
+	width: 88px;
+	height: 88px;
+	left: -67px;
+	top: -26px;
+	background: url('images/roles.png');
+	z-index: 2;
+}
+.card.jin.xshu .hitpoints::after {
+	background-position: -88px 0;
+}
+.card.jin.xwu .hitpoints::after {
+	background-position: -176px 0;
+}
+.card.jin.xqun .hitpoints::after {
+	background-position: -264px 0;
+}
+.card.jin:not([kingdom='']) .hitpoints::after {
+	content: none;
+}
+.card.jin.xwei .frame::after {
+	background-position-y: 0, -400px;
+}
+.card.jin.xshu .frame::after {
+	background-position-y: -100px, -400px;
+}
+.card.jin.xwu .frame::after {
+	background-position-y: -200px, -400px;
+}
+.card.jin.xqun .frame::after {
+	background-position-y: -300px, -400px;
+}
+
+.card.han.xwei .frame {
+	background-image: url('images/wei-2.png'), url('images/han.png');
+}
+.card.han.xshu .frame {
+	background-image: url('images/shu-2.png'), url('images/han.png');
+}
+.card.han.xwu .frame {
+	background-image: url('images/wu-2.png'), url('images/han.png');
+}
+.card.han.xqun .frame {
+	background-image: url('images/qun-2.png'), url('images/han.png');
+}
+.card.han.xwei .frame::before, .card.han.xshu .frame::before,
+.card.han.xwu .frame::before, .card.han.xqun .frame::before {
+	transform: scale(0.75);
+	left: -8px;
+	top: 7px;
+	z-index: 3;
+}
+.card.han.xwei .hitpoints::after, .card.han.xshu .hitpoints::after,
+.card.han.xwu .hitpoints::after, .card.han.xqun .hitpoints::after { /* 2nd Kingdom */
+	transform: scale(0.75);
+	content: '';
+	display: block;
+	position: absolute;
+	width: 88px;
+	height: 88px;
+	left: -67px;
+	top: -26px;
+	background: url('images/roles.png');
+	z-index: 2;
+}
+.card.han.xshu .hitpoints::after {
+	background-position: -88px 0;
+}
+.card.han.xwu .hitpoints::after {
+	background-position: -176px 0;
+}
+.card.han.xqun .hitpoints::after {
+	background-position: -264px 0;
+}
+.card.han:not([kingdom='']) .hitpoints::after {
+	content: none;
+}
+.card.han.xwei .frame::after {
+	background-position-y: 0, -500px;
+}
+.card.han.xshu .frame::after {
+	background-position-y: -100px, -500px;
+}
+.card.han.xwu .frame::after {
+	background-position-y: -200px, -500px;
+}
+.card.han.xqun .frame::after {
+	background-position-y: -300px, -500px;
+}
+
+
+/* for gradient */
+.card .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(#F0F3F8 12%, #ABEBFF 92%);
+    -webkit-background-clip: text;
+}
+.card:not(.xwei):not(.xshu):not(.xwu):not(.xqun):not(.banner).on-rendering .frame .custom-kingdom{
+	color: black;
+}
+
+.card.shu .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(#F8F2F0 12%, #FEA449 92%);
+}
+.card.wu .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(#F3F8F3 12%, #BDDB77 92%);
+}
+.card.qun .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(#F8F8F8 12%, #9A9A99 92%);
+}
+.card.jin .frame .custom-kingdom ,
+.card.yexin .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(#F8F0F8 12%, #B546B4 92%);
+}
+.card.han .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(#F8F2F0 12%, #FFD800 92%);
+}
+.card.lord .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(135deg, white 0%, #FFFF6D 10%, #C7B316 20%, #FFFF6D 30%, white 40%, #FFFF6D 50%, #C7B316 60%, #FFFF6D 70%, white 80%, #FFFF6D 90%, #C7B316 100%);
+}
+.card.on-rendering.lord .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, white 0%, #FFFF6D 10%, #C7B316 20%, #FFFF6D 30%, white 40%, #FFFF6D 50%, #C7B316 60%, #FFFF6D 70%, white 80%, #FFFF6D 90%, #C7B316 100%);
+}
+.card.god .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}
+.card.on-rendering.god .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}
+
+
+/* Banners */
+
+.card.banner .frame{
+	background: url('images/banner-wei.png'), url('images/bannerbody.png');
+}
+.card.banner .frame::before, .card.banner .frame::after {
+	content: initial;
+}
+.card.banner .hitpoints, .card.banner .nickname {
+	display: none;
+}
+
+.card.banner .frame .custom-kingdom {
+	display: initial;
+	font-family: 'DFPNewChuan-B5';
+	background-clip: initial;
+	background: none;
+	color: #B0832E;
+	font-weight: normal;
+	margin: auto;
+	left: 0;
+	right: 0;
+	width: 60px;
+	text-align: center;
+	top: 283px;
+	height: 60px;
+	font-size: 52px;
+	text-shadow: 0 0 3px black;
+}
+.card.banner .custom-kingdom:empty::before {
+	content: '令';
+	font-family: 'Ling';
+}
+
+.card.banner .name {
+	font-family: LiShu;
+	font-size: 32px;
+	margin: auto;
+	left: 0;
+	right: 0;
+	color: #D1A82D;
+	text-shadow: none;
+	width: 140px;
+	writing-mode: initial;
+	text-align: center;
+	font-size: 22px;
+	top: 15px;
+	line-height: 24px;
+}
+
+.card.banner .description {
+	left: 114px;
+	bottom: 39px;
+	width: 480px;
+	height: 370px;
+}
+.card.banner .description .pointer {
+	left: -178px;
+	width: 90px;
+	height: 56px;
+	font-size: 36px;
+	line-height: 38px;
+	background: url(images/pointer-banner.png) 0 0 / 176px 112px no-repeat;
+	padding-left: 50px;
+	text-align: center;
+	padding-right: 36px;
+}
+.card.banner .description .pointer.wake {
+	background-position-y: -56px;
+}
+
+.card.banner .description p {
+	text-indent: 0;
+}
+.card.banner .description-large {
+	font-size: 32px;
+}
+
+.card.banner .frame .footer {
+	color: black;
+	bottom: 12px;
+}
+
+
+.card.banner.shu .frame{
+	background: url('images/banner-shu.png'), url('images/bannerbody.png');
+}
+.card.banner.wu .frame{
+	background: url('images/banner-wu.png'), url('images/bannerbody.png');
+}
+.card.banner.qun .frame{
+	background: url('images/banner-qun.png'), url('images/bannerbody.png');
+}
+
+
+
+@font-face {
+	font-family: 'Ling';
+	src: url('data:application/octet-stream;base64,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');
+}

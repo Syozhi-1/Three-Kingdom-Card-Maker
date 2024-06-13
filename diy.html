@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>三国杀制作器</title>
+	<meta charset='utf-8' />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+
+	<link href='res/common.css' rel="stylesheet" type="text/css" />
+	<link id='meta-template-css' href='' rel="stylesheet" type="text/css" />
+	<script id='meta-template-js' src='' type='text/javascript'></script>
+</head>
+
+<body>
+	<noscript>
+		<h2 id='error-noscript'>您的浏览器不支持JavaScript，请确认您的打开方式。</h2>
+	</noscript>
+	<div id='panel' onclick='popupHintBalloon(event)'>
+		<div id='panel-normal'>
+			<div class="panel-row"><label for='panel-illustration-online'>图片来源：</label><input id='panel-illustration-online' title='可以将路径粘贴到这里。' />
+			<input id='panel-illustration' class='short' type='file' onchange='getImagePath();' title='点击以从文件夹选择图片。' /></div>
+			<div class="panel-row"><label for='panel-illustration-online-front'>出框图片：</label><input id='panel-illustration-online-front' title='可以将路径粘贴到这里。' />
+			<input id='panel-illustration-front' class='short' type='file' onchange='getImagePathFront();' title='点击以从文件夹选择图片。' /></div>
+			<div class="panel-row"><label for='panel-illustration-adjust'>调整参数：</label><input id='panel-illustration-adjust' class='short' title='图片的坐标和缩放比例。' /><button id="btn-autoscale" type="button"
+					onclick="setContainImageSize()" title="自动调整尺寸到覆盖整个卡牌。">自动</button>
+				<label for='panel-style'>样式：</label><select id='panel-style' class='short' value=''></select>
+			</div>
+			<div class="panel-row"><label for='panel-nickname'>　　称号：</label><input id='panel-nickname' class='short' value='一名角色' />
+				<label for='panel-name'>名字：</label><input id='panel-name' class='short' value='某某人' onfocus="setTextToolbar(this)" onblur="setTextToolbar()" /></div>
+			<div class="panel-row"><label for='panel-hp'>　体力值：</label><input id='panel-hp' class='short' value='3' title='输入时，可使用“a.b”、“a+b”的形式表示a体力值与b空体力，或“a/b”的形式表示总共b体力值，初始体力为a。&#13;在卡牌中，该值用于表示点数，通常范围为1~14（14为大小王）。' />
+				<label for='panel-kingdom'>势力：</label><input id='panel-kingdom' class='short' value=''
+					title='自定义的势力，不需要时可以留空。&#13;在卡牌中，该值用于表示花色。' /></div>
+			<span id='panel-skill-list'>
+				<div>
+					<label>　　技能：</label><textarea id='panel-skill-0' title='输入技能名与说明。第一行为技能名，第二行及以后是技能说明。' onfocus="setTextToolbar(this)" onblur="setTextToolbar()" onkeydown="editHotkey(event)">怒气
+<b>锁定技</b>。你的♥♦【杀】无使用距离和次数限制。</textarea>
+					<div class='panel-skill-tags' title='可以设置主公技、锁定技、限定技等特定样式。' >
+						<label><input type='checkbox'>主</label>
+						<label><input type='checkbox'>锁</label>
+						<label><input type='checkbox'>限</label>
+						<label><input type='checkbox'>衍</label>
+					</div>
+				</div>
+				<div>
+					<label>　　技能：</label><textarea id='panel-skill-1' title='输入技能名与说明。第一行为技能名，第二行及以后是技能说明。' onfocus="setTextToolbar(this)" onblur="setTextToolbar()" onkeydown="editHotkey(event)"></textarea>
+					<div class='panel-skill-tags' title='可以设置主公技、锁定技、限定技等特定样式。'>
+						<label><input type='checkbox'>主</label>
+						<label><input type='checkbox'>锁</label>
+						<label><input type='checkbox'>限</label>
+						<label><input type='checkbox'>衍</label>
+					</div>
+				</div>
+			</span>
+			<div class="panel-row"><label>　　　　　</label><input type='button' class='short' value='添加技能' onclick='addSkill();' />
+				<input type='button' class='short' value='减少技能' onclick='removeSkill();' />
+			</div>
+			<div class="panel-row"><label for='panel-quote'>　　引用：</label><textarea id='panel-quote' title='技能尾部的引用文本。
+两行或以上时，最后一行表示引用出处，若不需要则可留空。' onfocus="setTextToolbar(this)" onblur="setTextToolbar()" onkeydown="editHotkey(event)"></textarea></div>
+			<div class="panel-row"><label for='panel-comment'>　　备注：</label><textarea id='panel-comment' title='内容分为三行：版权信息、插画作者、编号，具体可参考标准版武将卡牌。'>2020 游卡桌游
+KayaK
+XXX 001</textarea></div>
+
+			<label for='sel-textsize'>正文字号：</label><select
+					id='sel-textsize' class='short' title='设置正文部分的文字大小。'>
+				<option value='auto' selected>自动</option>
+				<option value='tiny'>微型</option>
+				<option value='small'>小型</option>
+				<option value='normal'>标准</option>
+				<option value='large'>大型</option>
+			</select>
+
+			<div class="panel-row"><label for='panel-package'>扩展标记：</label><input id='panel-package' title='输入名字或选择图片均可。可以将路径粘贴到这里。' />
+			<input id='panel-package-file' class='short' type='file' onchange='getImagePathPackage();' title='点击以从文件夹选择图片。' /></div>
+			<div class="panel-row" id='panel-extra'></div>
+			<div class="panel-row">　　　　<input type='submit' class='short' onclick='createFromInput()' />
+			<input type='button' class='short' value='导出为JSON' onclick='exportJson()' /></div>
+			<nav id="textToolbar">
+				<button type="button" onclick="toggleTagPairs('<b>', '</b>')" title="粗体(Ctrl+B)"><b>B</b></button>
+				<button type="button" onclick="toggleTagPairs('<i>', '</i>')" title="斜体(Ctrl+I)"><i>I</i></button>
+				<button type="button" onclick="toggleTagPairs('<u>', '</u>')" title="下划线(Ctrl+U)"><u>U</u></button>
+				<button type="button" onclick="toggleTagPairs('<del>', '</del>')" title="删除线(Ctrl+D)"><del>D</del></button>
+				<select id="toolbarFont" title="设置文本片段的字体" style="width: 5em" onfocus="toolbarFont = true;" onblur="toolbarFont = false;">
+					<option value="" selected>（选择字体）</option>
+					<option value="arial" style="f:'Arial'">Arial</option>
+					<option value="arialb" style="f:'Arial Black'">Arial Black</option>
+					<option value="meiryo" style="f:'Meiryo'">Meiryo</option>
+					<option value="yahei" style="f:'Microsoft YaHei'">微软雅黑</option>
+					<option value="song" style="f:'SongTi'">宋体</option>
+					<option value="fang" style="f:'FangSong'">仿宋</option>
+					<option value="kai" style="f:'KaiTi'">楷体</option>
+					<option value="hei" style="f:'HeiTi'">黑体</option>
+					<option value="li" style="f:'LiShu'">隶书</option>
+					<option value="xingkai" style="f:'XingKai'">行楷</option>
+					<option value="zhunyuan" style="f:'ZhunYuan'">准圆</option>
+					<option value="libian" style="f:'LiBian'">隶变</option>
+					<option value="mao" style="f:'JMMaoCaoXingEx', 'JMMaoCaoXing'">金梅毛草行</option>
+					<option value="katong" style="f:'FZKaTong'">方正卡通体</option>
+					<option value="qingke" style="f:'FZHLFW'">方正华隶繁</option>
+					<option value="qingke" style="f:'FZQingKeBenYueSong'">方正清刻本悦宋</option>
+					<option value="shaoer" style="f:'FZShaoer'">方正少儿体</option>
+					<option value="wawa" style="f:'HKWaWaW5'">华康娃娃体</option>
+					<option value="zhuan" style="f:'DFPNewChuan-B5'">华康新篆体</option>
+					<option value="fangzhuan" style="f:'JingDianFanFangZhuan'">经典繁方篆</option>
+					<option value="jiaoli" style="f:'JingDianFanJiaoLi'">经典繁角隶</option>
+					<option value="renzhe" style="f:'BaiZhouRenZhe'">白舟忍者字体</option>
+				</select>
+			</nav>
+		</div>
+		<div id='panel-json' style='display:none;'>
+			<textarea id='panel-json-code' title='编辑或者粘贴卡牌的JSON数据，可将数据另存下来以备用'></textarea>
+			<div class="panel-row">　　　　<input type='submit' class='short' onclick='createFromJson()' />
+			<input type='button' class='short' value='导入到表单' onclick='exportForm()' /></div>
+		</div>
+		<input type='submit' class='short' value='切换到JSON界面' onclick='switchInterface.call(this)' />
+		<label for='sel-template'>模板集：</label>
+		<select id='sel-template' class='short' value='classic' onchange='loadTemplate(this.value)'>
+		</select>
+		<input type='button' value='输出图片' class='short' onclick='createImage()' />
+		<label for='sel-scale'>　比例：</label>
+		<select id='sel-scale' class='short' title='选择卡牌的输出尺寸。比例为像素尺寸的倍数，而不是和效果图的比例值。'>
+			<option value='0.5'>50%</option>
+			<option value='0.75'>75%</option>
+			<option value='0.8'>80%</option>
+			<option value='1' selected>100%</option>
+			<option value='1.5'>150%</option>
+			<option value='2'>200%</option>
+			<option value='2.5'>250%</option>
+			<option value='3'>300%</option>
+			<option value='4'>400%</option>
+			<option value='5'>500%</option>
+			<option value='-1' class='panel-hint'>视觉尺寸</option>
+			<option value='-2' class='panel-hint'>最大可裁剪比例</option>
+		</select>
+		<input type='button' value='打开裁剪工具' class='short -mobile-only' style='display: none; margin-top: 0.5em;' onclick='showTrimPanel(true)' />
+		<label id='panel-hint-balloon' class='panel-hint' style='display: none; left: -100%;'></label>
+	</div>
+
+	<div id='panel-trim' style='display: none; font-size: 20px'>
+		<div style='width: 100%; left: 0; top: 0; height: 60px;'>
+			图像：<input type='file' id='in-trim-file' style='width:60%' onchange='startCrop()' /><br/>
+			背景：<select id='sel-trim-background' style='width: 100px; font-size: 20px;'>
+				<option value='1' selected>红</option>
+				<option value='2'>绿</option>
+				<option value='3'>蓝</option>
+			</select>
+			<input id='in-trim-blur' type='checkbox' style='width: 20px; height: 20px;'
+			/><label for='in-trim-blur'>模糊边缘</label><br/>
+			<input id='btn-trim-close' type='button' onclick='showTrimPanel(false)' value='×'/>
+		</div>
+		<input type='button' onclick='startCrop()' style='width:60%; margin-left:20%; font-size: 20px; margin-top: 8px; margin-bottom: 8px;' value='裁 剪'/>
+		<div class="panel-row" style='text-align: center; width:100%; position: absolute; top:50%; '>长按图片以保存</div>
+		<img id='trim-result' src='' style='width: 100%; position: relative; z-index: 30'/>
+		<canvas id='canvas-trim' style='display: none;'></canvas>
+	</div>
+
+	<div id='panel-help' style='display: none;'>
+		<button class="btn-close"></button>
+		<div class="content">
+		</div>
+	</div>
+
+	<div id='template' style='display: none;'>
+		<div class='card shu'>
+			<div class='illustration'>
+				<img src='' />
+			</div>
+			<!-- 技能过长时启用 -->
+			<div class="description-pro"></div>
+			<div class='frame'>
+				<div class='illustration illustration-front'>
+					<img src='' />
+				</div>
+				<label class='custom-kingdom'></label>
+				<ul class='hitpoints'></ul>
+				<h2 class='nickname'></h2>
+				<h2 class='name'></h2>
+
+				<div class='description'></div>
+
+				<div class='footer'>
+					<label class='trademark'></label>
+					<label class='illustrator'></label>
+					<label class='index'></label>
+				</div>
+				<label class="package"></label>
+
+			</div>
+		</div>
+	</div>
+	<div id='result'></div>
+	</div>
+	<div id='output' style='display: none;' onclick='hideOutput()'></div>
+
+	<button type='button' class='panel-hint' id='btn-scroll-right' onclick='scrollPage()'style='display: none'>▶</button>
+</body>
+
+<style>
+	/* Controller Panel's */
+
+	#panel{
+		position: fixed;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		max-width: 416px;
+		background: #B8BAC3;
+		padding: 8px 8px 56px;
+		overflow-y: hidden;
+		font-size: 13px;
+	}
+	#panel::before {
+		content: '三国杀卡牌制作器 1.7.1 0128 By 开不了车';
+		display: block;
+		white-space: pre;
+		position: fixed;
+		left: 8px;
+		bottom: 4px;
+		text-align: right;
+		font-size: 12px;
+		color: #458;
+		pointer-events: none;
+	}
+	#panel-normal, #panel-json {
+		max-height: calc(100% - 48px);
+		margin-bottom: 8px;
+		margin-right: -8px;
+		padding-right: 8px;
+		overflow: auto;
+		overflow: overlay;
+		overflow-x: hidden;
+		position: relative;
+	}
+
+	#panel *{
+		font-family: auto;
+		box-sizing: border-box;
+	}
+	#panel label{
+		font-size: 13px;
+	}
+	#panel input, #panel textarea {
+		font-size: unset;
+	}
+	#panel input[type="button"], #panel input[type="submit"], #panel button {
+		padding-top: 0px;
+		padding-bottom: 0px;
+	}
+	#panel textarea {
+		left: 100px;
+		width: calc(100% - 80px);
+		height: 48px;
+		min-height: 40px;
+		resize: vertical;
+		vertical-align: bottom;
+	}
+	#panel .short{
+		width: calc(50% - 64px);
+		height: 21px;
+	}
+	#panel .short[type='file']{
+		width: 72px;
+	}
+
+	#panel .panel-row {
+		margin-top: 6px;
+		margin-bottom: 6px;
+	}
+
+	#panel #panel-json-code{
+		width: 100%;
+		height: 500px;
+	}
+
+	#panel .panel-skill-tags {
+		display: inline-block;
+		width: 80px;
+		height: 40px;
+		padding: 0;
+		margin: 0;
+		vertical-align: middle;
+	}
+	#panel-skill-list > div:not(:first-child) {
+		padding-top: 6px;
+	}
+	#panel-skill-list textarea {
+		width: calc(100% - 160px);
+		vertical-align: middle;
+	}
+	#panel-skill-list textarea:first-line {
+		font-weight: bold;
+		color: blue;
+	}
+
+	#panel-extra > span {
+		white-space: nowrap;
+	}
+
+	#result{
+		position: absolute;
+		left: 450px;
+		margin-right: 8px;
+	}
+
+	#output {
+		position: fixed;
+		background-color: #80808080;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		text-align: center;
+		padding: 32px 2px;
+		z-index: 100;
+		overflow-y: auto;
+	}
+
+	#btn-scroll-right {
+		position: fixed;
+		left: 16px;
+		bottom: 16px;
+		width: 32px;
+		height: 32px;
+		border-radius: 50%;
+		background: black;
+		color: white;
+		z-index: 50;
+		font-size: 24px;
+		padding: 0;
+		line-height: 32px;
+	}
+	#btn-scroll-right {
+		left: auto;
+		right: 16px;
+	}
+
+	#panel-hint-balloon {
+		display: block;
+		position: absolute;
+		max-width: 300px;
+		background: #FFFCC0;
+		padding: 4px;
+		pointer-events: none;
+		box-shadow: 0 0 4px;
+		white-space: pre-wrap;
+	}
+
+	.panel-hint {
+		display: none !important;
+	}
+
+	#panel-trim, #panel-help {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		z-index: 20;
+		background-color: #FEC;
+		overflow: auto;
+	}
+
+	#btn-trim-close {
+		width: 1em;
+		height: 1em;
+		font-size: 32px;
+		padding: 0;
+		position: absolute;
+		right: 8px;
+		top: 8px;
+		line-height: 32px;
+		border-radius: 50%;
+		background: black;
+		color: white;
+	}
+
+	#btn-autoscale {
+		position: absolute;
+		margin-left: -3em;
+		width: 3em;
+		white-space: pre;
+		height: 21px;
+	}
+
+	#textToolbar {
+		position: absolute;
+		display: none;
+		font-size: 0;
+		margin-top: -24px;
+		white-space: nowrap;
+	}
+	#textToolbar:hover {
+		display: initial !important;
+	}
+	#textToolbar * {
+		font-family: Times New Roman;
+		font-size: 1rem;
+		width: 32px;
+		height: 24px;
+		vertical-align: bottom;
+	}
+
+	.btn-close {
+		position: fixed;
+		right: 12px;
+		top: 12px;
+		width: 1em;
+		height: 1em;
+		font-size: 1.5em;
+		line-height: 1;
+		padding: 0;
+		background-color: black;
+		color: white;
+		border-radius: 50%;
+	}
+	.btn-close::before {
+		content: '×';
+		position: absolute;
+		margin: auto;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+	}
+
+	#panel-help .content {
+		margin: auto;
+		max-width: 40em;
+		white-space: pre-wrap;
+	}
+
+	.mobile-only {
+		display: none;
+	}
+
+	@media screen and (max-width: 768px) {
+		#panel{
+			position: absolute;
+		}
+		#panel::before {
+			position: absolute;
+			right: auto;
+			left: 8px;
+		}
+		.panel-hint {
+			display: block !important;
+		}
+		.mobile-only {
+			display: initial !important;
+		}
+	}
+
+	#error-noscript {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		text-align: center;
+		padding-top: 40%;
+		background: rgba(255, 128, 64, .5);
+		z-index: 100;
+	}
+
+</style>
+<style id="unpackedSrc"></style>
+
+<script src='res/html2canvas.min.js'></script>
+<script src='res/templates.js'></script>
+<script src='res/diy.js'></script>
+<script src='res/custom.js'></script>
+
+<script type="text/javascript">
+	if (typeof currentItem === 'undefined') {
+		if (navigator.userAgent.match('Android')) {
+			alert('未找到diy.js，请检查文件的完整性。\n您可能在使用打开临时文件的方式。'
+				+ '如果是Android手机，请使用file://协议来访问：在文件管理中长按diy.html查看路径，'
+				+ '然后用file:///storage/emulated/0/加上您当前的目录。例如目录为内部存储/diy/diy.html，'
+				+ '则浏览器打开的URL为file:///storage/emulated/0/diy/diy.html。');
+		}else{
+			alert('未找到diy.js，请检查文件的完整性。');
+		}
+	}
+</script>
+
+</html>

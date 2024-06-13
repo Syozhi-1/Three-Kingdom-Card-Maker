@@ -1,0 +1,734 @@
+﻿/* 经典版本卡牌模板 */
+/* 原作者：背碗卤粉、CoffeeNo加糖（身份牌） */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+@font-face {
+	font-family: "CardSymbols";
+	src: url("cardsymbols.ttf");
+}
+
+.card {
+	width: 400px;
+	height: 561px;
+	background: url('images/blank.png');
+	--variants: 基本牌, basic basic-plate, 基本牌（无菱形）, basic,
+		锦囊牌, trick, 延时锦囊牌, trick delay, 延时锦囊牌（横）, trick delay rotated,
+		装备牌-武器, weapon, 装备牌-防具, armor, 装备牌-马, horse, 装备牌-宝物, goodie,
+		装备牌-神器, artifact, 属性基本牌（名字填杀闪桃酒）, basic basic-element,
+		锦囊牌（自定类型）, trick custom, 装备牌（自定类型）, armor custom,
+		锦囊牌（自定类型横）, trick custom rotated, 装备牌（自定类型横）, armor custom rotated,
+		身份牌（线性渐变）, role gradient, 身份牌（径向渐变）, role gradient radial, 身份牌（原色）, role;
+	--text-ranges: 30, 60, 100;
+	--extra-segments: 名称颜色, name-color, 攻击范围/马距离, attack-range;
+	--extra-segment-types: color, text;
+	--gradient-emoji: true;
+}
+
+.card .footer, .card .name-color {
+	display: none;
+}
+
+/* 用势力和体力表示花色和点数 */
+.card .custom-kingdom, .card .hitpoints, .card .hitpoints li {
+	display: none;
+}
+.card .custom-kingdom { /* 有的手机浏览器仍然会显示原来的花色 */
+	left: 200%;
+	top: 200%;
+}
+.card .hitpoints::after {
+	position: absolute;
+	display: block;
+	font-size: 52px;
+	left: 18px;
+	top: 54px;
+	width: 50px;
+	height: 44px;
+	text-align: center;
+	font-family: 'CardSymbols';
+	-transform: scale(0.8, 1); /* 实际比这个字体要窄一些 */
+}
+.card[kingdom^='♠'] .hitpoints, .card[kingdom^='♣']  .hitpoints {
+	display: block;
+	color: black; 
+}
+.card[kingdom^='♥'] .hitpoints, .card[kingdom^='♦']  .hitpoints {
+	display: block;
+	color: #701213; /* 原本是#661213，调整了红色值使其更鲜明 */
+}
+.card[kingdom^='♠'] .hitpoints::after {
+	content: '\21';
+}
+.card[kingdom^='♣'] .hitpoints::after {
+	content: '\24';
+}
+.card[kingdom^='♥'] .hitpoints::after {
+	content: '\22';
+}
+.card[kingdom^='♦'] .hitpoints::after {
+	content: '\23';
+}
+.card .hitpoints::before {
+	content: attr(hp);
+	font-family: CardSymbols;
+	font-weight: bold;
+	font-style: italic;
+	position: absolute;
+	display: block;
+	font-size: 46px;
+	left: 16px;
+	top: 23px;
+	width: 50px;
+	height: 44px;
+	text-align: center;
+}
+.card .hitpoints[hp='1']::before {
+	content: 'A';
+}
+.card .hitpoints[hp='11']::before {
+	content: '@';
+}
+.card .hitpoints[hp='12']::before {
+	content: 'Q';
+}
+.card .hitpoints[hp='13']::before {
+	content: 'K';
+}
+.card .hitpoints[hp='14']::before {
+	content: 'J\A O\A K\A E\A R';
+	font-size: 36px;
+	white-space: pre;
+	line-height: 30px;
+	top: 30px;
+}
+.card .hitpoints[hp='14']::after {
+	content: '';
+}
+
+.card:not(.custom) .nickname {
+    font-family: 'LiShu';
+    font-size: 36px;
+	line-height: 40px;
+    left: 24px;
+    top: 100px;
+    width: 40px;
+    display: block;
+    text-align: center;
+	color: #FBF6EA;	
+	text-shadow: 0 0 4px var(--border-color),
+		2.00px 0.00px var(--border-color),1.93px 0.52px var(--border-color),
+		1.73px 1.00px var(--border-color),1.41px 1.41px var(--border-color),
+		1.00px 1.73px var(--border-color),0.52px 1.93px var(--border-color),
+		0.00px 2.00px var(--border-color),-0.52px 1.93px var(--border-color),
+		-1.00px 1.73px var(--border-color),-1.41px 1.41px var(--border-color),
+		-1.73px 1.00px var(--border-color),-1.93px 0.52px var(--border-color),
+		-2.00px 0.00px var(--border-color),-1.93px -0.52px var(--border-color),
+		-1.73px -1.00px var(--border-color),-1.41px -1.41px var(--border-color),
+		-1.00px -1.73px var(--border-color),-0.52px -1.93px var(--border-color),
+		-0.00px -2.00px var(--border-color),0.52px -1.93px var(--border-color),
+		1.00px -1.73px var(--border-color),1.41px -1.41px var(--border-color),
+		1.73px -1.00px var(--border-color),1.93px -0.52px var(--border-color);
+	--border-color: var(--extra-name-color, black);
+}
+.card[kingdom^='♥'] .nickname, .card[kingdom^='♦']  .nickname {
+	--border-color: var(--extra-name-color, #701213);
+}
+.card:not(.custom) .hitpoints[hp='14'] ~ .nickname {
+	top: 178px;
+}
+
+.card .name {
+	font-family: 'JingDianFanJiaoLi';
+	font-size: 45px;
+	width: 190px;
+	height: 50px;
+	left: 108px;
+	top: 41px;
+	text-align: justify;
+	text-align-last: justify;
+	-moz-text-align-last: justify;
+	-webkit-text-align-last: justify;
+	white-space: pre;
+    color: var(--extra-name-color);
+}
+.card .name[length='1'] {
+	text-align: center;
+	text-align-last: auto;
+}
+.card .name[length='2'] {
+	width: 160px;
+	left: 123px;
+}
+.card .name[length='5'] {
+	left: 100px;
+	text-align: normal;
+	text-align-last: normal;
+	-moz-text-align-last: normal;
+	-webkit-text-align-last: normal;
+    letter-spacing: -.25em;
+}
+
+.card .description {
+	width: 300px;
+	left: 50px;
+	top: 366px;
+	bottom: 36px;
+}
+.card .description .pointer {
+	display: none;
+}
+.card .description p {
+	font-family: 'ZhunYuan';
+	font-size: 18px;
+}
+.card .description-large {
+	top: 386px;
+	font-size: 20px;
+}
+.card .description-small p {
+	font-size: 16px;
+}
+.card .description-tiny p {
+	font-size: 12px;
+}
+.card .description .quote {
+    position: absolute;
+    font-family: 'LiBian';
+    font-size: 14px;
+	text-align: right;
+    right: 0;
+    bottom: 0;
+}
+.card .description[length10='0'], .card .description[length='10'],
+.card .description[length='11'], .card .description[length='12'],
+.card .description[length='13'], .card .description[length='14'] {
+	text-align: center;
+}
+
+
+.card.basic {
+	--illustration-coordinates: 25 176 350 360;
+}
+
+.card.basic .frame {
+	background: url('images/basic.png');
+}
+
+.card.basic-plate .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 128px;
+	height: 128px;
+	background: url('images/basic-plate.png');
+	left: 138px;
+	top: 32px;
+}
+
+.card.basic .name {
+	font-family: 'JMMaoCaoXingEx', 'JMMaoCaoXing';
+	font-size: 94px;
+	width: 300px;
+	height: 94px;
+	left: 50px;
+	top: 35px;
+	text-align: center;
+	text-shadow: 0 0 6px white, 0 0 6px white;
+	text-align-last: auto;
+	-webkit-text-align-last: auto;
+}
+.card.basic .name[length='2'] {
+	font-size: 75px;
+	letter-spacing: -.2em;
+	top: 42px;
+	margin-left: -.1em;
+}
+.card.basic .name[length='3'], .card.basic .name[length='4'] {
+	font-size: 64px;
+	letter-spacing: -.2em;
+	top: 55px;
+	margin-left: -.1em;
+}
+
+.card.trick .frame {
+	background: url('images/trick.png');
+}
+.card.trick .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 48px;
+	height: 23px;
+	background: url('images/stamp-trick.png');
+	left: 41px;
+	bottom: 36px;
+}
+
+.card.trick.delay .frame::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 55px;
+	height: 55px;
+	right: 32px;
+	top: 32px;
+	background: url('images/stamp-delay.png') no-repeat;
+}
+.card.trick.delay.rotated .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 23px;
+	height: 48px;
+	background: url('images/stamp-trick-rotated.png');
+	left: auto;
+	right: 39px;
+	bottom: 37px;
+}
+.card.trick.delay.rotated .frame::after {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 55px;
+	height: 55px;
+	right: 29px;
+	top: 38px;
+	background: url('images/stamp-delay-rotated.png') no-repeat;
+}
+
+.card.rotated .frame .name {
+	font-family: 'JingDianFanJiaoLi';
+    font-size: 45px;
+    width: 50px;
+    height: 190px;
+    left: 178px;
+    top: -30px;
+    text-align: justify;
+    text-align-last: justify;
+    -webkit-text-align-last: justify;
+    white-space: pre;
+    transform: rotate(-90deg);
+    writing-mode: tb-rl;
+}
+.card.rotated .frame .name[length='1'] {
+	height: 50px;
+	top: 40px;
+}
+.card.rotated .frame .name[length='2'] {
+	height: 160px;
+	top: -15px;
+}
+.card.rotated .frame .description,
+.card.rotated .frame .description-large {
+	width: 142px;
+    left: 126px;
+    top: 308px;
+    bottom: -25px;
+    text-align: -webkit-auto;
+    transform: rotate(-90deg);
+    writing-mode: tb-rl;
+    letter-spacing: -.15em;
+}
+.card.rotated .frame .description .quote {
+    left: 0;
+    right: auto;
+    bottom: 0;
+}
+
+
+
+.card.horse .frame {
+	background: url('images/horse.png');
+}
+.card.horse .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 225px;
+	height: 97px;
+	background: url('images/stamp-horse.png') no-repeat;
+	left: 44px;
+	bottom: 45px;
+}
+.card.horse .attack-range {
+    position: absolute;
+    font-size: 100px;
+    line-height: 100px;
+    font-family: 'CardSymbols';
+    text-align: center;
+    width: 200px;
+    left: 96px;
+    bottom: 76px;
+	text-shadow: 0 0 6px white;
+	z-index: 10;
+}
+.card.horse .attack-range[length='3'] {
+	font-size: 80px;
+}
+.card.horse .attack-range[length='4'] {
+	font-size: 64px;
+}
+.card.horse .description-large {
+	top: 366px;
+}
+
+.card.weapon, .card.armor, .card.goodie, .card.artifact {
+	background: url('images/equip-plate.png') 40px 100px;
+}
+.card.weapon .frame, .card.armor .frame, .card.goodie .frame, .card.artifact .frame {
+	background: url('images/equip.png');
+}
+.card.weapon .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 96px;
+	height: 152px;
+	background: url('images/stamp-weapon.png') no-repeat;
+	left: 41px;
+	bottom: 45px;
+}
+.card.weapon .attack-range {
+    position: absolute;
+    font-family: 'CardSymbols';
+    font-size: 124px;
+	line-height: 124px;
+    text-align: center;
+    width: 80px;
+    left: 45px;
+    bottom: 59px;
+	text-shadow: 0 0 6px white;
+	z-index: 10;
+}
+.card.weapon .attack-range[length='2'] {
+	font-size: 80px;
+	line-height: 120px;
+}
+.card.weapon .description {
+	width: 188px;
+	left: 162px;
+	text-align: left;
+}
+.card.weapon .description[length10='0'] {
+	text-align: center;
+}
+
+
+.card.armor .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 91px;
+	height: 24px;
+	background: url('images/stamp-armor.png') no-repeat;
+	left: 48px;
+	bottom: 44px;
+}
+
+.card.goodie .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 91px;
+	height: 24px;
+	background: url('images/stamp-goodie.png') no-repeat;
+	left: 48px;
+	bottom: 44px;
+}
+
+.card.artifact .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 91px;
+	height: 24px;
+	background: url('images/stamp-artifact.png') no-repeat;
+	left: 48px;
+	bottom: 44px;
+}
+
+
+.card.basic-element {
+	background: url('images/basic.png'), url('images/blank.png');
+}
+.card.basic-element::before {
+	content: '';
+	width: 100%;
+	height: 100%;
+	display: block;
+	position: absolute;
+}
+.card.basic-element .frame {
+	background: none;
+}
+.card.basic-element .frame::before {
+	content: none;
+}
+
+.card.basic-element[name="杀"]::before,
+.card.basic-element[name="殺"]::before {
+	background: url('images/image-slash.png');
+}
+.card.basic-element[name="闪"]::before,
+.card.basic-element[name="閃"]::before {
+	background: url('images/image-jink.png');
+}
+.card.basic-element[name="酒"]::before {
+	background: url('images/image-analeptic.png');
+}
+.card.basic-element[name="桃"]::before {
+	background: url('images/image-peach.png');
+}
+
+.card.custom .frame::before {
+	content: none;
+}
+.card.custom .nickname {
+	font-family: YouYuan;
+	font-weight: bold;
+	color: #630505;
+	border: 2px solid;
+	left: 41px;
+	bottom: 36px;
+	font-size: 17px;
+	opacity: 0.8; /* Mix */
+}
+.card.custom.rotated .nickname {
+	left: 361px;
+	bottom: 37px;
+	line-height: 1em;
+	transform-origin: left bottom;
+	transform: rotate(-90deg);
+	white-space: nowrap;
+}
+.card.armor.custom:not(.rotated) .nickname {
+	left: 49px;
+	bottom: 45px;
+}
+.card.trick.custom.rotated .frame::after {
+
+}
+
+
+.card.role {
+	background-image: url('images/role-mask.png');
+	background-color: var(--extra-name-color);
+	height: 562px;
+}
+
+.card.role .hitpoints {
+	display: none;
+}
+
+.card.role .nickname {
+	left: 0;
+	right: 0;
+	margin: auto;
+	font-family: LiBian;
+	font-size: 44px;
+	top: 52px;
+	width: 1em;
+	line-height: 1em;
+	writing-mode: vertical-rl;
+	text-align: center;
+	text-shadow: 2.00px 0.00px var(--border-color),1.93px 0.52px var(--border-color),
+		1.73px 1.00px var(--border-color),1.41px 1.41px var(--border-color),
+		1.00px 1.73px var(--border-color),0.52px 1.93px var(--border-color),
+		0.00px 2.00px var(--border-color),-0.52px 1.93px var(--border-color),
+		-1.00px 1.73px var(--border-color),-1.41px 1.41px var(--border-color),
+		-1.73px 1.00px var(--border-color),-1.93px 0.52px var(--border-color),
+		-2.00px 0.00px var(--border-color),-1.93px -0.52px var(--border-color),
+		-1.73px -1.00px var(--border-color),-1.41px -1.41px var(--border-color),
+		-1.00px -1.73px var(--border-color),-0.52px -1.93px var(--border-color),
+		-0.00px -2.00px var(--border-color),0.52px -1.93px var(--border-color),
+		1.00px -1.73px var(--border-color),1.41px -1.41px var(--border-color),
+		1.73px -1.00px var(--border-color),1.93px -0.52px var(--border-color),
+		4px 0px 2px black, 3.7px 1.53px 2px black, 2.83px 2.83px 2px black, 1.53px 3.7px 2px black,
+		0px 4px 2px black, -1.53px 3.7px 2px black, -2.83px 2.83px 2px black, -3.7px 1.53px 2px black,
+		-4px 0px 2px black, -3.7px -1.53px 2px black, -2.83px -2.83px 2px black, -1.53px -3.7px 2px black,
+		0px -4px 2px black, 1.53px -3.7px 2px black, 2.83px -2.83px 2px black, 3.7px -1.53px 2px black;
+	--border-color: var(--extra-name-color, );
+}
+.card.role .nickname[length="1"] {
+	top: 55px;
+	font-size: 54px;
+}
+.card.role .nickname[length="3"] {
+	top: 48px;
+	font-size: 32px;
+	letter-spacing: -2px;
+}
+.card.role .nickname[length="4"] {
+	top: 50px;
+	font-size: 40px;
+	width: 2em;
+	height: 2em;
+}
+.card.role .nickname[length="5"], .card.role .nickname[length="6"] {
+	top: 47px;
+	font-size: 30px;
+	letter-spacing: -2px;
+	width: 2em;
+	height: 3em;
+}
+.card.role .nickname[length="7"], .card.role .nickname[length="8"], .card.role .nickname[length="9"] {
+	top: 47px;
+	font-size: 30px;
+	letter-spacing: -2px;
+	width: 3em;
+	height: 3em;
+}
+
+.card.role .name {
+	left: 0;
+	right: 0;
+	margin: auto;
+	font-family: JingDianFanFangZhuan;
+	color: black;
+	line-height: 1em;
+	writing-mode: vertical-rl;
+	white-space: initial;
+	text-align: center;
+	transform: scale(1.05, 1);
+	text-shadow: 2.5px 0px white, 2.31px 0.96px white, 1.77px 1.77px white, 0.96px 2.31px white,
+		0px 2.5px white, -0.96px 2.31px white, -1.77px 1.77px white, -2.31px 0.96px white,
+		-2.5px 0px white, -2.31px -0.96px white, -1.77px -1.77px white, -0.96px -2.31px white,
+		0px -2.5px white, 0.96px -2.31px white, 1.77px -1.77px white, 2.31px -0.96px white,
+		0 5px 6px black;
+}
+.card.role .name[length="1"] {
+	top: 205px;
+	font-size: 148px;
+	width: 1em;
+	height: 1em;
+}
+.card.role .name[length="2"] {
+	top: 158px;
+	letter-spacing: 7px;
+	font-size: 116px;
+	width: 1em;
+	height: 2.2em;
+}
+.card.role .name[length="3"] {
+	top: 134px;
+	width: 1em;
+	height: 3em;
+	font-size: 94px;
+}
+.card.role .name[length="4"] {
+	top: 166px;
+	font-size: 108px;
+	width: 2em;
+	height: 2em;
+}
+.card.role .name[length="5"], .card.role .name[length="6"] {
+	top: 141px;
+	font-size: 88px;
+	width: 2em;
+	height: 3em;
+}
+.card.role .name[length="7"], .card.role .name[length="8"], .card.role .name[length="9"] {
+	top: 170px;
+	font-size: 70px;
+	width: 3em;
+	height: 3em;
+	transform: none;
+}
+
+/* Role Icon */
+.card.role::after {
+	content: attr(kingdom);
+	font-size: 54px;
+	position: absolute;
+	left: 16px;
+	top: 16px;
+	padding-bottom: 2em;
+	margin-top: -2em;
+	line-height: 1em;
+	height: 1.5em;
+	font-family: SimHei;
+	--rate: var(--output-scale, 1);
+	--shift: calc(var(--rate) * 2em);
+	text-shadow: 0 var(--shift) black,
+		calc(var(--rate) * 0.05em) calc(var(--rate) * 0em + var(--shift)) white,
+		calc(var(--rate) * 0.05em) calc(var(--rate) * 0.02em + var(--shift)) white,
+		calc(var(--rate) * 0.04em) calc(var(--rate) * 0.04em + var(--shift)) white,
+		calc(var(--rate) * 0.02em) calc(var(--rate) * 0.05em + var(--shift)) white,
+		calc(var(--rate) * 0em) calc(var(--rate) * 0.05em + var(--shift)) white,
+		calc(var(--rate) * -0.02em) calc(var(--rate) * 0.05em + var(--shift)) white,
+		calc(var(--rate) * -0.04em) calc(var(--rate) * 0.04em + var(--shift)) white,
+		calc(var(--rate) * -0.05em) calc(var(--rate) * 0.02em + var(--shift)) white,
+		calc(var(--rate) * -0.05em) calc(var(--rate) * 0em + var(--shift)) white,
+		calc(var(--rate) * -0.05em) calc(var(--rate) * -0.02em + var(--shift)) white,
+		calc(var(--rate) * -0.04em) calc(var(--rate) * -0.04em + var(--shift)) white,
+		calc(var(--rate) * -0.02em) calc(var(--rate) * -0.05em + var(--shift)) white,
+		calc(var(--rate) * 0em) calc(var(--rate) * -0.05em + var(--shift)) white,
+		calc(var(--rate) * 0.02em) calc(var(--rate) * -0.05em + var(--shift)) white,
+		calc(var(--rate) * 0.04em) calc(var(--rate) * -0.04em + var(--shift)) white,
+		calc(var(--rate) * 0.05em) calc(var(--rate) * -0.02em + var(--shift)) white,
+		calc(var(--rate) * 0.05em) calc(var(--rate) * 0em + var(--shift)) white,
+		calc(var(--rate) * 0.05em) calc(var(--rate) * 0.02em + var(--shift)) white,
+		calc(var(--rate) * 0.04em) calc(var(--rate) * 0.04em + var(--shift)) white,
+		calc(var(--rate) * 0.02em) calc(var(--rate) * 0.05em + var(--shift)) white,
+		calc(var(--rate) * 0em) calc(var(--rate) * 0.05em + var(--shift)) white,
+		calc(var(--rate) * -0.02em) calc(var(--rate) * 0.05em + var(--shift)) white,
+		calc(var(--rate) * -0.04em) calc(var(--rate) * 0.04em + var(--shift)) white,
+		calc(var(--rate) * -0.05em) calc(var(--rate) * 0.02em + var(--shift)) white;
+}
+
+.card.role .frame .custom-kingdom {
+	display: initial;
+	left: 0;
+	right: 0;
+	margin: auto;
+	width: fit-content;
+	bottom: 50px;
+	top: auto;
+	height: 1.2em;
+	font-size: 80px;
+	line-height: 1.2em;
+	color: var(--extra-name-color);
+	text-shadow: 3px 0px white, 2.77px 1.15px white, 2.12px 2.12px white, 1.15px 2.77px white,
+		0px 3px white, -1.15px 2.77px white, -2.12px 2.12px white, -2.77px 1.15px white,
+		-3px 0px white, -2.77px -1.15px white, -2.12px -2.12px white, -1.15px -2.77px white,
+		0px -3px white, 1.15px -2.77px white, 2.12px -2.12px white, 2.77px -1.15px white,
+		3px 0px white, 2.77px 1.15px white, 2.12px 2.12px white, 1.15px 2.77px white,
+		0px 3px white, -1.15px 2.77px white, -2.12px 2.12px white, -2.77px 1.15px white;
+}
+.card.role.gradient .frame .custom-kingdom {
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    background-image: -webkit-linear-gradient(black, var(--extra-name-color));
+}
+.card.role.gradient:not(.on-rendering) .frame .custom-kingdom[lang='emoji']::after {
+	content: attr(value);
+}
+
+.card.role .illustration-front img {
+	left: 14px !important;
+	top: 14px !important;
+	width: auto !important;
+	height: 60px !important;
+}
+
+.card.role.gradient.radial .custom-kingdom  {
+    background-image: -webkit-radial-gradient(var(--extra-name-color), black);
+}
+
+
+/* 改变界面信息^_^ */
+
+#panel [for="panel-hp"], #panel [for="panel-kingdom"] {
+	color: transparent;
+}
+#panel [for="panel-hp"]::before {
+	content: '卡牌点数：';
+	margin-right: -5em;
+	color: initial;
+}
+#panel [for="panel-kingdom"]::before {
+	content: '花色：';
+	margin-right: -3em;
+	color: initial;
+}

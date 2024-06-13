@@ -1,0 +1,367 @@
+/* 欢乐三国杀模板 */
+/* 原作者：lDW郭文（浅樱茶丶夜蓝） */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 887px;
+	height: 1354px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 晋, jin, 神, god,
+		魏主公, wei lord, 蜀主公, shu lord, 吴主公, wu lord, 群主公, qun lord, 晋主公, jin lord;
+}
+
+.card .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url('images/wei.png');
+}
+
+.card .description {
+	width: 590px;
+	left: 60px;
+	bottom: 63px;
+	padding: 108px 48px 20px 128px;
+	min-height: 142px;
+	font-size: 30px;
+	-z-index: 1;
+}
+.card .description::before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 766px;
+	height: 80px;
+	left: 0;
+	top: 0;
+	background: url('images/description-top.png') no-repeat;
+}
+.card .description::after { /* 因为层叠问题 */
+	content: '';
+	position: absolute;
+	display: block;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: url('images/description.png') no-repeat 0 2px;
+	z-index: -1;
+}
+.card .description .pointer {
+	display: inline-block;
+	position: absolute;
+	width: 114px;
+	height: 39px;
+	padding-right: 16px;
+	margin-left: -132px;
+	font-family: LiShu;
+	font-size: 36px;
+	line-height: 36px;
+	text-align: center;
+	background: url('images/pointer.png') no-repeat;
+	z-index: 2;
+}
+.card .description .pointer[length='3'] {
+	font-size: 32px;
+	letter-spacing: -0.1em;
+}
+.card .description .pointer[length='4'] {
+	font-size: 28px;
+	letter-spacing: -0.2em;
+}
+.card .description .pointer[length='5'] {
+	font-size: 24px;
+	letter-spacing: -0.2em;
+}
+.card .description .pointer.wake {
+	background-position-x: -130px;
+	color: white;
+}
+.card .description p {
+	font-family: ZhunYuan;
+}
+.card .description p.quote {
+	font-family: SimSun;
+	font-style: italic;
+	font-size: 20px;
+	text-align: right;
+}
+
+.card .description-large p {
+	font-size: 36px;
+}
+.card .description-small p {
+	font-size: 24px;
+}
+.card .description-tiny p {
+	font-size: 18px;
+}
+.card .description-large p.quote {
+	font-size: 26px;
+}
+.card .description-small p.quote {
+	font-size: 18px;
+}
+.card .description-tiny p.quote {
+	font-size: 14px;
+}
+
+.card .custom-kingdom {
+	display: block !important;
+	left: 20px;
+	top: 77px;
+	width: 192px;
+	height: 128px;
+	text-align: center;
+	line-height: 128px;
+	font-size: 120px;
+	font-family: FZShaoer;
+	-webkit-background-clip: text;
+	background-image: -webkit-linear-gradient(-90deg, #FFFFFF 5%, #BFC4E3 95%);
+	--value: 魏;
+}
+.card .frame .custom-kingdom[length] {
+	--value: initial;
+}
+.card[kingdom='']:not(.on-rendering) .custom-kingdom::before {
+	content: "魏";
+}
+
+.card .name {
+	left: 80px;
+	top: 294px;
+	color: #4F5468;
+	font-size: 68px;
+    min-height: 280px;
+	font-family: FZShaoer;
+	writing-mode: tb-rl;
+	text-align: center;
+}
+.card .name-small {
+	left: 86px;
+	font-size: 56px;
+	letter-spacing: -0.1em;
+}
+
+.card .nickname {
+	left: 88px;
+	top: 560px;
+	color: #4F5468;
+	font-size: 52px;
+	min-height: 220px;
+	font-family: LiBian;
+	writing-mode: tb-rl;
+	text-align: center;
+	letter-spacing: -0.02em;
+}
+.card .nickname-small {
+	left: 86px;
+	font-size: 48px;
+	letter-spacing: -0.1em;
+}
+
+.card .hitpoints {
+	right: 84px;
+	top: 82px;
+	text-shadow: 0 -1px #CAFC69, 1.4px 0 #6F8655, -1.4px 0 #6F8655, 0 -1.4px #6F8655, 0 1.4px #6F8655,
+		1px 1px #6F8655, -1px 1px #6F8655, -1px -1px #6F8655, 1px -1px #6F8655, 0 0 5px #6F8655;
+}
+.card .hitpoints li {
+	display: inline-block;
+	width: 60px;
+	height: 60px;
+	background: url('images/hp.png');
+}
+.card .hitpoints li.drained {
+	background-position-x: -60px;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+		):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']) li:first-child {
+	background-position-x: 0;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+		):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']) li ~ li {
+	display: none;
+}
+.card .hitpoints::after {
+	font-size: 50px;
+	font-family: "Microsoft YaHei";
+	font-weight: bold;
+	line-height: 60px;
+	display: inline-block;
+	overflow: hidden;
+	color: #84E120;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+		):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp);
+}
+.card .hitpoints[losthp]:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+		):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8'])::after,
+.card .hitpoints[overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+		):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp) '/' attr(maxhp);
+}
+.card .hitpoints[losthp][overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+		):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp) '/' attr(maxhp) '+' attr(overflow);
+}
+
+.card .footer {
+	right: 105px;
+	bottom: 5px;
+	min-width: 600px;
+	height: 30px;
+	font-size: 21.4px;
+	font-family: Arial, SimSun;
+	line-height: 20px;
+	color: white;
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+
+/* Different Kingdoms */
+
+.card.shu .frame::before {
+	background-image: url('images/shu.png');
+}
+.card.wu .frame::before {
+	background-image: url('images/wu.png');
+}
+.card.qun .frame::before {
+	background-image: url('images/qun.png');
+}
+.card.jin .frame::before {
+	background-image: url('images/jin.png');
+}
+.card.god .frame::before {
+	background-image: url('images/god.png');
+}
+
+.card.lord .frame::before {
+	background-image: url('images/lord.png'), url('images/wei.png');
+}
+.card.lord.shu .frame::before {
+	background-image: url('images/lord.png'), url('images/shu.png');
+}
+.card.lord.wu .frame::before {
+	background-image: url('images/lord.png'), url('images/wu.png');
+}
+.card.lord.qun .frame::before {
+	background-image: url('images/lord.png'), url('images/qun.png');
+}
+.card.lord.jin .frame::before {
+	background-image: url('images/lord.png'), url('images/jin.png');
+}
+
+.card.shu .description::before {
+	background-position-y: -80px;
+}
+.card.wu .description::before {
+	background-position-y: -160px;
+}
+
+.card.shu .custom-kingdom {
+	background-image: -webkit-linear-gradient(-90deg, #FFFFFF 5%, #E3C4BF 95%);
+	--value: 蜀;
+}
+.card.wu .custom-kingdom {
+	background-image: -webkit-linear-gradient(-90deg, #FFFFFF 5%, #9CA764 95%);
+	--value: 吴;
+}
+.card.qun .custom-kingdom {
+	background-image: -webkit-linear-gradient(-90deg, #FFFFFF 5%, #B1B1B1 95%);
+	--value: 群;
+}
+.card.jin .custom-kingdom {
+	background-image: -webkit-linear-gradient(-90deg, #FFFFFF 5%, #E0A4E0 95%);
+	--value: 晋;
+}
+.card.god .custom-kingdom, .card.lord .custom-kingdom {
+	background-image: -webkit-linear-gradient(-90deg, #FFFFFF 5%, #E2E3BF 95%);	
+}
+.card.god .custom-kingdom {
+	--value: 神;
+}
+
+.card.shu[kingdom='']:not(.on-rendering) .custom-kingdom::before {
+	content: "蜀";
+}
+.card.wu[kingdom='']:not(.on-rendering) .custom-kingdom::before {
+	content: "吴";
+}
+.card.qun[kingdom='']:not(.on-rendering) .custom-kingdom::before {
+	content: "群";
+}
+.card.jin[kingdom='']:not(.on-rendering) .custom-kingdom::before {
+	content: "晋";
+}
+.card.god[kingdom='']:not(.on-rendering) .custom-kingdom::before {
+	content: "神";
+}
+
+.card.shu .nickname, .card.shu .name {
+	color: #53140F;
+}
+.card.wu .nickname, .card.wu .name {
+	color: #667D51;
+}
+.card.qun .nickname, .card.qun .name {
+	color: #383838;
+}
+.card.jin .nickname, .card.jin .name {
+	color: #63266B; /* 模板未提供 */
+}
+.card.god .nickname, .card.god .name,
+.card.lord .nickname, .card.lord .name {
+	color: #906D02;
+}
+
+.card.shu .pointer {
+	background-position-y: -40px;
+}
+.card.wu .pointer {
+	background-position-y: -80px;
+}
+.card.qun .pointer {
+	background-position-y: -120px;
+}
+.card.jin .pointer {
+	background-position-y: -160px;
+}
+.card.god .pointer, .card.lord .pointer {
+	background-position-y: -200px;
+}
+
+.card.shu .description::before {
+	background-position-y: -80px;
+}
+.card.wu .description::before {
+	background-position-y: -160px;
+}
+.card.qun .description::before {
+	background-position-y: -240px;
+}
+.card.jin .description::before {
+	background-position-y: -320px; /* 模板未提供 */
+}
+.card.god .description::before,
+.card.lord .description::before {
+	background-position-y: -400px;
+}

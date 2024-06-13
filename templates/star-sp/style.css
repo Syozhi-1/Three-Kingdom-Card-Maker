@@ -1,0 +1,289 @@
+@charset('utf-8');
+/* 桌游志·☆SP模板 */
+/* 原作：隐之行者 */
+/* 编写：开不了车 2021.11.7 */
+
+.card {
+	width: 439px;
+	height: 617px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun;
+}
+
+
+.card .illustration-front {
+	z-index: 5;
+}
+
+
+.card .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	top: 0;
+	background: url('images/wei.png');
+	z-index: 5;
+}
+
+
+.card .nickname, .card .nickname-small{
+	left: 99px;
+	top: 158px;
+	width: 0px;
+	color: #F6CE7E;
+	text-shadow: 1.5px 1.5px black, -1.5px -1.5px black, 1.5px -1.5px black, -1.5px 1.5px black,
+		2px 0px black, -2px 0px black, 0px -2px black, 0px 2px black,
+		1.8px 1px black, -1.8px 1px black, 1px -1.8px black, 1px 1.8px black,
+		1.8px -1px black, -1.8px -1px black, -1px -1.8px black, -1px 1.8px black;
+	font-family: 'DFPNewChuan-B5';
+	font-size: 30px;
+	writing-mode: tb-rl;
+	text-align: center;
+	z-index: 5;
+}
+.card .nickname-small{
+	left: 96px;
+	font-size: 24px;
+}
+.card .nickname[length='6'], .card .nickname[length='7'] {
+	top: 150px;
+}
+
+.card .name, .card .name-small{
+	left: 22px;
+	top: 325px;
+	width: 100px;
+	color: white;
+	text-shadow: 1.5px 0 white,
+		1.5px 1.5px black, -1.5px -1.5px black, 1.5px -1.5px black, -1.5px 1.5px black,
+		2px 0px black, -2px 0px black, 0px -2px black, 0px 2px black,
+		2px 1px black, -2px 1px black, 1px -2px black, 1px 2px black,
+		2px -1px black, -2px -1px black, -1px -2px black, -1px 2px black;
+	font-family: 'SymbolAnd', 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 60px;
+	writing-mode: tb-rl;
+	z-index: 11;
+	color: #CCC;
+	letter-spacing: 4px;
+}
+.card .name-small{
+	left: 0;
+	top: 280px;
+	font-size: 38px;
+	letter-spacing: -2px;
+	line-height: 80%;
+}
+.card.on-rendering .name {
+	text-shadow: 0 -1.5px white,
+		1.5px 1.5px black, -1.5px -1.5px black, 1.5px -1.5px black, -1.5px 1.5px black,
+		2px 0px black, -2px 0px black, 0px -2px black, 0px 2px black,
+		2px 1px black, -2px 1px black, 1px -2px black, 1px 2px black,
+		2px -1px black, -2px -1px black, -1px -2px black, -1px 2px black;
+}
+.card .name[length='2'] {
+	letter-spacing: 12px;
+}
+.card .name[length='3'] {
+	top: 300px;
+}
+.card .name[length='4'] {
+	left: 12px;
+	top: 290px;
+	font-size: 50px;
+}
+.card .name[length='5'] {
+	top: 284px;
+	font-size: 42px;
+}
+.card .nickname:empty  + .name {
+	top: 250px;
+}
+
+
+.card .frame .hitpoints {
+	left: 156px;
+	top: 46px;
+	z-index: 5;
+	font-family: Arial;
+	font-weight: Bold;
+	font-size: 32px;
+	line-height: 40px;
+	color: #448BC4;
+	text-shadow: -1px -1px #EED, 0 0 4px black, 0 0 4px black;
+}
+.card .frame .hitpoints li {
+	display: inline-block;
+	width: 36px;
+	height: 40px;
+	margin-left: -12px;
+	background: url('images/hp.png');
+}
+.card .frame .hitpoints li.drained {
+	background-position-y: -40px;
+}
+.card .frame .hitpoints li.overflow {
+	transform: scale(0.6667);
+}
+.card .frame .hitpoints::after {
+	position: absolute;
+	top: 0;
+}
+.card .frame .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']) li ~ li{
+	display: none;
+}
+.card .frame .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after {
+	content: '×' attr(maxhp);
+}
+.card .frame .hitpoints[losthp]:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after,
+.card .frame .hitpoints[overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after {
+	content: attr(hp) '/' attr(maxhp);
+}
+.card .frame .hitpoints[losthp][overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after {
+	content: attr(hp) '/' attr(maxhp) '+' attr(overflow);
+}
+
+
+.card .frame .description {
+	/* left: 111px; */
+	right: 38px;
+	bottom: 39px;
+	width: 564px;
+	min-height: 216px;
+	padding: 8px 8px 40px;
+	z-index: 2;
+	background-color: #6392C29A;
+	border-radius: 8px;
+	font-family: Microsoft YaHei;
+	font-size: 24px;
+	line-height: 36px;
+	color: white;
+	transform-origin: right bottom;
+	transform: scale(0.5);
+}
+.card .frame .description-large {
+	font-size: 28px;
+}
+.card .frame .description-small {
+	font-size: 22px;
+	line-height: 24px;
+}
+.card .frame .description-tiny {
+	font-size: 20px;
+	line-height: 24px;
+}
+
+.card .frame .description .pointer {
+	display: inline-block;
+	float: left;
+	background: url('images/skill.png') center / auto 72px;
+	width: 140px;
+	height: 68px;
+	font-size: 40px;
+	font-family: LiBian;
+	font-weight: bold;
+	color: white;
+	line-height: 68px;
+	text-align: center;
+}
+.card .frame .description p {
+	min-height: 68px;
+}
+
+.card .frame .description p.quote {
+	text-align: center;
+	font-style: italic;
+}
+.card .frame .description p.quote .author {
+	display: block;
+	width: 100%;
+	text-align: right;
+}
+
+
+.card .footer {
+	/*left: 160px; */
+	bottom: 40px;
+	right: 40px;
+	width: 478px;
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	z-index: 5;
+	transform-origin: right bottom;
+	transform: scale(0.5);
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+	color: white;
+}
+
+.card .footer .index {
+	position: absolute;
+	left: auto;
+	top: auto;
+	right: 0;
+	bottom: 0;
+	font-size: 24px;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+
+/* 其他势力 */
+
+.card.shu .frame::before {
+	background-image: url('images/shu.png');
+}
+.card.wu .frame::before {
+	background-image: url('images/wu.png');
+}
+.card.qun .frame::before {
+	background-image: url('images/qun.png');
+}
+
+.card.shu .description {
+	background-color: #F9A3629A;
+}
+.card.wu .description {
+	background-color: #81B5839A;
+}
+.card.qun .description {
+	background-color: #4D424D9A;
+}
+
+.card.shu .hitpoints {
+	color: #D95803;
+}
+.card.wu .hitpoints {
+	color: #1CA244;
+}
+.card.qun .hitpoints {
+	color: #909090;
+}
+
+.card.shu .hitpoints li {
+	background-position-x: -36px;
+}
+.card.wu .hitpoints li {
+	background-position-x: -72px;
+}
+.card.qun .hitpoints li {
+	background-position-x: -108px;
+}
+
+
+/* for gradient */
+.card .frame .name {
+    -webkit-background-clip: text;
+    background-image: -webkit-linear-gradient(#999 0%, white 64%, #CCC 100%);
+}
+.card.on-rendering .frame .name {
+	color: gray;
+}

@@ -1,0 +1,504 @@
+/* 狼羊志模板（含经典版和十周年版） */
+/* 原作者：鱼北 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+/* left 44, bottom 30 */
+
+.card {
+	--variants: 羊, goat classic, 狼, wolf classic,
+		羊（新版）, goat new, 狼（新版）, wolf new, 空（新版）, default new,
+		羊（十周年）, goat new decade, 狼（十周年）, wolf new decade,
+		空（十周年）, default new decade;
+	width: 366px;
+	height: 514px;
+}
+
+.card.classic {
+	background: url('images/classic/background-goat.png') center / cover;
+}
+
+.card.classic .frame{
+	background: url('images/classic/frame-goat.png') 0 100% / contain no-repeat;
+	z-index: 2;
+}
+
+
+.card.classic .frame .custom-kingdom {
+	font-family: STXinWei;
+	font-size: 64px;
+	font-weight: bold;
+	left: 5px;
+	top: 5px;
+	color: white;
+}
+
+.card.classic .hitpoints{
+	background: url(images/classic/hpbar-goat.png) center / contain no-repeat;
+	right: 17px;
+	top: 10px;
+	width: 148px;
+	height: 32px;
+	margin: 0;
+	text-align: center;
+	padding: 7px 8px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.card.classic .hitpoints li{
+	display: inline-block;
+	background: url(images/classic/hp-goat.png) center / contain no-repeat;
+	width: 32px;
+	height: 32px;
+}
+
+.card.classic .hitpoints .drained{
+	/* filter: brightness(0); */
+	background-image: url(images/classic/hp-goatd.png);
+}
+
+.card .hitpoints .overflow{
+	transform: scale(0.6);
+}
+
+.card.classic .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']) li ~ li{
+	display: none;
+}
+.card.classic .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after {
+	content: attr(hp) ' / ' attr(maxhp);
+	font-family: 'FZKaTong';
+	font-size: 26px;
+	line-height: 32px;
+}
+.card.classic .hitpoints[losthp][overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after {
+	content: attr(hp) ' / ' attr(maxhp) '+' attr(overflow);
+}
+
+.card.classic .nickname, .card.classic .nickname-small{
+    left: 52px;
+    top: 282px;
+    width: 156px;
+    height: auto;
+    color: #1E8542;
+    margin: 0;
+    font-family: 'FZKaTong', 'Arial';
+    font-size: 24px;
+    z-index: 2;
+    text-align: right;
+	transform-origin: left top;
+	transform: scale(.5);
+}
+.card.classic .nickname-small{
+	font-size: 22px;
+}
+
+.card.classic .name, .card.classic .name-small{
+	display: block;
+    left: 44px;
+    top: 244px;
+	padding-left: 4px;
+	padding-right: 4px;
+    min-width: 80px;
+    height: 53px;
+	line-height: 48px;
+    color: #1E8542;
+    margin: 0;
+    text-align: center;
+    font-family: 'FZKaTong', 'Arial';
+    font-size: 24px;
+    background: #F5FDC1;
+    border: 2px solid #3AB082;
+    border-radius: 14px 20px 14px 14px;
+	font-weight: bold;
+}
+.card.classic .name-small{
+	font-size: 30px;
+	letter-spacing: -2px;
+	line-height: 80%;
+}
+
+.card.classic .description {
+	left: 55px;
+    width: 282px;
+    height: 174px;
+    bottom: 24px;
+    padding: 0;
+	font-size: 14px;
+}
+
+.card.classic .description p{
+	display: inline;
+	min-height: 18px;
+	width: 244px;
+	color: #1E8542;
+    font-family: 'HKWaWaW5', 'Arial';
+}
+.card.classic .description p.quote {
+	font-style: italic;
+	text-align: right;
+}
+
+.card.classic .description-tiny{
+	font-size: 12px;
+}
+.card.classic .description-small{
+	font-size: 14px;
+}
+.card.classic .description-large{
+	font-size: 20px;
+}
+
+.card.classic .description .pointer{
+	display: inline-block;
+	color: #1E8542;
+	list-style: none;
+	background: url('images/classic/pointer-goat.png') no-repeat center / contain;
+	width: 66px;
+	height: 38px;
+	font-size: 22px;
+	font-family: 'FZShaoEr', 'Arial';
+	font-weight: bold;	
+	margin-left: -12px;
+	line-height: 40px;
+	text-align: center;
+	vertical-align: bottom;
+}
+.card.classic .description .pointer[length="3"]{
+	font-size: 18px;
+}
+.card.classic .description .pointer[length="4"]{
+	font-size: 14px;
+}
+.card.classic .description .pointer[length="5"]{
+	font-size: 12px;
+}
+
+.card.classic .description p::after { /* 换行 */
+	content: '';
+	display: block;
+}
+
+.card.classic .footer {
+	right: 348px;
+	bottom: 110px;
+	font-size: 20px;
+	width: 1000px;
+	text-align: right;
+	font-family: Microsoft YaHei;
+	transform-origin: 100% 0;
+	transform: scale(.5) rotate(90deg);
+}
+.card.classic .footer label {
+	position: static;
+	color: #1E8542;
+	text-shadow: 0 0 1px white, 0 0 1px white;
+}
+
+.card.classic .footer .index {
+	position: absolute;
+	font-size: 32px;
+	left: 272px;
+	top: -101px;
+	transform: rotate(-122deg);
+}
+.card.classic .footer .trademark {
+	right: 360px;
+    bottom: 290px;
+    width: 160px;
+	margin-right: 1em;
+}
+.card.classic .footer .illustrator {
+	left: -70px;
+    top: 450px;
+    width: 160px;
+    transform: rotate(90deg);
+}
+
+.card.classic .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card.classic .footer .trademark::before {
+	content: '™&© ';
+}
+
+
+/* Different Kingdoms */
+
+.card.classic.wolf {
+	background-image: url(images/classic/background-wolf.png);
+}
+
+.card.classic.wolf .hitpoints {
+	background-image: url(images/classic/hpbar-wolf.png);
+}
+.card.classic.wolf .hitpoints li{
+	background-image: url(images/classic/hp-wolf.png);
+	width: 30px;
+	height: 36px;
+	top: -2px;
+}
+.card.classic.wolf .hitpoints li.drained{
+	background-image: url(images/classic/hp-wolfd.png);
+}
+
+.card.classic.wolf .nickname, .card.classic.wolf .name, .card.classic.wolf .description p,
+		.card.classic.wolf .footer label{
+    color: #473FAE;
+}
+
+.card.classic.wolf .description .pointer{
+	color: #473FAE;
+	background-image: url('images/classic/pointer-wolf.png');
+}
+.card.classic.wolf .frame{
+	background-image: url('images/classic/frame-wolf.png');
+}
+
+
+/* 十周年版 */
+
+.card.new {
+	--variants: 羊, goat, 狼, wolf, 空, default,
+		羊（十周年）, goat decade, 狼（十周年）, wolf decade,
+		空（十周年）, default decade;
+	width: 366px;
+	height: 514px;
+}
+
+.card.new .frame{
+	background: 
+		url('images/decade/dragon.png') 0 0 / contain no-repeat,
+		url('images/decade/kingdom-goat.png') 278px 25px / 68px auto no-repeat,
+		url('images/decade/frame.png') center / cover;
+	--background: url('images/decade/xyy.png') center / cover !important;
+}
+.card.new.decade .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 36px;
+	bottom: 18px;
+	width: 80px;
+	height: 100px;
+	background: url('images/decade/decade.png') center / cover;
+}
+
+.card.new.default .frame {
+	background-image: 
+		url('images/decade/dragon.png'),
+		url(''),
+		url('images/decade/frame.png');
+}
+.card.new.wolf .frame{
+	background-image: 
+		url('images/decade/dragon.png'),
+		url('images/decade/kingdom-wolf.png'),
+		url('images/decade/frame.png');
+}
+
+.card.new .frame .custom-kingdom {
+	font-family: STXinWei;
+	font-size: 64px;
+	font-weight: bold;
+	right: 25px;
+	top: 25px;
+	color: green;
+	text-shadow: 0 0 5px black, 0 0 5px black;
+}
+
+.card.new .hitpoints{
+	left: 147px;
+	top: 53px;
+	width: 200px;
+	height: 0px;
+}
+
+.card.new .hitpoints li{
+	display: inline-block;
+	background: url('images/decade/hp.png') 0 0 / contain no-repeat;
+	width: 22.5px;
+	height: 22.5px;
+	margin-right: 2px;
+}
+
+.card.new .hitpoints .drained{
+	opacity: 50%;
+}
+
+.card.new .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']) li ~ li{
+	display: none;
+}
+.card.new .hitpoints[total='0']::after,
+.card.new .hitpoints[total='1']::after,
+.card.new .hitpoints[total='2']::after,
+.card.new .hitpoints[total='3']::after,
+.card.new .hitpoints[total='4']::after,
+.card.new .hitpoints[total='5']::after {
+	display: none;
+}
+.card.new .hitpoints::after {
+	content: attr(hp) ' / ' attr(maxhp);
+	font-family: 'FZKaTong';
+	font-size: 26px;
+	color: gold;
+    text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black;
+}
+.card.new .hitpoints[losthp][overflow]::after {
+	content: attr(hp) ' / ' attr(maxhp) '+' attr(overflow);
+}
+
+.card.new .nickname, .card.new .nickname-small{
+	left: 20px;
+    top: 284px;
+    width: 200px;
+    height: auto;
+    color: black;
+    margin: 0;
+    line-height: 30px;
+    text-shadow: 1px 1px white, -1px -1px white, 1px -1px white, -1px 1px white;
+    font-family: 'Arial Black', 'Microsoft YaHei';
+    font-size: 30px;
+    transform: rotate(-11deg);
+}
+.card.new .nickname-small{
+	font-size: 24px;
+}
+
+.card.new .name, .card.new .name-small{
+	display: block;
+	left: 43px;
+	top: 104px;
+	width: 30px;
+	height: 200px;
+	color: black;
+	margin: 0;
+	text-align: center;
+	text-shadow: 1.5px 1.5px white, -1.5px -1.5px white, 1.5px -1.5px white, -1.5px 1.5px white, 
+			2px 0px white, -2px 0px white, 0px -2px white, 0px 2px white,
+			2px 1px white, -2px 1px white, 1px -2px white, 1px 2px white,
+			2px -1px white, -2px -1px white, -1px -2px white, -1px 2px white;
+	font-family: STXinWei;
+	font-size: 40px;
+	writing-mode: tb-rl;
+	margin: 0;
+}
+.card.new .name-small{
+	font-size: 30px;
+	letter-spacing: -2px;
+	line-height: 80%;
+}
+
+.card.new .description {
+	left: 21px;
+	width: 564px;
+	bottom: 21px;
+	margin-bottom: 0;
+	padding: 24px 40px 24px 40px;
+	background: url('images/decade/panel.png') 0 0 / 100% auto;
+	border-radius: 40px 24px;
+	transform-origin: 0 100%;
+	transform: scale(.5);
+}
+.card.new .description::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: -12px;
+	width: 100%;
+	height: 68px;
+	background: url('images/decade/panel-top.png') no-repeat 0 100% / 100% auto;
+}
+.card.new .description::after {
+	content: '';
+	position: absolute;
+	left: 0;
+	bottom: -12px;
+	width: 100%;
+	height: 68px;
+	background: url('images/decade/panel-bottom.png') no-repeat 0 0 / 100% auto;
+}
+
+.card.new .description p{
+	display: inline;
+	min-height: 40px;
+	color: white;
+	font-family: KaiTi;
+}
+.card.new .description p.quote {
+	font-style: italic;
+	text-align: right;
+}
+
+.card.new .description {
+	font-size: 24px;
+	font-family: SimHei;
+	font-weight: bold;	
+}
+
+.card.new .description-tiny{
+	font-size: 16px;
+}
+.card.new .description-small{
+	font-size: 18px;
+}
+.card.new .description-large{
+	font-size: 28px;
+}
+
+.card.new .description .pointer{
+	display: inline-block;
+	color: black;
+	list-style: none;
+	background: url('images/decade/pointer.png') no-repeat center / cover;
+	width: 98px;
+	height: 60px;
+	font-size: 36px;
+	font-family: XingKai;
+	font-weight: bold;	
+	margin-left: -24px;
+	line-height: 60px;
+	text-align: center;
+	text-shadow: -1px -1px white, 1px -1px white, -1px 1px white, 1px 1px white;
+	position: relative;
+}
+.card.new.on-rendering .description .pointer{
+	text-shadow: -.5px -.5px white, .5px -.5px white, -.5px .5px white, .5px .5px white;
+}
+.card.new .description p::after { /* 换行 */
+	content: '';
+	display: block;
+}
+
+.card.new .footer {
+	left: 32px;
+	bottom: 3px;
+	width: 600px;
+	font-size: 20px;
+	font-family: Microsoft YaHei;
+	transform-origin: 0 100%;
+	transform: scale(.5);
+}
+.card.new .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+	color: black;
+	text-shadow: 0 0 2px white, 0 0 2px white;
+}
+
+.card.new .footer .index {
+	float: right;
+}
+.card.new .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card.new .footer .trademark::before {
+	content: '™&© ';
+}
+
+
+
+/* For IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)  {
+
+}

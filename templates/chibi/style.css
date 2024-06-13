@@ -1,0 +1,285 @@
+/* Q版三国杀模板 */
+/* 原作者：CoffeeNo加糖、messoatheon、梦魇狂朝 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 585px;
+	height: 821px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群（灰）, default, 群（褐）, qun, 晋（紫）, jin, 晋（青）, jina;
+	background: url('images/background.png');
+	border-radius: 20px;
+	--light-color: #D3D3D4;
+	--dark-color: #666464;
+}
+
+
+.card .frame::before {
+	/* content: ''; */
+	position: absolute;
+	display: block;
+	left: 22px;
+	top: 18px;
+	width: 300px;
+	height: 200px;
+	border-radius: 50px;
+	background: radial-gradient(transparent 74.5%, var(--dark-color) 75%) no-repeat 0 0 / 224% 180%;
+}
+
+.card .hitpoints {
+	left: 38px;
+	top: 37px;
+	text-shadow: 0 -5px black, -5px 0 black, 0 5px black, 5px 0 black,
+		3px -4px black, -4px 3px black, 3px 4px black, 4px 3px black,
+		-3px -4px black, -4px -3px black, -3px 4px black, 4px -3px black,
+		2px -4.8px black, -4.8px 2px black, 2px 4.8px black, 4.8px 2px black,
+		-2px -4.8px black, -4.8px -2px black, -2px 4.8px black, 4.8px -2px black;
+}
+
+.card .hitpoints li {
+	display: inline-block;
+	width: 68px;
+	height: 78px;
+	background: url('images/hp.png');
+	background-position-y: -468px;
+}
+.card .hitpoints li.drained {
+	background-position-x: -68px;
+}
+.card .hitpoints li.overflow {
+	transform: scale(0.7);
+}
+.card .hitpoints[total='7'] li, .card .hitpoints[total='8'] li {
+	width: 62px;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']
+		):not([total='3']):not([total='4']):not([total='5']
+		):not([total='6']):not([total='7']):not([total='8']) li ~ li {
+	display: none;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']
+		):not([total='3']):not([total='4']):not([total='5']
+		):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: '×' attr(hp);
+    position: relative;
+	font-size: 60px;
+	bottom: 25px;
+	font-family: 'FZKATONG';
+	font-weight: bold;
+	color: var(--light-color);
+}
+.card .hitpoints[losthp]:not([losthp='0']):not([total='0']):not([total='1']):not([total='2']
+		):not([total='3']):not([total='4']):not([total='5']
+		):not([total='6']):not([total='7']):not([total='8'])::after,
+.card .hitpoints[overflow]:not([losthp='0']):not([total='0']):not([total='1']):not([total='2']
+		):not([total='3']):not([total='4']):not([total='5']
+		):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp) ' / ' attr(maxhp);
+}
+.card .hitpoints[losthp][overflow]:not([losthp='0']):not([total='0']):not([total='1']):not([total='2']
+		):not([total='3']):not([total='4']):not([total='5']
+		):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp) ' / ' attr(maxhp) ' + ' attr(overflow);
+}
+
+.card .nickname {
+	right: 8px;
+	top: 100px;
+	font-family: 'FZShaoEr', 'Microsoft YaHei';
+	font-size: 48px;
+	color: var(--light-color);
+	text-shadow: 
+		0 -5px black, -5px 0 black, 0 5px black, 5px 0 black,
+		3px -4px black, -4px 3px black, 3px 4px black, 4px 3px black,
+		-3px -4px black, -4px -3px black, -3px 4px black, 4px -3px black,
+		2px -4.8px black, -4.8px 2px black, 2px 4.8px black, 4.8px 2px black,
+		-2px -4.8px black, -4.8px -2px black, -2px 4.8px black, 4.8px -2px black;
+	writing-mode: tb-rl;
+	letter-spacing: 0;
+}
+.card .nickname-small {
+	font-size: 40px;
+}
+
+.card .name {
+	right: 52px;
+	top: 135px;
+	font-size: 86px;
+	color: var(--light-color);
+	text-shadow: 
+		0 -5px var(--dark-color), -5px 0 var(--dark-color), 0 5px var(--dark-color), 5px 0 var(--dark-color),
+		3px -4px var(--dark-color), -4px 3px var(--dark-color), 3px 4px var(--dark-color), 4px 3px var(--dark-color),
+		-3px -4px var(--dark-color), -4px -3px var(--dark-color), -3px 4px var(--dark-color), 4px -3px var(--dark-color),
+		2px -4.8px var(--dark-color), -4.8px 2px var(--dark-color), 2px 4.8px var(--dark-color), 4.8px 2px var(--dark-color),
+		-2px -4.8px var(--dark-color), -4.8px -2px var(--dark-color), -2px 4.8px var(--dark-color), 4.8px -2px var(--dark-color),
+		0.0px 10.0px black, 1.7px 9.8px black, 3.4px 9.4px black, 5.0px 8.7px black, 6.4px 7.7px black, 7.7px 6.4px black, 
+		8.7px 5.0px black, 9.4px 3.4px black, 9.8px 1.7px black, 10.0px 0.0px black, 9.8px -1.7px black, 9.4px -3.4px black, 
+		8.7px -5.0px black, 7.7px -6.4px black, 6.4px -7.7px black, 5.0px -8.7px black, 3.4px -9.4px black, 1.7px -9.8px black, 
+		0.0px -10.0px black, -1.7px -9.8px black, -3.4px -9.4px black, -5.0px -8.7px black, -6.4px -7.7px black, -7.7px -6.4px black, 
+		-8.7px -5.0px black, -9.4px -3.4px black, -9.8px -1.7px black, -10.0px -0.0px black, -9.8px 1.7px black, -9.4px 3.4px black,
+		-8.7px 5.0px black, -7.7px 6.4px black, -6.4px 7.7px black, -5.0px 8.7px black, -3.4px 9.4px black, -1.7px 9.8px black;
+	font-family: 'FZKaTong', 'Microsoft YaHei';
+	font-size: 86px;
+	writing-mode: tb-rl;
+	letter-spacing: 0;
+}
+.card .name-small {
+	top: 120px;
+	font-size: 80px;
+	letter-spacing: -5px;
+}
+
+.card .description {
+	bottom: 18px;
+	left: 20px;
+	right: 34px;
+	padding: 5px 14px 10px 13px;
+	background-color: var(--dark-color);
+	border-radius: 22px 30px 30px 30px;
+	border-width: 0 12px 12px 0;
+	border: solid black;
+	border-width: 0 12px 12px 0;
+}
+
+.card .description > * {
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+}
+.card .description .pointer {
+	width: 30px;
+	z-index: 5;
+	font-size: 24px;
+	line-height: 22px;
+	text-align: center;
+	font-family: FZShaoer, 'Microsoft YaHei';
+	color: white;
+}
+.card .description p {
+	width: 426px;
+	margin-left: -32px;
+	margin-bottom: 5px;
+	padding: 8px 8px 8px 60px;
+	min-height: 48px;
+	border-radius: 20px;
+	background: linear-gradient(white, white) no-repeat 55px 0 / 100% 100%;
+	background-color: var(--light-color);
+	overflow: hidden;
+	font-size: 24px;
+	font-family: 'HKWaWaW5';
+}
+.card .description p::before {
+	content: '';
+	display: block;
+	position: absolute;
+	left: 32px;
+	top: -3px;
+	width: 20px;
+	height: 100%;
+	border: solid var(--dark-color);
+	border-width: 3px 0 3px 7px;
+	background-color: white;
+	border-radius: 20px 0 0 20px;
+}
+
+.card .description-large p {
+	font-size: 26px;
+}
+.card .description-small p {
+	font-size: 21px;
+}
+.card .description-tiny p {
+	font-size: 18px;
+}
+
+.card .description .quote {
+	width: 476px;
+	margin-left: 0;
+	background: none;
+	background-color: white;
+	padding-left: 8px;
+	text-align: center;
+}
+.card .description .quote::before {
+	content: none;
+}
+.card .description .quote .author {
+	display: block;
+	text-align: right;
+}
+
+.card .footer {
+	left: 32px;
+	right: 32px;
+	bottom: 4px;
+	font-size: 12px;
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+	float: left;
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator {
+	margin-left: 12px;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+/* Different Kingdoms */
+
+.card.wei {
+	--light-color: #55A9C5;
+	--dark-color: #444BA2;
+}
+.card.wei .hitpoints li {
+	background-position-y: 0;
+}
+
+.card.shu {
+	--light-color: #F36161;
+	--dark-color: #C42222;
+}
+.card.shu .hitpoints li {
+	background-position-y: -78px;
+}
+
+.card.wu {
+	--light-color: #C8EC3A;
+	--dark-color: #20833B;
+}
+.card.wu .hitpoints li {
+	background-position-y: -156px;
+}
+
+.card.qun {
+	--light-color: #F0D3A0;
+	--dark-color: #866444;
+}
+.card.qun .hitpoints li {
+	background-position-y: -234px;
+}
+
+.card.jin {
+	--light-color: rgb(249,169,196);
+	--dark-color: rgb(245,116,161);
+}
+.card.jin .hitpoints li {
+	background-position-y: -312px;
+}
+
+.card.jina {
+	--light-color: rgb(32, 249, 196);
+	--dark-color: rgb(8, 192, 161);
+}
+.card.jina .hitpoints li {
+	background-position-y: -390px;
+}

@@ -1,0 +1,439 @@
+/* 【YL模板】超大幅模板V3 */
+/* 原作者：-西凡尔游侠- */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 1000px;
+	height: 844px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 晋, jin, 神, god,
+		魏主公, wei lord, 蜀主公, shu lord, 吴主公, wu lord, 群主公, qun lord, 晋主公, jin lord;
+	--text-ranges: 100, 200, 500;
+	--illustration-coordinates: 32 35 512 693;
+	--illustration-front-coordinates: 32 35 934 693;
+	--extra-segments: 引文位置, quote-position;
+	--extra-segment-types: enum;
+	--extra-quote-position-names: 内联, 左上, 右上, 左下, 右下;
+	--extra-quote-position-values: inline, top-left, top-right, bottom-left, bottom-right;
+}
+
+.card *, .card ::before, .card ::after {
+	--border-stroke: 0px 1.5px var(--stroke-color), 0.57px 1.39px var(--stroke-color),
+		1.06px 1.06px var(--stroke-color), 1.39px 0.57px var(--stroke-color),
+		1.5px 0px var(--stroke-color), 1.39px -0.57px var(--stroke-color),
+		1.06px -1.06px var(--stroke-color), 0.57px -1.39px var(--stroke-color),
+		0px -1.5px var(--stroke-color), -0.57px -1.39px var(--stroke-color),
+		-1.06px -1.06px var(--stroke-color), -1.39px -0.57px var(--stroke-color),
+		-1.5px 0px var(--stroke-color), -1.39px 0.57px var(--stroke-color),
+		-1.06px 1.06px var(--stroke-color), -0.57px 1.39px var(--stroke-color);
+}
+
+.card .frame > * {
+	z-index: 2;
+}
+.card .illustration-front {
+	z-index: 1;
+}
+
+.card .frame::before {
+	content: '';
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background: url('images/wei.png') 0 0 / 1000px auto;
+	z-index: 2;
+}
+.card .package {
+	display: block;
+	position: absolute;
+	width: 74px;
+	height: 80px;
+	right: 31px;
+	bottom: 26px;
+	background: url(images/piece.png) -79px 0 / 153px auto no-repeat;
+	z-index: 2;
+	color: #0F6FB0;
+	text-shadow: none;
+	font-size: 32px;
+	line-height: 74px;
+	font-family: LiBian;
+}
+.card .package:empty {
+	display: initial;
+}
+.card .package[image] {
+	background-position: center !important;
+	background-size: contain !important;
+}
+
+.card .custom-kingdom {
+	display: block !important;
+	left: 30px;
+	bottom: 26px;
+	width: 78px;
+	height: 83px;
+	background: url('images/piece.png') 0 0 / 153px auto no-repeat;
+	font-family: LiBian;
+	font-size: 52px;
+	line-height: 78px;
+	text-align: center;
+	color: #0F6FB0;
+}
+.card.lord .frame .custom-kingdom {
+	color: #D3A65E;
+	background-position-y: -415px;
+}
+
+.card .custom-kingdom:empty::before {
+	content: '魏';
+}
+
+
+.card .name {
+	left: 113.5px;
+	bottom: 49px;
+	color: white;
+	--stroke-color: #2D3B5D;
+	font-family: BaiZhouRenZhe;
+	font-size: 50px;
+	line-height: 1em;
+	text-align: center;
+	text-shadow: var(--border-stroke), 0 3px 6.5px black;
+}
+.card .name-small {
+	font-size: 40px;
+	line-height: 1.25em;
+}
+
+.card .nickname {
+	left: 316px;
+	bottom: 54px;
+	color: #F7C77C;
+	--stroke-color: #573F24;
+	font-family: 'DFPNewChuan-B5', 'ZhunYuan';
+	font-size: 31px;
+	line-height: 1em;
+	text-align: center;
+	text-shadow: var(--border-stroke), 0 4px 5px black;
+}
+.card .nickname-small {
+	font-size: 25px;
+	line-height: 31px;
+}
+
+.card .hitpoints {
+	left: 543px;
+	bottom: 30px;
+	--stroke-color: #2D3B5D;
+	text-shadow: var(--border-stroke), 0 3px 6.5px black;
+}
+.card .hitpoints li {
+	display: inline-block;
+	width: 44px;
+	height: 62px;
+	background: url('images/hp.png') 0 0 / 188px auto no-repeat;
+}
+.card .hitpoints li.drained {
+	background-position-x: -44px;
+}
+.card .hitpoints li.overflow {
+	opacity: 0.6;
+}
+
+.card .hitpoints[total='7'] li, .card .hitpoints[total='8'] li {
+	margin-right: -4px;
+}
+
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+	):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']) li {
+	background-position-x: 0;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+	):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']) li + li {
+	display: none;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+	):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp) '/' attr(maxhp);
+	display: inline-block;
+	overflow: hidden;
+	height: 62px;
+	margin-left: 8px;
+	font-size: 40px;
+	line-height: 62px;
+	font-family: Arial;
+	color: #EFE9E6;
+}
+.card .hitpoints[losthp][overflow]:not([total='0']):not([total='1']):not([total='2']):not([total='3']
+	):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8'])::after {
+	content: attr(hp) '/' attr(maxhp) '+' attr(overflow);
+}
+.card.lord .frame .hitpoints {
+	--stroke-color: #D3A65E;
+}
+.card.lord .frame .hitpoints li {
+	background-position-y: -320px;
+}
+
+.card .description {
+	width: 375px;
+	right: 25px;
+	top: 28px;
+	bottom: 111px;
+	padding-top: 85px;
+	padding-left: 66px;
+	padding-right: 15px;
+	background: url('images/description.png') -2px 0 / 457px auto;
+	font-size: 19px;
+	z-index: 0;
+}
+.card .description-large {
+	font-size: 21px;
+}
+.card .description-small {
+	padding-top: 70px;
+	font-size: 16px;
+}
+.card .description-tiny {
+	padding-top: 50px;
+	font-size: 13px;
+}
+
+.card .description .pointer {
+	display: inline-block;
+	width: 100px;
+	height: 52px;
+	background: url(images/hp.png) -88px 0 / 188px auto;
+	font-family: LiBian;
+	position: absolute;
+	margin-left: -81px;
+	margin-top: -19px;
+	font-size: 26px;
+	line-height: 49px;
+	text-align: center;
+	z-index: 2;
+}
+.card .frame .description .pointer.wake {
+	background-position-y: -384px;
+	color: white;
+}
+.card .description .pointer[length="3"] {
+	font-size: 20px;
+	letter-spacing: -.1em;
+}
+.card .description .pointer[length="4"] {
+	font-size: 16px;
+	letter-spacing: -.2em;
+}
+
+.card .description p {
+	font-family: ZhunYuan;
+	color: white;
+	text-indent: 1em;
+	--stroke-color: #2D3B5D;
+	text-shadow: var(--border-stroke);
+	min-height: 39px;
+}
+.card .description p .suit {
+	text-shadow: none;
+}
+
+.card .description p.quote {
+	--stroke-color: #2E3E5E;
+}
+.card[extra-quote-position="inline"] .description p.quote {
+	font-style: italic;
+	text-align: right;
+}
+.card:not([extra-quote-position="inline"]) .description p.quote {
+	position: absolute;
+	font-family: XingKai;
+	font-size: 24px;
+	color: white;
+	text-indent: 0;
+	writing-mode: vertical-rl;
+	text-shadow: var(--border-stroke);
+}
+.card[extra-quote-position="top-left"] .description p.quote {
+	left: -478px;
+	top: 80px;
+}
+.card[extra-quote-position="top-right"] .description p.quote {
+	right: 445px;
+	top: 80px;
+}
+.card[extra-quote-position="bottom-left"] .description p.quote {
+	left: -478px;
+	bottom: 64px;
+}
+.card[extra-quote-position="bottom-right"] .description p.quote {
+	right: 445px;
+	bottom: 64px;
+}
+
+.card .footer {
+	left: 568px;
+	top: 710px;
+	width: 392px;
+	height: 1em;
+	color: white;
+	font-size: 14px;
+	line-height: 1em;
+	font-family: Microsoft YaHei;
+}
+
+.card .footer .trademark, .card .footer .illustrator {
+	display: inline;
+	position: static;
+}
+.card .footer .illustrator {
+	margin-left: 1em;
+}
+.card .footer .trademark::before {
+	content: '©Copyright ';
+}
+.card .footer .illustrator::before {
+	content: '插画作者：';
+}
+.card .footer .index {
+	font-family: Arial;
+	margin-left: 1em;
+	text-shadow: 0 2.5px 1px black;
+	right: 48px;
+	bottom: -86px;
+	font-size: 20px;
+}
+
+
+/* Different Kingdoms */
+
+
+.card.shu .frame::before {
+	background-image: url('images/shu.png');
+}
+.card.wu .frame::before {
+	background-image: url('images/wu.png');
+}
+.card.qun .frame::before {
+	background-image: url('images/qun.png');
+}
+.card.jin .frame::before {
+	background-image: url('images/jin.png');
+}
+
+.card.shu .package, .card.shu .custom-kingdom {
+	background-position-y: -83px;
+	color: #E55A37;
+}
+.card.wu .package, .card.wu .custom-kingdom {
+	background-position-y: -166px;
+	color: #00A759;
+}
+.card.qun .package, .card.qun .custom-kingdom {
+	background-position-y: -249px;
+	color: #958683;
+}
+.card.jin .package, .card.jin .custom-kingdom {
+	background-position-y: -332px;
+	color: #8A4492;
+}
+
+.card.shu .name, .card.shu .hitpoints {
+	--stroke-color: #531E1E;
+}
+.card.shu .description p {
+	--stroke-color: #632B26;
+}
+.card.wu .name, .card.wu .hitpoints, .card.wu .description p {
+	--stroke-color: #3A5731;
+}
+.card.qun .name, .card.qun .hitpoints, .card.qun .description p {
+	--stroke-color: #42311D;
+}
+.card.jin .name, .card.jin .hitpoints, .card.jin .description p {
+	--stroke-color: #59264A;
+}
+
+.card.shu .hitpoints li, .card.shu .description .pointer {
+	background-position-y: -64px;
+}
+.card.wu .hitpoints li, .card.wu .description .pointer {
+	background-position-y: -128px;
+}
+.card.qun .hitpoints li, .card.qun .description .pointer {
+	background-position-y: -192px;
+}
+.card.jin .hitpoints li, .card.jin .description .pointer {
+	background-position-y: -256px;
+}
+
+.card.shu .custom-kingdom:empty::before {
+	content: '蜀';
+}
+.card.wu .custom-kingdom:empty::before {
+	content: '吴';
+}
+.card.qun .custom-kingdom:empty::before {
+	content: '群';
+}
+.card.jin .custom-kingdom:empty::before {
+	content: '晋';
+}
+
+
+.card.god .frame::before {
+	background-image: url('images/god.png');
+}
+.card.god .package {
+	left: 31px;
+	right: auto;
+	background-position-y: -498px;
+}
+.card.god .custom-kingdom {
+	color: #D7933D;
+	background-position-y: -498px;
+	left: auto;
+	right: 31px;
+	bottom: 27px;
+}
+.card.god .custom-kingdom::before {
+	content: '神';
+}
+.card.god .hitpoints {
+	color: #41322D;
+	--stroke-color: #D3A65E;
+    left: 148px;
+    bottom: 32px;
+}
+.card.god .hitpoints li {
+	background-position-y: -384px;
+}
+.card.god .description {
+	background: url('images/description-god.png') -2px 0 / 457px auto,
+		url('images/description.png') -2px 0 / 457px auto;
+}
+.card.god .description p {
+	--stroke-color: #534223;
+}
+.card.god .pointer {
+	color: #ECA440;
+	background-position-y: -384px;
+}
+.card.god .frame .pointer.wake {
+	color: #41322D;
+	background-position-y: -320px;
+}
+.card.god .nickname {
+	left: auto;
+	right: 326px;
+}
+.card.god .name {
+	left: auto;
+	right: 119px;
+	--stroke-color: #534223;
+}
+.card.god .footer .index {
+	right: auto;
+	left: -497px;
+}

@@ -1,0 +1,317 @@
+/* 印花模板 */
+/* 原作：lulu老公 */
+/* 编写：开不了车 */
+
+.card {
+	width: 732px;
+	height: 931px;
+	font-family: 'FZQingKeBenYueSong';
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun;
+	--extra-segments: 格言, motto;
+	--illustration-coordinates: 140 0 549 661;
+}
+
+.card .frame{
+	background: url('images/frame.png');
+}
+
+.card .frame::before {
+	content: '';
+	position: absolute;
+	display: block;
+	width: 138px;
+	height: 931px;
+	left: 0;
+	top: 0;
+	background-color: black; 
+}
+
+.card .frame .custom-kingdom {
+	display: block !important;
+	left: 6px;
+	top: 9px;
+	width: 128px;
+	height: 128px;
+	background-image: url('images/kingdom.png');
+	color: #EFDEB0;
+	font-size: 90px;
+	text-align: center;
+	line-height: 134px;
+}
+
+.card .frame .nickname {
+	left: 39px;
+	top: 178px;
+	width: 39px;
+	height: 228px;
+	padding: 10px 10px;
+	background: url('images/nickname.png') no-repeat;
+	color: #EFDEB0;
+	font-size: 36px;
+	text-align: center;
+	writing-mode: tb-rl;
+	letter-spacing: 6px;
+	/* text-orientation: upright; */
+}
+.card .frame .nickname-small {
+	width: 29px;
+	font-size: 28px;
+	letter-spacing: 2px;
+	padding: 10px 15px;
+}
+
+.card .frame .name {
+	left: 30px;
+	top: 466px;
+	color: #EFDEB0;
+	font-size: 72px;
+	writing-mode: tb-rl;
+	/* text-orientation: upright; */
+}
+
+.card .hitpoints {
+	top: 40px;
+	right: 5px;
+	width: 35px;
+	text-align: center;
+	counter-reset: hp maxhp;
+}
+.card .hitpoints li {
+	width: 35px;
+	height: 35px;
+	margin-bottom: 5px;
+	background-image: url('images/hp.png');
+	counter-increment: hp maxhp;
+}
+.card .hitpoints li.drained {
+	opacity: 0.35;
+	counter-increment: maxhp;
+}
+.card .hitpoints li.overflow {
+	transform: scale(0.6);
+	counter-increment: hp overflow;
+}
+.card .hitpoints li.drained ~ li.overflow {
+	counter-increment: overflow;
+}
+.card .hitpoints::after {
+	font-size: 28px;
+	color: #C3272B;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']) li ~ li {
+	/* display: none; */
+	visibility: hidden;
+	position: absolute;
+}
+.card .hitpoints[maxhp='6']::after { content: '六'; }
+.card .hitpoints[maxhp='7']::after { content: '七'; }
+.card .hitpoints[maxhp='8']::after { content: '八'; }
+.card .hitpoints[maxhp='9']::after { content: '九'; }
+.card .hitpoints[maxhp='10']::after { content: '十'; }
+.card .hitpoints[maxhp='11']::after { content: '十一'; }
+.card .hitpoints[maxhp='12']::after { content: '十二'; }
+.card .hitpoints[maxhp='13']::after { content: '十三'; }
+.card .hitpoints[maxhp='14']::after { content: '十四'; }
+.card .hitpoints[maxhp='15']::after { content: '十五'; }
+.card .hitpoints[maxhp='16']::after { content: '十六'; }
+.card .hitpoints[maxhp='17']::after { content: '十七'; }
+.card .hitpoints[maxhp='18']::after { content: '十八'; }
+.card .hitpoints[maxhp='19']::after { content: '十九'; }
+.card .hitpoints[maxhp='20']::after { content: '二十'; }
+
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])::after {
+	content: counter(hp, cjk-ideographic);
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])[losthp]::after,
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])[overflow]::after {
+	content: counter(hp, cjk-ideographic) '之' counter(maxhp, cjk-ideographic);
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5'])[losthp][overflow]::after {
+	content: counter(hp, cjk-ideographic) '之' counter(maxhp, cjk-ideographic) '又' counter(overflow, cjk-ideographic);
+}
+
+.card .description {
+	left: 184px;
+	top: 674px;
+	border: solid 1px;
+	width: 502px;
+	height: 244px;
+	writing-mode: tb-rl;
+	/* text-orientation: upright; */
+	overflow: hidden;
+}
+
+.card .description .pointer {
+	display: block;
+	width: 26px;
+	height: 214px;
+	padding: 30px 7px 0;
+	border-left: solid 1px;
+	font-size: 26px;
+	line-height: 26px;
+	background: 
+		url('images/quote-bottom.png') no-repeat 0 81px / auto 12px,
+		url('images/quote-top.png') no-repeat 0 16px / auto 12px;
+}
+.card .description .pointer[length='1'] {
+	background-position-y: 55px, 16px;
+}
+.card .description .pointer[length='3'] {
+	background-position-y: 107px, 16px;
+}
+.card .description .pointer[length='4'] {
+	background-position-y: 133px, 16px;
+}
+
+.card .description .pointer::after {
+	margin-top: 1em;
+	color: #415065;
+}
+.card .description .pointer.lord::after {
+	content: '主公';
+}
+.card .description .pointer.compulsory::after {
+	content: '锁定';
+}
+.card .description .pointer.limit::after {
+	content: '限定';
+}
+.card .description .pointer.wake::after {
+	content: '觉醒';
+}
+.card .description .pointer.lord.compulsory::after {
+	content: '主公锁定';
+}
+.card .description .pointer.lord.limit::after {
+	content: '主公限定';
+}
+.card .description .pointer.lord.wake::after {
+	content: '主公觉醒';
+}
+
+.card .description p {
+	display: block;
+	height: 220px;
+	padding: 12px 10px;
+	border-left: solid 1px;
+	font-size: 24px;
+	line-height: 28px;
+	font-family: 'FangSong';
+}
+
+.card .description-small p {
+	font-size: 20px;
+	line-height: 24px;
+}
+.card .description-tiny p {
+	font-size: 16px;
+	line-height: 18px;
+}
+
+.card .description p .suit {
+	font-size: 1em;
+}
+
+.card .description p.quote {
+	font-size: 20px;
+	line-height: 24px;
+}
+
+.card .description p:last-child {
+	border-left: none;
+}
+
+.card .footer {
+	left: 151px;
+	top: 674px;
+	border: solid 1px;
+	width: 20px;
+	height: 224px;
+	padding: 10px 6px;
+	writing-mode: tb-rl;
+	text-align: right;
+	/* text-orientation: upright; */
+}
+
+.card .footer * {
+	display: inline;
+	position: static;
+	font-size: 20px;
+}
+
+.card .footer .index {
+	position: absolute;
+	display: block;
+	left: 550px;
+	bottom: 0;
+	font-size: 20px;
+}
+
+.card .motto {
+    top: 258px;
+    right: 9px;
+    width: 24px;
+	font-size: 24px;
+	writing-mode: tb-rl;
+	/* text-orientation: upright; */
+	z-index: 10;
+}
+
+
+/* Different Kingdoms */
+
+.card.wei .frame::before {
+	background-color: #C3272B;
+}
+.card.wei .description, .card.wei .footer, .card.wei .motto {
+	color: #C3272B;
+}
+.card.wei[kingdom=''] .frame .custom-kingdom::before {
+	content: '魏';
+}
+.card.wei .description {
+	background: url('images/flower-red.png') no-repeat 0 24px; 
+}
+.card.wei .description .pointer {
+	background-position-x: -40px;
+}
+
+.card.shu .frame::before {
+	background-color: #789262;
+}
+.card.shu .description, .card.shu .footer, .card.shu .motto {
+	color: #789262;
+}
+.card.shu[kingdom=''] .frame .custom-kingdom::before {
+	content: '蜀';
+}
+.card.shu .description {
+	background: url('images/flower-green.png') no-repeat 0 24px; 
+}
+.card.shu .description .pointer {
+	background-position-x: -80px;
+}
+
+.card.wu .frame::before {
+	background-color: #415065;
+}
+.card.wu .description, .card.wu .footer, .card.wu .motto {
+	color: #415065;
+}
+.card.wu[kingdom=''] .frame .custom-kingdom::before {
+	content: '吴';
+}
+.card.wu .description {
+	background: url('images/flower-blue.png') no-repeat 0 24px; 
+}
+.card.wu .description .pointer {
+	background-position-x: -120px;
+}
+
+.card.qun[kingdom=''] .frame .custom-kingdom::before {
+	content: '群';
+}
+.card.qun .frame::before {
+	background: url('images/flower.png') no-repeat 50% 100%; 
+	background-color: black; 
+}

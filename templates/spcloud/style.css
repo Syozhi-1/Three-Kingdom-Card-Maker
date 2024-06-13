@@ -1,0 +1,419 @@
+/* 桌游志全幅模板 */
+/* 原作者：低调de洛沫 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+@import 'data.css';
+
+.card {
+	width: 524px;
+	height: 718px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 神, god, 
+		魏主公, wei lord, 蜀主公, shu lord, 吴主公, wu lord, 群主公, qun lord;
+		/*自定颜色, custom;*/
+	/*--extra-segments: 颜色, fill-color;*/
+	/*--extra-segment-types: color;*/
+}
+
+
+
+.card .frame {
+	width: 100%;
+	height: 100%;
+	background: var(--svg-image);
+	--frame-color: #254670;
+}
+
+
+.card .custom-kingdom:empty {
+	display: initial;
+	left: 15px;
+	top: 25px;
+	width: 120px;
+	height: 120px;
+	background: url('images/kingdom.png') no-repeat;
+    -webkit-background-clip: initial;
+}
+.card .custom-kingdom {
+	left: 15px;
+	top: 25px;
+    -webkit-background-clip: text;
+	--light-color: #3E85C6;
+	--dark-color: #1C2B47;
+    background-image: -webkit-linear-gradient(-45deg, var(--light-color), var(--dark-color));
+	font-family: 'BaiZhouRenZhe', 'STXingKai', 'JMMaoCaoXingEx', 'JMMaoCaoXing';
+	font-size: 96px;
+	line-height: 108px;
+	text-shadow: 0 0 4px #EEE, 0 0 4px #EEE;
+	transform-origin: 0 0;
+}
+.card .frame .custom-kingdom:not(:empty) {
+	background-position-x: 0;
+}
+.card.on-rendering .custom-kingdom:not(:empty) {
+    background-image: -webkit-linear-gradient(-135deg, var(--light-color), var(--dark-color));
+	color: white;
+}
+.card .custom-kingdom[length="2"] {
+	transform: scale(0.8, 1);
+	font-size: 84px;
+	letter-spacing: -24px;
+	width: 160px;
+}
+.card .custom-kingdom[length="3"] {
+	transform: scale(0.72, 1);
+	font-size: 75px;
+	letter-spacing: -24px;
+	width: 200px;
+}
+.card .custom-kingdom[length="4"] {
+	font-size: 60px;
+	letter-spacing: -8px;
+	width: 120px;
+	line-height: 0.8em;
+	padding: 0 0 0.5em;
+	margin-top: 0.25em;
+}
+.card.on-rendering .custom-kingdom[length="4"] {
+	padding: 0.25em 0;
+	margin-top: 0;
+}
+
+
+
+.card .nickname {
+	left: 46px;
+	top: 168px;
+	width: 30px;
+	color: #E8DC6B;
+	text-shadow: 1px 1px black, -1px -1px black, 1px -1px black, -1px 1px black,
+		1.5px 0 black, -1.5px -0 black, 0 -1.5px black, 0px 1.5px black;
+	font-family: 'DFPNewChuan-B5', 'ZhunYuan';
+	font-size: 28px;
+	line-height: 1em;
+	writing-mode: tb-rl;
+	text-align: center;
+}
+.card .nickname[length='2'] {
+	top: 134px;
+}
+.card .nickname-small{
+	font-size: 24px;
+	left: 45px;
+}
+.card .nickname[length='4'] + .name {
+	margin-top: 4px;
+}
+.card .nickname[length='5'] + .name, .card .nickname[length='6'] + .name {
+	margin-top: 16px;
+}
+
+.card .name {
+	left: 91px;
+	top: 308px;
+	width: 0px;
+	color: white;
+	text-shadow: 1.5px 1.5px #271A10, -1.5px -1.5px #271A10, 1.5px -1.5px #271A10, -1.5px 1.5px #271A10, 
+			2px 0px #271A10, -2px 0px #271A10, 0px -2px #271A10, 0px 2px #271A10,
+			2px 1px #271A10, -2px 1px #271A10, 1px -2px #271A10, 1px 2px #271A10,
+			2px -1px #271A10, -2px -1px #271A10, -1px -2px #271A10, -1px 2px #271A10,
+			2px 2px currentColor, -2px -2px currentColor, 2px -2px currentColor, -2px 2px currentColor, 
+			3px 0px currentColor, -3px 0px currentColor, 0px -3px currentColor, 0px 3px currentColor,
+			3px 1.2px currentColor, -3px 1.2px currentColor, 1.2px -3px currentColor, 1.2px 3px currentColor,
+			3px -1.2px currentColor, -3px -1.2px currentColor, -1.2px -3px currentColor, -1.2px 3px currentColor,
+			3px 3px 3px black, 3px 3px 3px black;
+	font-family: 'SymbolAnd', 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 54px;
+	line-height: 1em;
+	writing-mode: tb-rl;
+	letter-spacing: 0.1em;
+}
+.card .name[length='2'] {
+	top: 335px;
+	letter-spacing: 0.3em;
+}
+.card .name[length='4'] {
+	top: 300px;
+	font-size: 48px;
+	letter-spacing: -2px;
+	left: 85px;
+}
+.card .name-small{
+	top: 297px;
+	font-size: 38px;
+	letter-spacing: -2px;
+	left: 80px;
+}
+
+
+.card .hitpoints{
+	left: 135px;
+	top: 37px;
+	width: 300px;
+	height: 32px;
+	text-shadow: 1px 1px black, -1px -1px black, 0 0 2px black;
+}
+.card .hitpoints li{
+	display: inline-block;
+	background: url('images/hp.png') no-repeat;
+	width: 24px;
+	height: 32px;
+	margin-right: -3px;
+}
+.card .hitpoints .drained{
+	background-position-y: -32px;
+}
+.card .hitpoints .overflow{
+	background-position-y: -64px;
+}
+.card .hitpoints::after {
+	display: inline-block;
+	font-size: 24px;
+	line-height: 32px;
+	color: white;
+	font-family: Arial Black;
+    transform: translate(0, -9px);
+}
+.card .hitpoints::after {
+	content: '×' attr(maxhp);
+}
+.card .hitpoints[losthp]::after, .card .hitpoints[overflow]::after {
+	content: attr(hp) '/' attr(maxhp);
+}
+.card .hitpoints[losthp][overflow]::after {
+	content: attr(hp) '/' attr(maxhp) '+' attr(overflow);
+}
+.card .hitpoints[total='0']::after,
+.card .hitpoints[total='1']::after,
+.card .hitpoints[total='2']::after,
+.card .hitpoints[total='3']::after,
+.card .hitpoints[total='4']::after,
+.card .hitpoints[total='5']::after,
+.card .hitpoints[total='6']::after,
+.card .hitpoints[total='7']::after,
+.card .hitpoints[total='8']::after {
+	content: none;
+}
+.card .hitpoints:not([total='0']):not([total='1']):not([total='2']):not([total='3']):not([total='4']):not([total='5']):not([total='6']):not([total='7']):not([total='8']) li ~ li{
+	display: none;
+}
+
+.card .frame .description {
+	left: 54px;
+	bottom: 55px;
+	width: 430px;
+	min-height: 185px;
+	box-sizing: border-box;
+    padding: 44px 24px 24px 54px;
+	font-size: 16px;
+	background: var(--svg-image) 0 0 / 100% 100% no-repeat;
+	--frame-color: #253551;
+}
+
+.card .description .pointer {
+	display: block;
+	position: absolute;
+	box-sizing: border-box;
+	padding-left: 17px;
+	width: 80px;
+	height: 40px;
+	font-size: 18px;
+	line-height: 34px;
+	font-family: LiShu;
+	left: -20px;
+	margin-top: -9px;
+	z-index: 2;
+	background: url('images/pointer.png') 0 0 no-repeat;
+}
+.card .description .pointer[length='3'] {
+	padding-left: 16px;
+	font-size: 16px;
+	letter-spacing: -2px;
+}
+.card .description .pointer[length='4'] {
+	padding-left: 15px;
+	font-size: 14px;
+	letter-spacing: -3px;
+}
+.card .frame .description .pointer.wake {
+	color: white;
+	background-position-y: -160px;
+	text-shadow: 1px 0 black, 0 1px black, -1px 0 black, 0 -1px black,
+		-.7px .7px black, -.7px -.7px black, .7px -.7px black, .7px .7px black;
+}
+
+.card .frame .description p {
+	color: white;
+	font-family: ZhunYuan;
+	min-height: 24px;
+}
+.card .frame .description .quote {
+	font-family: SimSun;
+	font-size: 12px;
+	text-align: right;
+}
+.card .frame .description-large {
+	font-size: 18px;
+}
+.card .frame .description-small {
+	font-size: 14px;
+}
+.card .frame .description-tiny {
+	font-size: 12px;
+}
+.card .frame .description .quote {
+	font-style: italic;
+	font-family: simSun;
+}
+
+
+.card .footer {
+	bottom: 35px;
+	left: 101px;
+	width: 354px;
+	height: 1em;
+	color: white;
+	font-size: 13px;
+	line-height: 1em;
+	font-family: arial, simsun;
+}
+.card .footer > * {
+	position: initial;
+}
+.card .footer .trademark::before {
+	content: '™&©';
+}
+.card .footer .illustrator {
+	margin-left: 1em;
+}
+.card .footer .illustrator::before {
+	content: 'Illustration: ';
+}
+.card .footer .index {
+	float: right;
+}
+
+
+
+/* Different Kingdoms */
+
+.card.shu .custom-kingdom {
+	background-position-x: -120px;
+	--light-color: #CE6B35;
+	--dark-color: #8D262A;
+}
+.card.shu .frame {
+	--frame-color: #66201D;
+}
+.card.shu .hitpoints li{
+	background-position-x: -24px;
+}
+.card.shu .frame .description {
+	--frame-color: #602A1D;
+}
+.card.shu .description .pointer {
+	background-position-y: -40px;
+}
+
+.card.wu .custom-kingdom {
+	background-position-x: -240px;
+	--light-color: #74C053;
+	--dark-color: #3F6B3B;
+}
+.card.wu .frame {
+	--frame-color: #2D5C35;
+}
+.card.wu .hitpoints li{
+	background-position-x: -48px;
+}
+.card.wu .frame .description {
+	--frame-color: #2D5D3B;
+}
+.card.wu .description .pointer {
+	background-position-y: -80px;
+}
+
+.card.qun .custom-kingdom {
+	background-position-x: -360px;
+}
+.card.qun .frame .custom-kingdom:not(:empty),
+.card.qun.on-rendering .frame .custom-kingdom:not(:empty) {
+    background-image: -webkit-linear-gradient(#BFBCBD 4%, #737071 43%, #000000 100%);	
+}
+.card.qun .frame {
+	--frame-color: #717174;
+}
+.card.qun .hitpoints li{
+	background-position-x: -72px;
+}
+.card.qun .frame .description {
+	--frame-color: #505052;
+}
+.card.qun .description .pointer {
+	background-position-y: -120px;
+}
+
+.card.god .custom-kingdom:empty {
+	background-position-x: -480px;
+	height: 160px;
+}
+.card.god .frame {
+	--frame-color: #A78F38;
+}
+.card.god .hitpoints li{
+	background-position-x: -96px;
+}
+.card.god .frame .description {
+	--frame-color: #C4A443;
+}
+.card.god .description .pointer {
+	background-position-y: -160px;
+	color: #DECA67;
+	text-shadow: 1px 0 black, 0 1px black, -1px 0 black, 0 -1px black,
+		-.7px .7px black, -.7px -.7px black, .7px -.7px black, .7px .7px black;
+}
+.card.god .frame .description .pointer.wake {
+	background-position-y: -120px;
+	color: black;
+	text-shadow: none;
+}
+.card.god .custom-kingdom:not(:empty) {
+    background-image: -webkit-linear-gradient(135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+	text-shadow: -1px 1px black, 1px -1px black,
+		-2px -2px black, 2px -2px black, -2px 2px black, 2px 2px black,
+		-3px 0 black, 3px 0 black, 0 -3px black, 0 3px black,
+		0 0 5px black, 0 0 5px black;
+}
+.card.on-rendering.god .custom-kingdom:not(:empty) {
+    background-image: -webkit-linear-gradient(-135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}
+
+
+.card.lord .hitpoints li{
+	background-position-x: -96px;
+}
+.card.lord .custom-kingdom {
+	background-position-y: -120px;
+	--light-color: #DEC241;
+	--dark-color: #886432;
+}
+.card.lord .frame .description {
+	--frame-color: #919040;
+}
+
+.card.custom .frame,
+.card.custom .frame .description {
+	--frame-color: var(--extra-fill-color);
+}
+.card.custom .frame .custom-kingdom:not(:empty),
+.card.custom.on-rendering .frame .custom-kingdom:not(:empty) {
+    background-image: -webkit-linear-gradient(#FFFFFF 4%, var(--extra-fill-color), #000000 100%);	
+}
+.card.custom .custom-kingdom {
+	background-position-x: -360px;
+}
+.card.custom .hitpoints li{
+	background-position-x: -72px;
+}
+.card.custom .description .pointer {
+	background-position-y: -120px;
+}

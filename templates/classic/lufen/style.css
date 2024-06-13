@@ -1,0 +1,514 @@
+/* 经典版本模板 */
+/* 原作者：背碗卤粉 */
+/* 编写：开不了车 */
+/* 如有需要，可以修改所用字体、字号 */
+
+.card {
+	width: 366px;
+	height: 514px;
+	--variants: 魏, wei, 蜀, shu, 吴, wu, 群, qun, 神, god, 
+		魏主公, wei lord, 蜀主公, shu lord, 吴主公, wu lord, 群主公, qun lord;
+}
+
+.card .frame{
+	background: url('images/wei.png') center / cover;
+}
+
+.card[kingdom]:not([kingdom='']) .frame::before {
+	content: '';
+	position: absolute;
+	display: block;
+	left: 18px;
+	top: 18px;
+	width: 80px;
+	height: 60px;
+	background: url('images/kingdom-patch.png') 0 0;
+}
+
+.card .frame .custom-kingdom {
+	font-family: 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 48px;
+	line-height: 1em;
+	font-weight: bold;
+	left: 22px;
+	top: 22px;
+	width: 100px;
+	color: white;
+	text-shadow: -1px 0 black, 0 -1px black, 1px 0 black, 0 1px black,
+		-.7px -.7px black, .7px -.7px black, -.7px .7px black, .7px .7px black,
+		0px 0px 6px black, 0px 0px 6px black;
+	color: #9DCBE8;
+}
+.card .frame .custom-kingdom[length='2'] {
+	font-size: 40px;
+	letter-spacing: -.25em;
+	margin-left: -.125em;
+	line-height: 48px;
+}
+
+
+.card .hitpoints{
+	left: 101px;
+	top: 20px;
+	width: 200px;
+	height: 0px;
+	text-shadow: 1px 1px black, -1px -1px black, 0 0 2px black;
+}
+
+.card .hitpoints li{
+	display: inline-block;
+	background: url('images/magatama.png') no-repeat -7px -3px;
+	width: 19px;
+	height: 22px;
+}
+
+.card .hitpoints .drained{
+	background-position-y: -35px;
+}
+.card .hitpoints .overflow{
+	transform: scale(0.66);
+}
+
+/* For high HPs */
+.card .hitpoints::after{
+	content: '×' attr(hp);
+	font-family: Arial;
+	font-weight: bold;
+	color: #9DCBE8;
+	position: relative;
+	font-size: 18px;
+    top: -6px;
+}
+.card .hitpoints[losthp]::after{
+	content: attr(hp) '+' attr(losthp);
+}
+.card .hitpoints[overflow]::after{
+	content: attr(hp) '-' attr(overflow);
+}
+.card .hitpoints[losthp][overflow]::after{
+	content: attr(hp) '+' attr(losthp) '+' attr(overflow);
+}
+.card .hitpoints li~li {
+	display: none;
+}
+.card .hitpoints[total='0']::after, .card .hitpoints[total='1']::after, .card .hitpoints[total='2']::after,
+.card .hitpoints[total='3']::after, .card .hitpoints[total='4']::after, .card .hitpoints[total='5']::after,
+.card .hitpoints[total='6']::after, .card .hitpoints[total='7']::after, .card .hitpoints[total='8']::after {
+	display: none;
+}
+.card .hitpoints[total='0']  li~li, .card .hitpoints[total='1']  li~li, .card .hitpoints[total='2']  li~li,
+.card .hitpoints[total='3']  li~li, .card .hitpoints[total='4']  li~li, .card .hitpoints[total='5']  li~li,
+.card .hitpoints[total='6']  li~li, .card .hitpoints[total='7']  li~li, .card .hitpoints[total='8']  li~li {
+	display: inline-block;
+}
+
+.card .nickname, .card .nickname-small{
+	left: 68px;
+	top: 100px;
+	width: 0px;
+	height: 100px;
+	color: #FFD436;
+	text-shadow: 1px 1px #000, -1px -1px #000, 1px -1px #000, -1px 1px #000,
+		0 1.4px #000, 0 -1.4px #000, 1.4px 0 #000, -1.4px 0 #000;
+	font-family: 'DFPNewChuan-B5', 'ZhunYuan';
+	font-size: 24px;
+	writing-mode: tb-rl;
+	text-align: center;
+}
+.card .nickname-small{
+	font-size: 20px;
+}
+
+.card .name {
+	left: 22px;
+	top: 200px;
+	width: 60px;
+	height: 208px;
+	color: white;
+	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
+			2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000,
+			2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000,
+			2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000,
+			2px 2px white, -2px -2px white, 2px -2px white, -2px 2px white, 
+			3px 0px white, -3px 0px white, 0px -3px white, 0px 3px white,
+			3px 1.2px white, -3px 1.2px white, 1.2px -3px white, 1.2px 3px white,
+			3px -1.2px white, -3px -1.2px white, -1.2px -3px white, -1.2px 3px white,
+			-3px 3px 3px black, -3px 3px 3px black;
+	font-family: 'SymbolAnd', 'JMMaoCaoXingEx', 'JMMaoCaoXing', 'STXingKai';
+	font-size: 40px;
+	writing-mode: tb-rl;
+	letter-spacing: 0.1em;
+}
+.card.on-rendering .name { /* For Rendering */
+	text-shadow: 1.5px 1.5px #000, -1.5px -1.5px #000, 1.5px -1.5px #000, -1.5px 1.5px #000, 
+			2px 0px #000, -2px 0px #000, 0px -2px #000, 0px 2px #000,
+			2px 1px #000, -2px 1px #000, 1px -2px #000, 1px 2px #000,
+			2px -1px #000, -2px -1px #000, -1px -2px #000, -1px 2px #000,
+			2px 2px white, -2px -2px white, 2px -2px white, -2px 2px white, 
+			3px 0px white, -3px 0px white, 0px -3px white, 0px 3px white,
+			3px 1.2px white, -3px 1.2px white, 1.2px -3px white, 1.2px 3px white,
+			3px -1.2px white, -3px -1.2px white, -1.2px -3px white, -1.2px 3px white,
+			3px 3px 3px black, 3px 3px 3px black;
+}
+.card .name[length='2'] {
+	top: 216px;
+	letter-spacing: 0.3em;
+}
+.card .name-small{
+	left: 12px;
+	font-size: 36px;
+	letter-spacing: -2px;
+	line-height: 80%;
+}
+
+.card .nickname[length='4'] + .name {
+	margin-top: 4px;
+}
+.card .nickname[length='5'] + .name, .card .nickname[length='6'] + .name {
+	margin-top: 16px;
+}
+.card .nickname:empty  + .name {
+	top: 170px;
+}
+
+
+.card .description {
+	left: 75px;
+	width: 442px;
+	bottom: 29px;
+	margin-bottom: 12px;
+	padding-left: 40px;
+	padding-right: 24px;
+	padding-top: 14px;
+	padding-bottom: 16px;
+	background: url('images/wei-skill-middle.png') center / 522px 100% repeat-y;
+	border-radius: 62px;
+	min-height: 124px;
+	transform-origin: left bottom;
+	transform: scale(0.5);
+}
+
+.card .description::before {
+	content: '';
+	display: block;
+	position: absolute;
+	background: url('images/wei-skill-up.png') no-repeat 50% 100% / 522px auto;
+	width: 100%;
+	height: 82px;
+	top: -19px;
+	margin-left: -40px;
+}
+
+.card .description::after {
+	content: '';
+	display: block;
+	position: absolute;
+	background: url('images/wei-skill-down.png') no-repeat 50% 100% / 522px auto;
+	width: 100%;
+	height: 82px;
+	bottom: -19px;
+	margin-left: -40px;
+}
+
+.card .description p{
+	min-height: 40px;
+	text-indent: 24px;
+	font-size: 24px;
+	font-family: ZhunYuan;
+}
+.card .description p.quote {
+	font-style: italic;
+	text-align: right;
+	font-family: KaiTi;
+	min-height: auto;
+}
+
+.card .description-tiny p{
+	font-size: 18px;
+	text-indent: 0px;
+	padding-left: 24px;
+}
+.card .description-small p{
+	font-size: 20px;
+}
+.card .description-large p{
+	font-size: 28px;
+}
+
+.card .description .pointer{
+	display: block;
+	position: absolute;
+	list-style: none;
+	background: url('images/wei-skill.png') no-repeat 0px 0px / 156px auto;
+	padding-left: 20px;
+	padding-top: 3px;
+	width: 160px;
+	height: 74px;
+	font-size: 42px;
+	font-family: LiShu;
+	min-height: 48px;
+	left: -76px;
+	margin-top: -16px;
+	z-index: 2;
+}
+.card .description .pointer[length='3'] {
+	font-size: 32px;
+	line-height: 44px;
+	letter-spacing: -.1em;
+	padding-left: 18px;
+}
+.card .description .pointer[length='4'] {
+	font-size: 28px;
+	line-height: 44px;
+	letter-spacing: -.2em;
+	padding-left: 16px;
+}
+
+.card .footer {
+	left: -43px;
+	top: 481px;
+	width: 480px;
+	height: 16px;
+	font-size: 16px;
+	font-family: SimSun;
+	transform: scale(.5);
+}
+.card .footer label {
+	position: static;
+	left: 0px;
+	top: 0px;
+	float: left;
+	/* line-height: 16px; */
+}
+
+.card .footer .index {
+	float: right;
+}
+.card .footer .illustrator {
+	margin-left: 12px;
+}
+.card .footer .illustrator::before {
+	content: 'Illustrated by ';
+}
+.card .footer .trademark::before {
+	content: '™&© ';
+}
+
+
+/* Different Kingdoms */
+
+.card.shu .frame{
+	background-image: url('images/shu.png');
+}
+.card.shu .hitpoints li{
+	background-position-x: -39px;
+}
+.card.shu  .description {
+	background-image: url('images/shu-skill-middle.png');
+}
+.card.shu .description::before {
+	background-image: url('images/shu-skill-up.png');
+}
+.card.shu  .description::after {
+	background-image: url('images/shu-skill-down.png');
+}
+.card.shu .pointer {
+	background-image: url('images/shu-skill.png');
+}
+
+.card.wu .frame{
+	background-image: url('images/wu.png');
+}
+.card.wu .hitpoints li{
+	background-position-x: -71px;
+}
+.card.wu  .description {
+	background-image: url('images/wu-skill-middle.png');
+}
+.card.wu .description::before {
+	background-image: url('images/wu-skill-up.png');
+}
+.card.wu  .description::after {
+	background-image: url('images/wu-skill-down.png');
+}
+.card.wu .pointer {
+	background-image: url('images/wu-skill.png');
+}
+
+.card.qun .frame{
+	background-image: url('images/qun.png');
+}
+.card.qun .hitpoints li{
+	background-position-x: -103px;
+}
+.card.qun  .description {
+	background-image: url('images/qun-skill-middle.png');
+}
+.card.qun .description::before {
+	background-image: url('images/qun-skill-up.png');
+}
+.card.qun  .description::after {
+	background-image: url('images/qun-skill-down.png');
+}
+.card.qun .pointer {
+	background-image: url('images/qun-skill.png');
+}
+
+.card.wei.lord .frame{
+	background-image: url('images/wei-lord.png');
+}
+.card.wei.lord .nickname, .card.wei.lord .nickname-small{
+	color: #0040C0;
+}
+.card.shu.lord .frame{
+	background-image: url('images/shu-lord.png');
+}
+.card.shu.lord .nickname, .card.shu.lord .nickname-small{
+	color: #D04000;
+}
+.card.wu.lord .frame{
+	background-image: url('images/wu-lord.png');
+}
+.card.wu.lord .nickname, .card.wu.lord .nickname-small{
+	color: #10B010;
+}
+.card.qun.lord .frame{
+	background-image: url('images/qun-lord.png');
+}
+.card.qun.lord .nickname, .card.qun.lord .nickname-small{
+	color: #606060;
+}
+
+.card.god .frame{
+	background-image: url('images/god.png');
+}
+.card.god .hitpoints li, .card.lord .hitpoints li {
+	background-position-x: -135px;
+}
+.card.god .description::before, .card.lord  .description::before {
+	background-image: url('images/god-skill-up.png');
+}
+.card.god .description, .card.lord  .description {
+	background-image: url('images/god-skill-middle.png');
+}
+.card.god .description::after, .card.lord  .description::after {
+	background-image: url('images/god-skill-down.png');
+}
+.card.god .pointer, .card .pointer.wake {
+	background-image: url('images/god-skill.png');
+	color: #FFF854;
+	text-shadow: -.5px -.5px black, -.5px .5px black,
+		.5px -.5px black, .5px .5px black;
+}
+.card .pointer.wake {
+	color: white;
+}
+.card.god .nickname, .card.god .nickname-small{
+	left: 336px;
+}
+.card.god .name, .card.god .name-small{
+	left: auto;
+	right: 24px;
+}
+.card.god .footer{
+	left: 15px;
+	width: 440px;
+	color: white;
+}
+
+.card.shu .frame .custom-kingdom, .card.shu .frame .hitpoints::after {
+	color: #FEC891;
+}
+.card.wu .frame .custom-kingdom, .card.wu .frame .hitpoints::after  {
+	color: #B0D554;
+}
+.card.qun .frame .custom-kingdom, .card.qun .frame .hitpoints::after  {
+	color: #AEAEAE;
+}
+.card.lord .frame .custom-kingdom, .card.lord .frame .hitpoints::after, 
+.card.god .frame .custom-kingdom, .card.god .frame .hitpoints::after {
+	color: #FFE254;
+}
+.card.god .frame .custom-kingdom {
+	font-size: 60px;
+}
+
+.card.shu[kingdom]:not([kingdom='']) .frame::before {
+	background-position: -80px 0;
+}
+.card.wu[kingdom]:not([kingdom='']) .frame::before {
+	background-position: 0 -70px;
+}
+.card.qun[kingdom]:not([kingdom='']) .frame::before {
+	background-position: -80px -70px;
+}
+.card.god[kingdom]:not([kingdom='']) .frame::before {
+	background-position: -160px 0;
+}
+
+
+/* For IE 10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none)  {
+	.card .hitpoints li{
+		padding-top: 11px;
+	}
+	
+	.card .nickname, .card .nickname-small{
+		left: 71px;
+		top: 79px;
+	}
+	.card .name, .card .name-small{
+		left: 83px;
+		top: 166px;
+	}
+	
+	.card .hitpoints{
+		top: 16px;
+	}
+	.card .hitpoints li{
+		width: 19px;
+		height: 26px;
+	}
+	.card .hitpoints .drained{
+		opacity: .5;
+	}
+	
+	.card.god .nickname{
+		left: 345px;
+	}
+	.card.god .name, .card.god .name-small{
+		left: 347px;
+	}
+}
+
+
+/* for gradient */
+.card .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(white 0%, #ABEBFF 100%);
+    -webkit-background-clip: text;
+}
+.card.on-rendering .frame .custom-kingdom{
+	color: black;
+}
+
+.card.shu .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(white 0%, #FEA449 100%);
+}
+.card.wu .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(white 0%, #BDDB77 100%);
+}
+.card.qun .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(white 0%, #9A9A99 100%);
+}
+.card.lord .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(135deg, white 0%, #FFFF6D 10%, #C7B316 20%, #FFFF6D 30%, white 40%, #FFFF6D 50%, #C7B316 60%, #FFFF6D 70%, white 80%, #FFFF6D 90%, #C7B316 100%);
+}
+.card.on-rendering.lord .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, white 0%, #FFFF6D 10%, #C7B316 20%, #FFFF6D 30%, white 40%, #FFFF6D 50%, #C7B316 60%, #FFFF6D 70%, white 80%, #FFFF6D 90%, #C7B316 100%);
+}
+.card.god .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}
+.card.on-rendering.god .frame .custom-kingdom {
+    background-image: -webkit-linear-gradient(-135deg, white 0%, #BBBAB8 15%, white 30%, #BBBAB8 45%, white 60%, #BBBAB8 75%, white 90%);
+}
