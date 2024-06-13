@@ -10,7 +10,7 @@ window.onload = function() {
 	if (location.href.match('content://') && !document.querySelector('[path="res/common.css"]')) {
 		alert('您正在使用content://协议访问该页面，请改用file:///。')
 	}
-	document.getElementById('sel-template').innerHTML = 
+	document.getElementById('sel-template').innerHTML =
 		TEMPLATES.map(function(e) {
 			return '<option value="' + e.path + '">' + e.name + '</option>';
 		}).join('');
@@ -48,7 +48,7 @@ window.onload = function() {
 		style.innerHTML = fontStyles.join('');
 		document.body.appendChild(style);
 	}
-	
+
 	var toolbarFont = document.getElementById('toolbarFont');
 	toolbarFont.onchange = function() {
 		var value = this.value;
@@ -133,7 +133,7 @@ function generateFromInput(){
 	var hp = document.getElementById('panel-hp').value;
 	var style = document.getElementById('panel-style').value;
 	var textSize = document.getElementById('sel-textsize').value;
-	
+
 	var skills = [];
 	var skillNodes = document.getElementById('panel-skill-list').children;
 	for (var i = 0; i < skillNodes.length; ++i){
@@ -150,22 +150,22 @@ function generateFromInput(){
 		}
 		skills.push(skill);
 	}
-	
+
 	var quote = document.getElementById('panel-quote').value;
 	var comment = document.getElementById('panel-comment').value.split(/\r?\n/);
 	var package = document.getElementById('panel-package').value;
-	
+
 	var adjust = document.getElementById('panel-illustration-adjust').value.split(/\s*,\s*/);
 	var illuFront = document.getElementById('panel-illustration-online-front').value;
 	if (adjust.length == 3 || illuFront){
 		adjust = adjust.length == 3 ? adjust : [0, 0, 1];
 		illustration = {
-			'path': illustration, 
-			'pathFront': illuFront, 
+			'path': illustration,
+			'pathFront': illuFront,
 			'adjust': {'x': parseFloat(adjust[0]), 'y': parseFloat(adjust[1]), 'scale': parseFloat(adjust[2])}
 			};
 	}
-	
+
 	/*if (illustration.files[0]){
 		// https://www.cnblogs.com/workky/p/6061931.html
 		var reader = new FileReader();
@@ -175,7 +175,7 @@ function generateFromInput(){
 			image.src = this.result;
 		}
 	}*/
-	
+
 	var object = {
 		'kingdom': kingdom,
 		'name': name,
@@ -189,7 +189,7 @@ function generateFromInput(){
 		'package': package,
 		'textSize': textSize
 	};
-	
+
 	if (EXTRA_SEGMENTS.length > 0) {
 		object.extra = {};
 		for (var i = 0; i < EXTRA_SEGMENTS.length; ++i) {
@@ -197,7 +197,7 @@ function generateFromInput(){
 			object.extra[key] = document.getElementById('panel-x-' + key).value;
 		}
 	}
-	
+
 	return object;
 }
 
@@ -208,7 +208,7 @@ function loadTemplate(template){
 	templateBlobUrls.length = 0;
 	var templatePath = template + '/style.css';
 	var cssElement = document.getElementById('meta-template-css');
-	
+
 	var bufferedElement = document.querySelector('[path="' + templatePath + '"]');
 	if (bufferedElement) {
 		cssElement.href = getFileURL(new Blob([bufferedElement.innerText]));
@@ -216,15 +216,15 @@ function loadTemplate(template){
 	}else {
 		cssElement.href = 'templates/' + templatePath;
 	}
-	
+
 	var onload = function(){
 		var style = window.getComputedStyle(document.getElementsByClassName('card')[0]);
 		var variants = style.getPropertyValue('--variants').trim().split(/\s*,\s*/);
-		
+
 		var panel = document.getElementById('panel-style');
 		var oldVariant = panel.value;
 		panel.innerHTML = '';
-		
+
 		for (var i = 0; i < variants.length; i += 2){
 			var option = document.createElement('option');
 			option.value = variants[i + 1];
@@ -234,7 +234,7 @@ function loadTemplate(template){
 			}
 			panel.appendChild(option);
 		}
-		
+
 		EXTRA_SEGMENTS.length = 0;
 		var extra = style.getPropertyValue('--extra-segments').trim();
 		var extraHTML = '';
@@ -248,7 +248,7 @@ function loadTemplate(template){
 			if (defaults) {
 				defaults = defaults.split(/\s*,\s*/);
 			}
-			
+
 			for (var i = 0; i < extra.length; i += 2){
 				var key = extra[i + 1];
 				var type = extraTypes[i >> 1] || 'text';
@@ -273,16 +273,16 @@ function loadTemplate(template){
 			}
 		}
 		document.getElementById('panel-extra').innerHTML = extraHTML;
-		
+
 		var textRangeValue = style.getPropertyValue('--text-ranges');
-		TEXT_RANGES = textRangeValue ? textRangeValue.trim().split(/\s*,\s*/) : [80, 140, 200];
-		
+		TEXT_RANGES = textRangeValue ? textRangeValue.trim().split(/\s*,\s*/) : [80, 140, 200, 215];
+
 		if (PREVENT_CORS_MODE)
 			loadMobileSrcs(style);
-		
+
 		zoomCard();
 	}
-	
+
 	// 来源：https://www.cnblogs.com/telwanggs/p/11045773.html
 	if (cssElement.readyState){ // IE
 		cssElement.onreadystatechange = function(){
@@ -301,7 +301,7 @@ function loadTemplate(template){
 
 function imageAdjustFeedback(image){
 	var scale = (image.scrollWidth / image.naturalWidth + image.scrollHeight / image.naturalHeight) / 2;
-	document.getElementById('panel-illustration-adjust').value = 
+	document.getElementById('panel-illustration-adjust').value =
 			image.offsetLeft + ', ' + image.offsetTop + ', ' + scale.toFixed(4);
 }
 
@@ -315,11 +315,11 @@ function createCard(object){
 		revokeURL(cardBlobUrls[i]);
 	}
 	cardBlobUrls.length = 0;
-	
+
 	var card = document.getElementById('template').getElementsByClassName('card')[0].cloneNode(true);
 	document.getElementById('result').appendChild(card);
 	card.className = 'card ' + object.style;
-	
+
 	if (object.kingdom) {
 		var kingdom = object.kingdom;
 		var kingdomElement = card.getElementsByClassName('custom-kingdom')[0];
@@ -331,13 +331,13 @@ function createCard(object){
 			if (c1 >= 0xd830 && c1 <= 0xfe0f && c2 >= 0xd830 && c2 <= 0xfe0f) {
 				kingdomElement.setAttribute('lang', 'emoji');
 				kingdomElement.setAttribute('length', 1);
-			}			
+			}
 		}
 	}else {
 		//card.getElementsByClassName('custom-kingdom')[0].style.display = 'none';
 	}
 	card.setAttribute('kingdom', object.kingdom || '');
-	
+
 	var nicknameElement = card.getElementsByClassName('nickname')[0];
 	var nickname = object.nickname || '';
 	nicknameElement.innerHTML = nickname;
@@ -347,7 +347,7 @@ function createCard(object){
 		nicknameElement.classList.add('nickname-small');
 	}
 	card.setAttribute('nickname', nickname);
-	
+
 	var nameElement = card.getElementsByClassName('name')[0];
 	var name = typeof(object.name) == 'object' ? object.name.text : object.name;
 	var nameLength = getTextLength(name);
@@ -361,7 +361,7 @@ function createCard(object){
 		nameElement.style.fontFamily = object.name.font;
 	}
 	card.setAttribute('name', name);
-	
+
 	var hp = object.hitpoints;
 	var drained = 0, overflow = 0;
 	if (typeof hp == 'string') {
@@ -426,9 +426,10 @@ function createCard(object){
 				.replace(/♣/g, '<i class="suit suit-club"></i>')
 			);
 		}
-		
+
 		var descElement = card.getElementsByClassName('description')[0];
 		var textSize = object.textSize;
+		var isOverMax = false;  // 技能内容是否溢出
 		if (textSize == 'tiny') {
 			descElement.classList.add('description-tiny');
 		}else if (textSize == 'small') {
@@ -436,10 +437,13 @@ function createCard(object){
 		}else if (textSize == 'large') {
 			descElement.classList.add('description-large');
 		}else if (textSize == 'normal') {
-			
+
 		}else {
 			if (textLength < TEXT_RANGES[0]){
 				descElement.classList.add('description-large');
+			}else if (textLength >= TEXT_RANGES[3]){
+				isOverMax = true;
+				descElement.classList.add("description-tiny");
 			}else if (textLength >= TEXT_RANGES[2]){
 				descElement.classList.add('description-tiny');
 			}else if (textLength >= TEXT_RANGES[1]){
@@ -449,7 +453,7 @@ function createCard(object){
 			descElement.setAttribute('length10', Math.floor(textLength / 10));
 			descElement.setAttribute('length100', Math.floor(textLength / 100));
 		}
-		
+
 		for (var i=0; i<descs.length; ++i){
 			var tags = object.skills[i].tag || [];
 			var node = document.createElement('label');
@@ -463,7 +467,15 @@ function createCard(object){
 			descElement.appendChild(paragraph);
 			height = descElement.scrollHeight;
 		}
-		
+
+		// 动态设置技能框高度
+		if (isOverMax) {
+			var descElementPro = card.getElementsByClassName("description-pro-bg")[0];
+			var partner = card.getElementsByClassName("partner")[0];
+			let height_text = descElement.offsetHeight - 110 + "px";
+			descElementPro.setAttribute('style', 'height: '+ height_text);
+		}
+
 		if (object.quote) {
 			var lines = object.quote.split(/\r?\n/g);
 			if (lines.length > 1) {
@@ -472,7 +484,7 @@ function createCard(object){
 			descElement.innerHTML += '<p class="quote">' + lines.join('<br/>') + '</p>';
 		}
 	}
-	
+
 	var left = card.getElementsByClassName('trademark')[0]
 	var right = card.getElementsByClassName('index')[0]
 	var center = card.getElementsByClassName('illustrator')[0]
@@ -487,7 +499,7 @@ function createCard(object){
 	}else if (comment.length == 1){
 		right.innerHTML = comment[0]
 	}
-	
+
 	var package = object.package;
 	if (package) {
 		var packageElement = card.getElementsByClassName('package')[0];
@@ -502,7 +514,7 @@ function createCard(object){
 			packageElement.setAttribute('value', package);
 		}
 	}
-	
+
 	if (object.extra) {
 		for (var i = 0; i < EXTRA_SEGMENTS.length; ++i) {
 			var key = EXTRA_SEGMENTS[i];
@@ -517,10 +529,10 @@ function createCard(object){
 			card.style.setProperty('--extra-' + key, value);
 		}
 	}
-	
+
 	zoomCard();
 	document.getElementById('btn-scroll-right').style.display = '';
-	
+
 	for (var elements = card.querySelectorAll('*'), i = elements.length - 1; i >= 0; --i) {
 		var element = elements[i];
 		var style = getComputedStyle(element);
@@ -561,8 +573,8 @@ function createCard(object){
 			}
 		}
 	}
-				
-	// 可改变图像位置的拖动事件	
+
+	// 可改变图像位置的拖动事件
 	if (!object.illustration) {
 		card.getElementsByClassName('illustration')[0].innerHTML = '';
 		card.getElementsByClassName('illustration')[1].innerHTML = '';
@@ -570,7 +582,7 @@ function createCard(object){
 		var image = card.getElementsByClassName('illustration')[0].children[0];
 		var image2 = card.getElementsByClassName('illustration')[1].children[0];
 		card.drag = {'x': 0, 'y': 0, 'factor': 1.0, 'dragging': 0};
-		
+
 		function adjustImage(image) {
 			var adjust = object.illustration.adjust;
 			if (adjust){
@@ -581,18 +593,18 @@ function createCard(object){
 				card.drag.factor = adjust.scale
 			}
 		}
-		
+
 		image.onload = function(){
 			if (typeof(object.illustration) == 'object'){
 				adjustImage(image);
 			}
-			
+
 			card.onmousedown = function(event){
 				card.drag.x = event.offsetX - image.offsetLeft
 				card.drag.y = event.offsetY - image.offsetTop
 				card.drag.dragging = 1;
 			}
-			
+
 			card.onmousemove = function(event){
 				if (card.drag.dragging) {
 					image.style.left = event.offsetX - card.drag.x + 'px';
@@ -601,18 +613,18 @@ function createCard(object){
 					image2.style.top = image.style.top;
 				}
 			}
-			
+
 			card.onmouseup = function(event){
 				card.drag.dragging = 0;
 				imageAdjustFeedback(image);
 			}
-			
+
 			card.addEventListener("wheel", function(event){
 				var delta = event.deltaY / 4000;
 				var factor = Math.max(card.drag.factor - delta, 0);
 				var rate = factor / card.drag.factor;
 				card.drag.factor = factor;
-				
+
 				var left = event.offsetX + (image.offsetLeft - event.offsetX) * rate + 'px';
 				var top = event.offsetY + (image.offsetTop - event.offsetY) * rate + 'px';
 				var width = image.naturalWidth * factor + 'px';
@@ -621,10 +633,10 @@ function createCard(object){
 				image2.style.top = image.style.top = top
 				image2.style.width = image.style.width = width
 				image2.style.height = image.style.height = height
-				
+
 				imageAdjustFeedback(image);
 			});
-			
+
 			function triggerEventTouch(type, event){
 				event.preventDefault();
 				event.stopPropagation();
@@ -639,7 +651,7 @@ function createCard(object){
 				return Math.sqrt(Math.pow(touch0.clientX - touch1.clientX, 2)
 					+ Math.pow(touch0.clientY - touch1.clientY, 2));
 			}
-			
+
 			card.addEventListener("touchstart", function(event){
 				if (event.targetTouches.length == 1) {
 					triggerEventTouch('onmousedown', event);
@@ -647,7 +659,7 @@ function createCard(object){
 					card.drag.originFactor = card.drag.factor / getTouchDistance(event);
 				}
 			});
-			
+
 			card.addEventListener("touchmove", function(event){
 				if (event.targetTouches.length == 1) {
 					triggerEventTouch('onmousemove', event);
@@ -656,17 +668,17 @@ function createCard(object){
 					var factor = Math.max(getTouchDistance(event) * card.drag.originFactor, 0);
 					var rate = factor / card.drag.factor;
 					card.drag.factor = factor;
-					
+
 					var offsetX = (event.targetTouches[0].clientX + event.targetTouches[1].clientX) / 2 + card.clientLeft;
 					var offsetY = (event.targetTouches[0].clientY + event.targetTouches[1].clientY) / 2 + card.clientTop;
-					
+
 					image2.style.left = image.style.left = offsetX + (image.offsetLeft - offsetX) * rate + 'px'
 					image2.style.top = image.style.top = offsetY + (image.offsetTop - offsetY) * rate + 'px'
 					image2.style.width = image.style.width = image.naturalWidth * factor + 'px';
 					image2.style.height = image.style.height = image.naturalHeight * factor + 'px';
 				}
 			});
-			
+
 			card.addEventListener("touchend", function(event){
 				if (event.targetTouches.length == 1) {
 					triggerEventTouch('onmouseup', event);
@@ -674,10 +686,10 @@ function createCard(object){
 					imageAdjustFeedback(image);
 				}
 			});
-		
-			
+
+
 		};
-		
+
 		image2.onload = function(){
 			if (typeof(object.illustration) == 'object'){
 				adjustImage(image2);
@@ -686,14 +698,14 @@ function createCard(object){
 		image2.onerror = function() {
 			this.style.display = 'none';
 		}
-		
-		
+
+
 		if (typeof(object.illustration) !== 'object') {
 			image.src = object.illustration;
 		}else {
 			image.src = object.illustration.path;
 			image2.src = object.illustration.pathFront;
-			
+
 			console.log(image.src, image2.src);
 		}
 	}
@@ -732,7 +744,7 @@ function switchInterface(){
 
 function exportForm(){
 	var object = JSON.parse(document.getElementById('panel-json-code').value);
-	
+
 	if (typeof(object.illustration) == 'object'){
 		var illu = object.illustration;
 		document.getElementById('panel-illustration-online').value = illu.path || '';
@@ -742,14 +754,14 @@ function exportForm(){
 		document.getElementById('panel-illustration-online').value = object.illustration || '';
 		document.getElementById('panel-illustration-online-front').value = '';
 	}
-	
+
 	document.getElementById('panel-name').value = object.name
 	document.getElementById('panel-nickname').value = object.nickname
-	
+
 	document.getElementById('panel-hp').value = object.hitpoints;
-	
+
 	document.getElementById('sel-textsize').value = object.textSize || 'auto';
-	
+
 	var style = document.getElementById('panel-style')
 	var options = style.getElementsByTagName('option')
 	for (var i in options){
@@ -759,7 +771,7 @@ function exportForm(){
 			break;
 		}
 	}
-	
+
 	var skills = object.skills;
 	var skillsElement = document.getElementById('panel-skill-list');
 	for (var i = 0; i < skills.length; ++i){
@@ -769,7 +781,7 @@ function exportForm(){
 			addSkill();
 			skillElement = document.getElementById('panel-skill-' + i);
 		}
-		
+
 		skillElement.value = skill.name + '\r\n' + skill.description;
 		var tagElements = skillsElement.children[i]
 			.getElementsByClassName('panel-skill-tags')[0].getElementsByTagName('input');
@@ -781,13 +793,13 @@ function exportForm(){
 	while (document.getElementById('panel-skill-' + skills.length)){
 		removeSkill();
 	}
-	
+
 	document.getElementById('panel-kingdom').value = object.kingdom || '';
-	
+
 	document.getElementById('panel-quote').value = object.quote || '';
 	document.getElementById('panel-comment').value = object.comment.join('\r\n');
 	document.getElementById('panel-package').value = object.package || '';
-	
+
 	if (object.extra) {
 		for (var i = 0; i < EXTRA_SEGMENTS.length; ++i) {
 			var key = EXTRA_SEGMENTS[i];
@@ -797,14 +809,14 @@ function exportForm(){
 			}
 		}
 	}
-	
+
 }
 
 imageCreating = false;
 function createImage() {
 	if (!imageCreating) {
 		var result = document.getElementById('result');
-		
+
 		var scale = +document.getElementById('sel-scale').value;
 		if (scale > 0) {
 			scale /= window.devicePixelRatio;
@@ -813,7 +825,7 @@ function createImage() {
 		}else if (scale == -2) {
 			scale = Math.min((window.innerWidth - 4) / result.clientWidth, (window.innerHeight - 4) / result.clientHeight);
 		}
-		
+
 		var card0 = result.children[0];
 		if (card0) {
 			var card = document.createElement('div');
@@ -821,7 +833,7 @@ function createImage() {
 			card.outerHTML = card0.outerHTML;
 			card = result.children[1];
 			card0.style.display = 'none';
-		
+
 			imageCreating = true;
 			card.classList.add('on-rendering');
 			var transform = result.style.transform;
@@ -846,7 +858,7 @@ function createImage() {
 				var style = subElementStyles[i];
 				var textShadow = style.textShadow;
 				if (textShadow && textShadow != 'none') {
-					subElements[i].style.textShadow = 
+					subElements[i].style.textShadow =
 						textShadow.replace( // 0 will be converted to 0px automatically
 							/([\d\.\-]+(?:px|em|ex|ch|rem))\s+([\d\.\-]+(?:px|em|ex|ch|rem))\s*([\d\.\-]+(?:px|em|ex|ch|rem))?/g,
 							function(m, x, y, z) {
@@ -862,9 +874,9 @@ function createImage() {
 					convertVerticalText(subElements[i]);
 				}
 			}
-			
+
 			var promise = Promise.resolve();
-			
+
 			result.style.transform = '';
 			document.body.parentElement.style.width = '10000px';
 			for (var i = 0; i < subElementStyles.length; ++i) { // 制造渐变文字
@@ -875,7 +887,7 @@ function createImage() {
 							element.innerHTML = computedStyle.getPropertyValue('--value');
 						}
 						if (!element.innerHTML)  return;
-							
+
 						var textShadow = element.style.textShadow;
 						element.style.textShadow = 'none';
 						element.style.color = 'transparent';
@@ -917,8 +929,8 @@ function createImage() {
 						});
 					})(subElements[i]);
 				}
-			} 
-			
+			}
+
 			promise.then(function() {
 				result.style.transform = transformZoomed;
 				result.style.setProperty('--output-scale', scale);
@@ -955,12 +967,12 @@ function createImage() {
 					}
 				}catch(e) {
 					console.log('无法导出成image，只能使用canvas。');
-					
+
 					var hint = document.createElement('h3');
 					hint.innerHTML = '点击图片来切换底色，然后截图保存<br/>（电脑版可直接右键保存）';
 					hint.className = 'panel-hint';
 					output.appendChild(hint);
-				
+
 					var currentColor = 0;
 					canvas.onclick = function() {
 						switch(currentColor = (currentColor + 1) % 4) {
@@ -974,18 +986,18 @@ function createImage() {
 						event.stopPropagation();
 					}
 				}
-				
+
 				output.appendChild(outputElement);
 				output.style.display = '';
 				result.style.transform = transform;
 				result.style.setProperty('--output-scale', '');
 				card0.style.display = '';
 				result.removeChild(card);
-				
+
 			}, function() {
 				imageCreating = false;
 			});
-			
+
 		}
 	}
 }
@@ -1106,28 +1118,28 @@ function startCrop(){
 			context.drawImage(image, 0, 0);
 			var data = context.getImageData(0, 0, width0, height0);
 			var d = data.data;
-			
+
 			var xr, xg, xb;
 			switch(+document.getElementById('sel-trim-background').value) {
 				case 1: xr = 255; xg = 0; xb = 0; break;
 				case 2: xr = 0; xg = 255; xb = 0; break;
 				case 3: xr = 0; xg = 0; xb = 255; break;
 			}
-			
+
 			/*function equalPixel(offset) {
 				return d[offset] === xr && d[offset + 1] === xg && d[offset + 2] === xb;
 			}
 			function unequalPixel(offset) {
 				return d[offset] !== xr || d[offset + 1] !== xg || d[offset + 2] !== xb;
 			}*/
-			
+
 			function equalPixel(offset) {
 				return Math.abs(d[offset] - xr) <= 32 && Math.abs(d[offset + 1] - xg) <= 32 && Math.abs(d[offset + 2] - xb) <= 32;
 			}
 			function unequalPixel(offset) {
 				return Math.abs(d[offset] - xr) > 32 || Math.abs(d[offset + 1] - xg) > 32 || Math.abs(d[offset + 2] - xb) > 32;
 			}
-			
+
 			var top = 0, bottom = height0 - 1;
 			for (var i = 0; i < height0; ++i) {
 				var offset = i * width0 * 4;
@@ -1143,7 +1155,7 @@ function startCrop(){
 					break;
 				}
 			}
-			
+
 			for (var i = top; i < bottom; ++i) {
 				for (var j = width0 - 2; j >= 1; --j) {
 					var offset = (i * width0 + j) * 4;
@@ -1153,7 +1165,7 @@ function startCrop(){
 					}
 				}
 			}
-			
+
 			for (var i = bottom; i > top; --i) {
 				for (var j = width0 - 2; j >= 1; --j) {
 					var offset = ((i - 1) * width0 + j) * 4;
@@ -1163,7 +1175,7 @@ function startCrop(){
 					}
 				}
 			}
-			
+
 			var left = Math.floor(width0 / 2), right = Math.ceil(width0 / 2);
 			for (var i = top; i < bottom; ++i) {
 				for (var j = 1; j < left; ++j) {
@@ -1179,15 +1191,15 @@ function startCrop(){
 					}
 				}
 			}
-			
+
 			if (document.getElementById('in-trim-blur').checked) {
 				++left; ++top; --right; --bottom;
 			}
-			
+
 			canvas.width = right - left;
 			canvas.height = bottom - top;
 			context.drawImage(image, -left, -top);
-			
+
 			document.getElementById('trim-result').src = canvas.toDataURL();
 		}
 	}
@@ -1208,7 +1220,7 @@ function loadMobileSrcs(style) { // 用于移动版的解包
 			var match = prop.match(/url\("(.+?)"\)/);
 			if (match) {
 				++count;
-				var url = match[1];				
+				var url = match[1];
 				var xhr = new XMLHttpRequest();
 				xhr.responseType = "blob";
 				xhr.onload = function() {
@@ -1230,7 +1242,7 @@ function loadMobileSrcs(style) { // 用于移动版的解包
 		})(i, prop);
 		++i;
 	}
-	
+
 }
 
 function convertCommonStyle() {
@@ -1244,7 +1256,7 @@ function convertCommonStyle() {
 function setContainImageSize() {
 	var card = document.querySelector('#result .card');
 	if (!card) return;
-	
+
 	var imageContainers = card.getElementsByClassName('illustration');
 	var image = imageContainers[0].children[0];
 	var image2 = imageContainers[1].children[0];
@@ -1298,7 +1310,7 @@ function loadFontPackage() {
 		var face = document.createElement('div');
 		face.setAttribute('style', 'position: fixed; z-index: 1000; background-color: white; opacity: 0.5; left: 0; right: 0; top: 0; bottom: 0;');
 		document.body.appendChild(face);
-		
+
 		face.onclick = function() {
 			var fileInput = document.createElement('input');
 			fileInput.type = 'file';

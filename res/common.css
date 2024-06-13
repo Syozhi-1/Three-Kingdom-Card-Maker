@@ -299,16 +299,6 @@ font[huali] {
 	overflow: visible;
 }
 
-.card .description-pro{
-		position: absolute;
-		overflow: visible;
-		background-color: #FFFFFF;
-		width: 415px;
-		max-height: 80px;
-		bottom: 152px;
-		opacity: 0.6;
-}
-
 .card .description p{
 	margin: 0px 0;
 	padding: 0px 0;
@@ -316,6 +306,16 @@ font[huali] {
 
 .card .description .author {
 	font-family: inherit;
+}
+
+.card .description-pro-bg {
+	position: absolute;
+	overflow: visible;
+	background-color: #FFFFFF;
+	width: 608px;
+	max-height: 90px;
+	bottom: 152px;
+	opacity: 0.6;
 }
 
 .card .footer * {

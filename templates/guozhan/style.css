@@ -135,14 +135,17 @@
 }
 
 .card .description {
+	display: inline;
 	left: 71px;
 	bottom: 39px;
-	width: 608px;
-	height: 200px;
+	max-width: 572px;
+	width: 572px;
+	min-height: 200px;
 	font-size: 28px;
 	font-family: ZhunYuan;
 	transform-origin: 0 100%;
 	transform: scale(0.5);
+	z-index: 11;
 }
 
 .card .description p{
